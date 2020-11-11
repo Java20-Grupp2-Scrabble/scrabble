@@ -14,3 +14,25 @@ header{
 header h1{
   margin: 0;
 }
+
+.rules{
+  background-color: #3b2020;
+  opacity: 80%;
+  width: 1200px;
+  height: 400px;
+  position: absolute;
+  top: 15%;
+  left: 8%;
+}
+
+input{
+  background-color: #3b2020;
+  opacity: 80%;
+  width: 150px;
+  height: 50px;
+  font-size: 30px;
+  text-align: center;
+  position: absolute;
+  top: 70%;
+  left: 8%;
+}
