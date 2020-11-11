@@ -1,5 +1,5 @@
 import startpage from './startpage.js';
-new Startpage();
+new startpage();
 
 startpage()
 
