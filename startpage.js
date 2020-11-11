@@ -1,3 +1,8 @@
-export default class startpage {
-  constructor() { console.log("f") }
+export default class Startpage {
+  constructor() {
+    this.logALetter();
+  }
+  logALetter() {
+    console.log('f');
+  }
 }
