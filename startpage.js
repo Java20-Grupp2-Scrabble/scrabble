@@ -49,8 +49,10 @@ export default class Startpage {
           ammountOfPlayers++;
         }
       }
-      that.start(ammountOfPlayers, playerNames);
-      $('.startpage').hide();
+      if (ammountOfPlayers !== 0) {
+        that.start(ammountOfPlayers, playerNames);
+        $('.startpage').hide();
+      }
     });
   }
 
