@@ -6,7 +6,13 @@ body{
 }
 
 .rules{
-  
+  width: 1000px;
+  height: 450px;
+  background-color: rgb(100, 40, 40);
+  opacity: 80%;
+  position: absolute;
+  left: 15%;
+  top: 15%;
 }
 
 .title {
