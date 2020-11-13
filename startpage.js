@@ -1,5 +1,5 @@
 import Player from "./Player.js";
-
+import SAOLchecker from "./SAOLchecker.js";
 export default class Startpage {
 
 
@@ -144,6 +144,7 @@ export default class Startpage {
       })
       .on('dragMove', function (e, pointer) {
         let { pageX, pageY } = pointer;
+
 
         // we will need code that reacts
         // if you have moved a tile to a square on the board
