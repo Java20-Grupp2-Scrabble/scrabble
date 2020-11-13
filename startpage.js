@@ -19,6 +19,20 @@ export default class Startpage {
     this.render();
   }
 
+  startPage() {
+    let that = this;
+    let startDiv = $('<div class="startpage"></div>');
+    startDiv.append(`
+    <h1>Scrabble</h1>
+    <button class="start-button">Click me</button>
+    `);
+    $('body').append(startDiv);
+    $('.start-button').click(function () {
+      that.start();
+      $('.startpage').hide();
+    });
+  }
+
   createBoard() {
     // note: the real board has a lot of special squares
     // and is symmetrical - maybe we could generate it from a file
