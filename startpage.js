@@ -25,11 +25,8 @@ export default class Startpage {
     let ammountOfPlayers = 0;
     let startDiv = $('<div class="startpage"></div>');
     startDiv.append(`
-<<<<<<< HEAD
     <h1 = class="title">Scrabble</h1>
     <button class="start-button"><h3>Start Game</h3></button>
-=======
-    <h1>Scrabble</h1>
     <div class="rules"></div>
     <div class="players">
     <input type="text" class="player1" placeholder="player1">
@@ -37,8 +34,6 @@ export default class Startpage {
     <input type="text" class="player3" placeholder="player3">
     <input type="text" class="player4" placeholder="player4">
     </div>
-    <button class="start-button">Click me</button>
->>>>>>> 5003b7593c10345f468af6be6c163df0f810a971
     `);
     $('body').append(startDiv);
     $('.start-button').click(function () {
