@@ -137,3 +137,8 @@ div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data
 .players-point{
   font-size: 20px;
 }
+
+.next:hover {
+color: white;
+cursor: pointer;
+}
