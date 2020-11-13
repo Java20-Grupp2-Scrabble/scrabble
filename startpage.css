@@ -1,5 +1,7 @@
 /* Here will all the CSS for the startpage be designed */
-
+.startpage{
+  
+}
 
 .title {
   text-align: center;
@@ -24,6 +26,5 @@
   top: 80%;
   left: 28%;
 
-  
   
 }
