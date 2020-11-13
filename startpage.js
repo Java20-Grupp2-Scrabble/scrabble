@@ -132,6 +132,7 @@ export default class Startpage {
     // Render the players
     let that = this;
     let count = 1;
+    $('.players').append('points:', that.players[0].points);
     $players.append(this.players[0].render());
     $('body').append('<button class="next">Play move</button>');
     $('.next').click(function () {
@@ -139,6 +140,7 @@ export default class Startpage {
       if (count === that.players.length) {
         count = 0;
       }
+      $('.players').append('points:', that.players[count].points);
       $players.append(that.players[count].render());
       count++;
     })
