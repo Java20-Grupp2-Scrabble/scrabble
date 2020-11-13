@@ -127,8 +127,9 @@ div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data
 
 .next{
   position: absolute;
+  background-color: saddlebrown;
   width: 90px;
   height: 50px;
-  top: 50%;
+  top: 15%;
   left: 70%;
 }
