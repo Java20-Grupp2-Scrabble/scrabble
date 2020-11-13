@@ -30,7 +30,11 @@ body{
   width: 1000px;
   color: rgb(148, 201, 141);
   background-color: rgb(56, 112, 0);
-  
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.start-button:hover{
+  color: white;
 }
 
 .players-menu{
@@ -48,4 +52,5 @@ body{
   height: 40px;
   background-color: rgba(59, 30, 30, 0.788);
   font-size: 15px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 } 
