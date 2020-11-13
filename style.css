@@ -124,3 +124,11 @@ div[data-index = '84'],div[data-index = '88'],div[data-index = '136'],div[data-i
 div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data-index = '204']{
   background-color: #0071bd;
 }
+
+.next{
+  position: absolute;
+  width: 90px;
+  height: 50px;
+  top: 50%;
+  left: 70%;
+}

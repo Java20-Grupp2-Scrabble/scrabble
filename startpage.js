@@ -130,8 +130,18 @@ export default class Startpage {
     });
 
     // Render the players
-    this.players.forEach(player =>
-      $players.append(player.render()));
+    let that = this;
+    let count = 1;
+    $players.append(this.players[0].render());
+    $('body').append('<button class="next">Play move</button>');
+    $('.next').click(function () {
+      $('.players').empty();
+      if (count === that.players.length) {
+        count = 0;
+      }
+      $players.append(that.players[count].render());
+      count++;
+    })
     this.addDragEvents();
   }
 
