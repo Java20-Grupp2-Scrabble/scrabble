@@ -3,7 +3,7 @@ import Player from "./Player.js";
 export default class Startpage {
 
 
-  async start(ammountOfPlayers) {
+  async start(ammountOfPlayers, playernames) {
     this.createBoard();
     await this.tilesFromFile();
     // console.table is a nice way
@@ -13,7 +13,7 @@ export default class Startpage {
     // create players
     this.players = [];
     for (let i = 1; i <= ammountOfPlayers; i++) {
-      this.players.push(new Player(this, `Player ${i}`));
+      this.players.push(new Player(this, `${playernames[i - 1]}`));
     }
     console.table(this.players);
     // render the board + players
@@ -23,6 +23,7 @@ export default class Startpage {
   startPage() {
     let that = this;
     let ammountOfPlayers = 0;
+    let playerNames = [];
     let startDiv = $('<div class="startpage"></div>');
     startDiv.append(`
     <h1 = class="title">Scrabble</h1>
@@ -41,11 +42,11 @@ export default class Startpage {
         if ($(`.player${i + 1}`).val() === '') {
 
         } else {
+          playerNames.push($(`.player${i + 1}`).val());
           ammountOfPlayers++;
         }
       }
-      console.log(ammountOfPlayers);
-      that.start(ammountOfPlayers);
+      that.start(ammountOfPlayers, playerNames);
       $('.startpage').hide();
     });
   }
