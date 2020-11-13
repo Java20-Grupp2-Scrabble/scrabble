@@ -1,5 +1,7 @@
 /* Here will all the CSS for the startpage be designed */
-
+.startpage{
+  
+}
 
 .title {
   text-align: center;
@@ -23,6 +25,8 @@
   margin: 0;
   top: 75%;
   left: 28%;
+
+  
 }
 
 .player1{
