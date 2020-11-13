@@ -29,7 +29,8 @@ export default class Startpage {
     <h1 = class="title">Scrabble</h1>
     <button class="start-button"><h3>Start Game</h3></button>
     <div class="rules">
-    <p></p>
+    <h2 class="rules-headline"></h2>
+    <p class="text-rules"></p>
     </div>
     <div class="players-menu">
     <input type="text" class="player1" placeholder="player1">
@@ -96,14 +97,14 @@ export default class Startpage {
   }
 
   render() {
-    // Create the board and players divs
+    let index = 0;
     $('.board, .players').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     // Render the board
     // (will be more code when we know how to represent 
     //  the special squares)
-    this.board.flat().forEach(x => $board.append('<div/>'));
+    this.board.flat().forEach(x => $board.append(`<div data-index="${index++}"></div>`));
     // Render the players
     this.players.forEach(player =>
       $players.append(player.render()));
