@@ -101,6 +101,8 @@ export default class Startpage {
     let indexRed = [0, 7, 14, 105, 217, 119, 210, 224];
     let indexLightBlue = [3, 11, 36, 38, 52, 45, 59, 92, 102, 108, 116, 122, 132,
       126, 128, 98, 96, 165, 179, 172, 186, 188, 213, 221];
+    let indexOrange = [16, 32, 48, 64, 160, 176, 192, 208, 28, 42, 56, 70, 154, 168, 182, 196];
+    let indexBlue = [20, 24, 76, 80, 84, 88, 140, 144, 148, 200, 204, 136];
     $('.board, .players').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
@@ -116,6 +118,12 @@ export default class Startpage {
       }
       if (indexLightBlue.includes(i)) {
         $(`div[data-index = ${i}]`).append('2x L');
+      }
+      if (indexOrange.includes(i)) {
+        $(`div[data-index = ${i}]`).append('2x W');
+      }
+      if (indexBlue.includes(i)) {
+        $(`div[data-index = ${i}]`).append('3x L');
       }
     });
 

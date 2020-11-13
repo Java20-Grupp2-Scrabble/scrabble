@@ -103,8 +103,8 @@ div[data-index = '119'],div[data-index = '210'],div[data-index = '224'], div[dat
 
 div[data-index = '16'],div[data-index = '32'],div[data-index = '48'],div[data-index = '64'],
 div[data-index = '160'],div[data-index = '176'],div[data-index = '192'],div[data-index = '208'],
-div[data-index = '28'],div[data-index = '42'],div[data-index = '56']:after,div[data-index = '70'],
-div[data-index = '154'],div[data-index = '168'],div[data-index = '182']:after,div[data-index = '196']{
+div[data-index = '28'],div[data-index = '42'],div[data-index = '56'],div[data-index = '70'],
+div[data-index = '154'],div[data-index = '168'],div[data-index = '182'],div[data-index = '196']{
   background-color: orange;
 }
 
