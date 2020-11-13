@@ -98,13 +98,27 @@ export default class Startpage {
 
   render() {
     let index = 0;
+    let indexRed = [0, 7, 14, 105, 217, 119, 210, 224];
+    let indexLightBlue = [3, 11, 36, 38, 52, 45, 59, 92, 102, 108, 116, 122, 132,
+      126, 128, 98, 96, 165, 179, 172, 186, 188, 213, 221];
     $('.board, .players').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     // Render the board
     // (will be more code when we know how to represent 
     //  the special squares)
-    this.board.flat().forEach(x => $board.append(`<div data-index="${index++}"></div>`));
+    this.board.flat().forEach(x =>
+      $board.append(`<div data-index="${index++}"></div>`));
+
+    this.board.flat().forEach(function (x, i) {
+      if (indexRed.includes(i)) {
+        $(`div[data-index = ${i}]`).append('3x W');
+      }
+      if (indexLightBlue.includes(i)) {
+        $(`div[data-index = ${i}]`).append('2x L');
+      }
+    });
+
     // Render the players
     this.players.forEach(player =>
       $players.append(player.render()));
