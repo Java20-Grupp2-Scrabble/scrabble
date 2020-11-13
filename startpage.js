@@ -2,7 +2,8 @@ import Player from "./Player.js";
 
 export default class Startpage {
 
-  async start() {
+
+  async start(ammountOfPlayers, playernames) {
     this.createBoard();
     await this.tilesFromFile();
     // console.table is a nice way
@@ -10,13 +11,44 @@ export default class Startpage {
     console.log(this.board);
     console.table(this.tiles);
     // create players
-    this.players = [
-      new Player(this, 'Player 1'),
-      new Player(this, 'Player 2')
-    ];
+    this.players = [];
+    for (let i = 1; i <= ammountOfPlayers; i++) {
+      this.players.push(new Player(this, `${playernames[i - 1]}`));
+    }
     console.table(this.players);
     // render the board + players
     this.render();
+  }
+
+  startPage() {
+    let that = this;
+    let ammountOfPlayers = 0;
+    let playerNames = [];
+    let startDiv = $('<div class="startpage"></div>');
+    startDiv.append(`
+    <h1 = class="title">Scrabble</h1>
+    <button class="start-button"><h3>Start Game</h3></button>
+    <div class="rules"></div>
+    <div class="players-menu">
+    <input type="text" class="player1" placeholder="player1">
+    <input type="text" class="player2" placeholder="player2">
+    <input type="text" class="player3" placeholder="player3">
+    <input type="text" class="player4" placeholder="player4">
+    </div>
+    `);
+    $('body').append(startDiv);
+    $('.start-button').click(function () {
+      for (let i = 0; i < 4; i++) {
+        if ($(`.player${i + 1}`).val() === '') {
+
+        } else {
+          playerNames.push($(`.player${i + 1}`).val());
+          ammountOfPlayers++;
+        }
+      }
+      that.start(ammountOfPlayers, playerNames);
+      $('.startpage').hide();
+    });
   }
 
   createBoard() {
