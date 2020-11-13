@@ -1,0 +1,16 @@
+/* Here will all the CSS for the startpage be designed */
+
+
+.title {
+  text-align: center;
+  font-size: 290%; 
+}
+
+.start-button{
+  font-size: 100%;
+  height: 60px;
+  width: 1000px;
+  color: rgb(148, 201, 141);
+  background-color: rgb(56, 112, 0);
+  
+}

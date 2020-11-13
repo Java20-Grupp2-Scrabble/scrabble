@@ -23,8 +23,8 @@ export default class Startpage {
     let that = this;
     let startDiv = $('<div class="startpage"></div>');
     startDiv.append(`
-    <h1>Scrabble</h1>
-    <button class="start-button">Click me</button>
+    <h1 = class="title">Scrabble</h1>
+    <button class="start-button"><h3>Start Game</h3></button>
     `);
     $('body').append(startDiv);
     $('.start-button').click(function () {
