@@ -1,4 +1,4 @@
-import startpage from './startpage.js';
-new startpage();
+import Startpage from './Startpage.js';
+new Startpage().start();
 
 
