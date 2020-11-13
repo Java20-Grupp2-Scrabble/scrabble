@@ -95,3 +95,32 @@ body {
 div[data-index = '112']{
 background-color: rgb(228, 228, 24);
 }
+
+div[data-index = '0'], div[data-index = '7'], div[data-index = '14'], div[data-index = '105'],
+div[data-index = '119'],div[data-index = '210'],div[data-index = '224'], div[data-index = '217']{
+  background-color: tomato;
+}
+
+div[data-index = '16'],div[data-index = '32'],div[data-index = '48'],div[data-index = '64'],
+div[data-index = '160'],div[data-index = '176'],div[data-index = '192'],div[data-index = '208'],
+div[data-index = '28'],div[data-index = '42'],div[data-index = '56'],div[data-index = '70'],
+div[data-index = '154'],div[data-index = '168'],div[data-index = '182'],div[data-index = '196']{
+  background-color: orange;
+}
+
+div[data-index = '3'],div[data-index = '11'],div[data-index = '36'],div[data-index = '38'],
+div[data-index = '52'],div[data-index = '45'],div[data-index = '59'], div[data-index = '92'],
+div[data-index = '102'],div[data-index = '108'],div[data-index = '116'],
+div[data-index = '132'],div[data-index = '122'],div[data-index = '126'],div[data-index = '128'],
+div[data-index = '98'],div[data-index = '96'],div[data-index = '165'],div[data-index = '179'],
+div[data-index = '172'],div[data-index = '186'],div[data-index = '188'],div[data-index = '213'],
+div[data-index = '221']
+{
+  background-color: #5eb8f5;
+}
+
+div[data-index = '20'], div[data-index = '24'],div[data-index = '76'],div[data-index = '80'],
+div[data-index = '84'],div[data-index = '88'],div[data-index = '136'],div[data-index = '140'],
+div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data-index = '204']{
+  background-color: #0071bd;
+}
