@@ -23,12 +23,13 @@
 .players-menu{
   position: absolute;
   margin: 0;
-  top: 75%;
+  top: 73%;
   left: 28%;
 
   
 }
 
-.player1{
-height: 25px;
-}
+.player1 , .player2, .player3, .player4{
+  text-align: center;
+height: 40px;
+} 
