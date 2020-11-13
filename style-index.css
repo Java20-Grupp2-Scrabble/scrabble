@@ -60,3 +60,14 @@ input{
   height: 100px;
 }
 
+.rules p{
+  color: white;
+  max-width: 500px;
+  padding: 10px;
+} 
+
+.rules h2{
+  color: white;
+  padding: 10px;
+} 
+
