@@ -15,6 +15,12 @@ body{
   top: 15%;
 }
 
+.text-rules{
+  color: white;
+  z-index: 100;
+  content: "Rules";
+}
+
 .title {
   text-align: center;
   font-size: 290%; 
