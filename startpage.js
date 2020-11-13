@@ -29,7 +29,7 @@ export default class Startpage {
     <h1 = class="title">Scrabble</h1>
     <button class="start-button"><h3>Start Game</h3></button>
     <div class="rules"></div>
-    <div class="players">
+    <div class="players-menu">
     <input type="text" class="player1" placeholder="player1">
     <input type="text" class="player2" placeholder="player2">
     <input type="text" class="player3" placeholder="player3">
