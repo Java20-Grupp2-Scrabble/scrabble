@@ -1,5 +1,11 @@
 /* Here will all the CSS for the startpage be designed */
-.startpage{
+body{
+   background-image: url(/background-startpage.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+
+.rules{
   
 }
 
