@@ -4,14 +4,17 @@ export default class Player {
     this.game = game;
     this.name = name;
     this.tiles = [...this.game.getTiles(), ' '];
+    this.points = 0;
   }
 
   render() {
+    let that = this;
     return `<div class="stand">
       ${this.tiles.map((x, i) => `<div 
           class="tile ${x.char ? '' : 'none'}"
           data-player="${this.game.players.indexOf(this)}"
           data-tile="${i}"
+          data-points="${that.points}"
         >
         ${x.char || ''}
         <span>${x.points || ''}</span>
