@@ -3,7 +3,7 @@ import Player from "./Player.js";
 export default class Startpage {
 
 
-  async start() {
+  async start(ammountOfPlayers) {
     this.createBoard();
     await this.tilesFromFile();
     // console.table is a nice way
@@ -11,10 +11,10 @@ export default class Startpage {
     console.log(this.board);
     console.table(this.tiles);
     // create players
-    this.players = [
-      new Player(this, 'Player 1'),
-      new Player(this, 'Player 2')
-    ];
+    this.players = [];
+    for (let i = 1; i <= ammountOfPlayers; i++) {
+      this.players.push(new Player(this, `Player ${i}`));
+    }
     console.table(this.players);
     // render the board + players
     this.render();
@@ -45,7 +45,7 @@ export default class Startpage {
         }
       }
       console.log(ammountOfPlayers);
-      that.start();
+      that.start(ammountOfPlayers);
       $('.startpage').hide();
     });
   }
