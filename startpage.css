@@ -16,6 +16,19 @@ body{
   top: 15%;
 }
 
+.rules-headline::before{
+  color: white;
+  z-index: 100;
+  content: "Rules";
+}
+
+.text-rules::before{
+  color: white;
+  z-index: 100;
+  content: "Betapet är ett ordspel för 2-4 spelare där det gäller att fläta samman ord på ett spelbräde med hjälp av bokstavsbrickor. Målet är att få så många poäng som möjligt genom att placera brickorna i olika poänggivande kombinationer. Flest poäng vinner!";
+  padding: 10px;
+}
+
 .title {
   text-align: center;
   font-size: 290%; 
