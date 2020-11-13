@@ -24,6 +24,13 @@ export default class Startpage {
     let startDiv = $('<div class="startpage"></div>');
     startDiv.append(`
     <h1>Scrabble</h1>
+    <div class="rules"></div>
+    <div class="players">
+    <button class="player1"></button>
+    <button class="player2"></button>
+    <button class="player3"></button>
+    <button class="player4"></button>
+    </div>
     <button class="start-button">Click me</button>
     `);
     $('body').append(startDiv);
