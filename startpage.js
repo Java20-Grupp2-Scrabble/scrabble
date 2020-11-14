@@ -2,6 +2,9 @@ import Player from "./Player.js";
 import SAOLchecker from "./SAOLchecker.js";
 export default class Startpage {
 
+  constructor() {
+    this.count = 0;
+  }
 
   async start(ammountOfPlayers, playernames) {
     this.createBoard();
@@ -131,19 +134,19 @@ export default class Startpage {
 
     // Render the players
     let that = this;
-    let count = 1;
-    $('.players').append(`<div class="players-point">points:, ${that.players[0].points}</div>`);
-    $players.append(this.players[0].render());
+    $('.players').append(`<div class="players-point">points:, ${this.players[this.count].points}</div>`);
+    $players.append(this.players[this.count].render());
     $('body').append('<button class="next">Play move</button>');
     $('.next').click(function () {
       $('.players').empty();
-      if (count === that.players.length) {
-        count = 0;
+      that.count++;
+      if (that.count === that.players.length) {
+        that.count = 0;
       }
-      $('.players').append(`<div class="players-point">points:, ${that.players[count].points}</div>`);
-      $players.append(`${that.players[count].render()}`);
-      count++;
-    })
+      $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+      $players.append(that.players[that.count].render());
+      that.addDragEvents();
+    });
     this.addDragEvents();
   }
 
@@ -200,6 +203,8 @@ export default class Startpage {
           while (pt.length > 8) { pt.splice(pt[tileIndex > newIndex ? 'indexOf' : 'lastIndexOf'](' '), 1); }
         }
         that.render();
+
+
       });
   }
 
