@@ -1,19 +1,22 @@
 /* Here will all the CSS for the startpage be designed */
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
 body{
-   background-image: url(/background-startpage.png);
+   background-image: url(/wood-page-updated.png);
    background-repeat: no-repeat;
    background-size: cover;
 }
 
 .rules{
   width: 1000px;
-  height: 450px;
+  height: 380px;
   background-color: rgb(100, 40, 40);
   opacity: 80%;
   position: absolute;
   text-align: center;
   left: 15%;
-  top: 15%;
+  top: 21%;
+  border-radius: 13px;
 }
 
 .rules-headline::before{
@@ -67,3 +70,4 @@ body{
   font-size: 15px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 } 
+
