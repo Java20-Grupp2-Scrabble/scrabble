@@ -26,9 +26,12 @@ export default class Startpage {
     let playerNames = [];
     let startDiv = $('<div class="startpage"></div>');
     let startTitle = $('<div class="pagetitle"></div>');
+    let popmess = $('<div class="popmessage">[Requires minimum of 1 player to start.]</div>');
+
     startDiv.append(`
     <div class="pagetitle">.</div> 
     <button class="start-button"><h3>Start Game</h3></button>
+    <div class="popmessage"></div>
     <div class="rules">
     <h2 class="rules-headline"></h2>
     <p class="text-rules"></p>
@@ -47,7 +50,7 @@ export default class Startpage {
     $('.start-button').click(function () {
       for (let i = 0; i < 4; i++) {
         if ($(`.player${i + 1}`).val() === '') {
-
+          $('.popmessage').append(popmess);
         } else {
           playerNames.push($(`.player${i + 1}`).val());
           ammountOfPlayers++;
@@ -55,9 +58,14 @@ export default class Startpage {
       }
       if (ammountOfPlayers !== 0) {
         that.start(ammountOfPlayers, playerNames);
+
         $('.pagetitle').hide();
         $('.startpage').hide();
         $('body > background-image:').hide();
+
+
+
+
       }
     });
   }
