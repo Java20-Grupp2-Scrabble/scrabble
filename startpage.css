@@ -2,10 +2,26 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald);
 
 body{
-   background-image: url(/wood-page-updated.png);
+   background-image: url(/wood-page.png);
    background-repeat: no-repeat;
    background-size: cover;
 }
+
+.pagetitle{
+  font-size: 90px;
+  display: ruby-base-container;
+  
+
+    background-image:url("ClipartKey_1226540.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    zoom: 0.5;  
+    width: 71%;
+    padding: 0;
+    float: right;
+    text-align: left;
+}
+
 
 .rules{
   width: 1000px;
@@ -15,7 +31,7 @@ body{
   position: absolute;
   text-align: center;
   left: 15%;
-  top: 21%;
+  top: 18%;
   border-radius: 13px;
 }
 

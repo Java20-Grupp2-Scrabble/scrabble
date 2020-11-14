@@ -25,8 +25,9 @@ export default class Startpage {
     let ammountOfPlayers = 0;
     let playerNames = [];
     let startDiv = $('<div class="startpage"></div>');
+    let startTitle = $('<div class="pagetitle"></div>');
     startDiv.append(`
-    
+    <div class="pagetitle">.</div> 
     <button class="start-button"><h3>Start Game</h3></button>
     <div class="rules">
     <h2 class="rules-headline"></h2>
@@ -39,6 +40,9 @@ export default class Startpage {
     <input type="text" class="player4" placeholder="player4">
     </div>
     `);
+
+
+    $('body').append(startTitle);
     $('body').append(startDiv);
     $('.start-button').click(function () {
       for (let i = 0; i < 4; i++) {
@@ -51,7 +55,9 @@ export default class Startpage {
       }
       if (ammountOfPlayers !== 0) {
         that.start(ammountOfPlayers, playerNames);
+        $('.pagetitle').hide();
         $('.startpage').hide();
+        $('body > background-image:').hide();
       }
     });
   }
