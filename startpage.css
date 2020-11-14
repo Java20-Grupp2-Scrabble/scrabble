@@ -48,6 +48,7 @@ body{
   background-color: rgb(56, 112, 0);
   cursor: pointer;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 10px;
 }
 .start-button:hover{
   color: white;
@@ -63,7 +64,7 @@ body{
 }
 
 .player1 , .player2, .player3, .player4{
-  
+  border-radius: 5px;
   text-align: center;
   height: 40px;
   background-color: rgba(59, 30, 30, 0.788);
