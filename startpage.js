@@ -176,8 +176,12 @@ export default class Startpage {
       .on('dragMove', function (e, pointer) {
         let { pageX, pageY } = pointer;
 
-        if (Math.floor($(this).offset().top) === $('.squares').offset().top) {
-          $('.squares').css("background-color", "red");
+
+        if (Math.floor($(this).offset().top) === Math.floor($('.squares[data-index = 4]').offset().top) ||
+          Math.floor($(this).offset().left) === Math.floor($('.squares[data-index = 4]').offset().left)) {
+          $('.squares[data-index = 4]').css("background-color", "red");
+        } else {
+          $('.squares[data-index = 4]').css("background-color", "#54aa79");
         }
         // we will need code that reacts
         // if you have moved a tile to a square on the board
