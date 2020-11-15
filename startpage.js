@@ -129,7 +129,7 @@ export default class Startpage {
     // (will be more code when we know how to represent 
     //  the special squares)
     this.board.flat().forEach(x =>
-      $board.append(`<div data-index="${index++}"></div>`));
+      $board.append(`<div class="squares" data-index="${index++}"></div>`));
 
     this.board.flat().forEach(function (x, i) {
       if (indexRed.includes(i)) {
@@ -176,7 +176,9 @@ export default class Startpage {
       .on('dragMove', function (e, pointer) {
         let { pageX, pageY } = pointer;
 
-
+        if (Math.floor($(this).offset().top) === $('.squares').offset().top) {
+          $('.squares').css("background-color", "red");
+        }
         // we will need code that reacts
         // if you have moved a tile to a square on the board
         // (light it up so the player knows where the tile will drop)
