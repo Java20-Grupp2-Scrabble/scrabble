@@ -124,3 +124,25 @@ div[data-index = '84'],div[data-index = '88'],div[data-index = '136'],div[data-i
 div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data-index = '204']{
   background-color: #0071bd;
 }
+
+.next{
+  position: absolute;
+  background-color: saddlebrown;
+  width: 90px;
+  height: 50px;
+  top: 17%;
+  left: 71.3%;
+}
+
+.players-point{
+  font-size: 20px;
+}
+
+.next:hover {
+color: white;
+cursor: pointer;
+}
+.board>div:hover{
+  background-color:purple;
+  cursor: crosshair;
+}

@@ -1,19 +1,38 @@
 /* Here will all the CSS for the startpage be designed */
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
 body{
-   background-image: url(/background-startpage.png);
+   background-image: url(/wood-page.png);
    background-repeat: no-repeat;
    background-size: cover;
 }
 
+.pagetitle{
+  font-size: 90px;
+  display: ruby-base-container;
+  
+
+    background-image:url("ClipartKey_1226540.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    zoom: 0.5;  
+    width: 71%;
+    padding: 0;
+    float: right;
+    text-align: left;
+}
+
+
 .rules{
   width: 1000px;
-  height: 450px;
+  height: 380px;
   background-color: rgb(100, 40, 40);
   opacity: 80%;
   position: absolute;
   text-align: center;
   left: 15%;
-  top: 15%;
+  top: 18%;
+  border-radius: 13px;
 }
 
 .rules-headline::before{
@@ -45,6 +64,7 @@ body{
   background-color: rgb(56, 112, 0);
   cursor: pointer;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 10px;
 }
 .start-button:hover{
   color: white;
@@ -60,10 +80,19 @@ body{
 }
 
 .player1 , .player2, .player3, .player4{
-  
+  border-radius: 5px;
   text-align: center;
   height: 40px;
   background-color: rgba(59, 30, 30, 0.788);
   font-size: 15px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 } 
+
+.popmessage{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  bottom: -340px;
+  left: 250px;
+  text-align: center;
+}

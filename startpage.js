@@ -1,7 +1,10 @@
 import Player from "./Player.js";
-
+import SAOLchecker from "./SAOLchecker.js";
 export default class Startpage {
 
+  constructor() {
+    this.count = 0;
+  }
 
   async start(ammountOfPlayers, playernames) {
     this.createBoard();
@@ -25,9 +28,13 @@ export default class Startpage {
     let ammountOfPlayers = 0;
     let playerNames = [];
     let startDiv = $('<div class="startpage"></div>');
+    let startTitle = $('<div class="pagetitle"></div>');
+    let popmess = $('<div class="popmessage">[Requires minimum of 1 player to start.]</div>');
+
     startDiv.append(`
-    <h1 = class="title">Scrabble</h1>
+    <div class="pagetitle">.</div> 
     <button class="start-button"><h3>Start Game</h3></button>
+    <div class="popmessage"></div>
     <div class="rules">
     <h2 class="rules-headline"></h2>
     <p class="text-rules"></p>
@@ -39,18 +46,30 @@ export default class Startpage {
     <input type="text" class="player4" placeholder="player4">
     </div>
     `);
+
+
+    $('body').append(startTitle);
     $('body').append(startDiv);
     $('.start-button').click(function () {
       for (let i = 0; i < 4; i++) {
         if ($(`.player${i + 1}`).val() === '') {
-
+          $('.popmessage').append(popmess);
         } else {
           playerNames.push($(`.player${i + 1}`).val());
           ammountOfPlayers++;
         }
       }
-      that.start(ammountOfPlayers, playerNames);
-      $('.startpage').hide();
+      if (ammountOfPlayers !== 0) {
+        that.start(ammountOfPlayers, playerNames);
+
+        $('.pagetitle').hide();
+        $('.startpage').hide();
+        $('body > background-image:').hide();
+
+
+
+
+      }
     });
   }
 
@@ -110,7 +129,7 @@ export default class Startpage {
     // (will be more code when we know how to represent 
     //  the special squares)
     this.board.flat().forEach(x =>
-      $board.append(`<div data-index="${index++}"></div>`));
+      $board.append(`<div class="squares" data-index="${index++}"></div>`));
 
     this.board.flat().forEach(function (x, i) {
       if (indexRed.includes(i)) {
@@ -128,8 +147,20 @@ export default class Startpage {
     });
 
     // Render the players
-    this.players.forEach(player =>
-      $players.append(player.render()));
+    let that = this;
+    $('.players').append(`<div class="players-point">points:, ${this.players[this.count].points}</div>`);
+    $players.append(this.players[this.count].render());
+    $('body').append('<button class="next">Play move</button>');
+    $('.next').click(function () {
+      $('.players').empty();
+      that.count++;
+      if (that.count === that.players.length) {
+        that.count = 0;
+      }
+      $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+      $players.append(that.players[that.count].render());
+      that.addDragEvents();
+    });
     this.addDragEvents();
   }
 
@@ -145,6 +176,13 @@ export default class Startpage {
       .on('dragMove', function (e, pointer) {
         let { pageX, pageY } = pointer;
 
+
+        if (Math.floor($(this).offset().top) === Math.floor($('.squares[data-index = 4]').offset().top) ||
+          Math.floor($(this).offset().left) === Math.floor($('.squares[data-index = 4]').offset().left)) {
+          $('.squares[data-index = 4]').css("background-color", "red");
+        } else {
+          $('.squares[data-index = 4]').css("background-color", "#54aa79");
+        }
         // we will need code that reacts
         // if you have moved a tile to a square on the board
         // (light it up so the player knows where the tile will drop)
@@ -185,6 +223,8 @@ export default class Startpage {
           while (pt.length > 8) { pt.splice(pt[tileIndex > newIndex ? 'indexOf' : 'lastIndexOf'](' '), 1); }
         }
         that.render();
+
+
       });
   }
 
