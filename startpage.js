@@ -174,15 +174,26 @@ export default class Startpage {
         $(this).css({ zIndex: 100 });
       })
       .on('dragMove', function (e, pointer) {
-        let { pageX, pageY } = pointer;
+        //let { pageX, pageY } = pointer;
 
 
-        if (Math.floor($(this).offset().top) === Math.floor($('.squares[data-index = 4]').offset().top) ||
-          Math.floor($(this).offset().left) === Math.floor($('.squares[data-index = 4]').offset().left)) {
-          $('.squares[data-index = 4]').css("background-color", "red");
-        } else {
-          $('.squares[data-index = 4]').css("background-color", "#54aa79");
-        }
+        /*for (let i = 0; i <= 224; i++) {
+          console.log($(`.squares[data-index = ${i}]`).offset());
+          if ($(this).offset() === $(`.squares[data-index = ${i}]`).offset()) {
+            $(`.squares[data-index = ${i}]`).css("background-color", "red");
+          }
+        }*/
+
+
+
+        /*$('.squares').mouseenter(function () {
+          $(this).css("background-color", "red");
+        });
+        $('.squares').mouseleave(function () {
+          $(this).css("background-color", "#54aa79");
+        });*/
+
+
         // we will need code that reacts
         // if you have moved a tile to a square on the board
         // (light it up so the player knows where the tile will drop)
