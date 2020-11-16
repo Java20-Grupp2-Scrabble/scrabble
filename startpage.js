@@ -187,7 +187,6 @@ export default class Startpage {
           }
         }
 
-
         // we will need code that reacts
         // if you have moved a tile to a square on the board
         // (light it up so the player knows where the tile will drop)
