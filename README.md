@@ -8,3 +8,4 @@ test
 nytt.test6
 test 2020
 test 2.0
+test 3.0
