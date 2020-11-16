@@ -142,4 +142,61 @@ div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data
 color: white;
 cursor: pointer;
 }
+<<<<<<< HEAD
+.board>div:hover{
+  background-color:purple;
+  cursor: crosshair;
+}
+
+.helpBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  position: absolute;
+  right: 530px;
+  font-family: 'Oswald';
+  font-size: 20px;
+  cursor: pointer;
+  outline: none;
+}
+
+.helpBtn:hover {
+  background-color: rgb(179, 176, 176);
+}
+
+.info-popup {
+  width: 400px;
+  height: 400px;
+  background-color: rgb(189, 188, 188);
+  position: absolute;
+  top: 150px;
+  left: 410px;
+  border-radius: 10px;
+  border: 2px solid rgb(124, 123, 123);
+  display: none;
+}
+
+.close-info-popup {
+  margin: 10px;
+  position: relative;
+  left: 355px;
+  font-family: 'Oswald';
+  background-color: red;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.close-info-popup:hover {
+  background-color: rgb(196, 2, 2);
+}
+
+.paragraph-info {
+  margin: 20px 30px;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid black;
+}
+=======
+>>>>>>> 6baf786d8fb09100b9fe650ae1afef3dae342478
 
