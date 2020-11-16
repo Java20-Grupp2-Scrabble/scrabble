@@ -193,24 +193,18 @@ export default class Startpage {
         $(this).css({ zIndex: 100 });
       })
       .on('dragMove', function (e, pointer) {
-        //let { pageX, pageY } = pointer;
+        let { pageX, pageY } = pointer;
+
 
 
         for (let i = 0; i <= 224; i++) {
-          console.log($(`.squares[data-index = ${i}]`).offset());
-          if ($(this).offset() === $(`.squares[data-index = ${i}]`).offset()) {
-            $(`.squares[data-index = ${i}]`).css("background-color", "red");
+          if (Math.floor($(this).offset().left) <= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
+            Math.floor($(this).offset().left) >= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
+            Math.floor($(this).offset().top) >= Math.floor($(`.squares[data-index = ${i}]`).offset().top) &&
+            Math.floor($(this).offset().top) <= Math.floor($(`.squares[data-index = ${i}]`).offset().top)) {
+            $(`.squares[data-index = ${i}]`).css("background-color", "seagreen");
           }
         }
-
-
-
-        /*$('.squares').mouseenter(function () {
-          $(this).css("background-color", "red");
-        });
-        $('.squares').mouseleave(function () {
-          $(this).css("background-color", "#54aa79");
-        });*/
 
 
         // we will need code that reacts
