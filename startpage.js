@@ -177,12 +177,16 @@ export default class Startpage {
         let { pageX, pageY } = pointer;
 
 
+
         for (let i = 0; i <= 224; i++) {
-          if (Math.round($(this).offset().left) === Math.round($(`.squares[data-index = ${i}]`).offset().left) &&
-            Math.round($(this).offset().top) === Math.round($(`.squares[data-index = ${i}]`).offset().top)) {
+          if (Math.floor($(this).offset().left) <= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
+            Math.floor($(this).offset().left) >= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
+            Math.floor($(this).offset().top) >= Math.floor($(`.squares[data-index = ${i}]`).offset().top) &&
+            Math.floor($(this).offset().top) <= Math.floor($(`.squares[data-index = ${i}]`).offset().top)) {
             $(`.squares[data-index = ${i}]`).css("background-color", "seagreen");
           }
         }
+
 
         // we will need code that reacts
         // if you have moved a tile to a square on the board
