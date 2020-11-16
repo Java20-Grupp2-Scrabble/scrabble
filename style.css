@@ -142,7 +142,6 @@ div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data
 color: white;
 cursor: pointer;
 }
-<<<<<<< HEAD
 .board>div:hover{
   background-color:purple;
   cursor: crosshair;
@@ -197,6 +196,4 @@ cursor: pointer;
   font-size: 15px;
   border: 1px solid black;
 }
-=======
->>>>>>> 6baf786d8fb09100b9fe650ae1afef3dae342478
 
