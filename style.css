@@ -142,7 +142,4 @@ div[data-index = '144'],div[data-index = '148'],div[data-index = '200'],div[data
 color: white;
 cursor: pointer;
 }
-.board>div:hover{
-  background-color:purple;
-  cursor: crosshair;
-}
+
