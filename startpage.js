@@ -20,6 +20,25 @@ export default class Startpage {
     }
     console.table(this.players);
     // render the board + players
+
+    let helpBtn = $('<button class="helpBtn">?</button>');
+    $('body').append(helpBtn);
+
+    let infoDiv = $('<div class="info-popup"></div>');
+    let closePopupBtn = $('<button class="close-info-popup">X</button>');
+    let info = $('<p class="paragraph-info"></p>');
+
+    infoDiv.append(closePopupBtn, info);
+    $('body').append(infoDiv);
+
+    $('.helpBtn').on('click', function(){
+      $('.info-popup').toggle();
+    });
+
+    $(closePopupBtn).on('click', function(){
+      $('.info-popup').toggle();
+    });
+
     this.render();
   }
 

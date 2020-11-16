@@ -146,3 +146,55 @@ cursor: pointer;
   background-color:purple;
   cursor: crosshair;
 }
+
+.helpBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  position: absolute;
+  right: 530px;
+  font-family: 'Oswald';
+  font-size: 20px;
+  cursor: pointer;
+  outline: none;
+}
+
+.helpBtn:hover {
+  background-color: rgb(179, 176, 176);
+}
+
+.info-popup {
+  width: 400px;
+  height: 400px;
+  background-color: rgb(189, 188, 188);
+  position: absolute;
+  top: 150px;
+  left: 410px;
+  border-radius: 10px;
+  border: 2px solid rgb(124, 123, 123);
+  display: none;
+}
+
+.close-info-popup {
+  margin: 10px;
+  position: relative;
+  left: 355px;
+  font-family: 'Oswald';
+  background-color: red;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.close-info-popup:hover {
+  background-color: rgb(196, 2, 2);
+}
+
+.paragraph-info {
+  content: "I spelets första drag måste spelare nummer 1 lägga sitt ord, lodrätt eller vågrätt, så att den mittersta rutan (se bild) på spelplanen täcks. Poängen för ordet räknas samman och förs in i protokollet. När detta är gjort, tar man lika många brickor ur påsen som man lagt ut på spelplanen. Det ska alltid ﬁnnas sex, sju eller åtta brickor på brickstället, beroende på hur ni bestämt från början. Nästa spelare ska lägga ett ord som binds samman med det första, antingen lodrätt eller vågrätt. (Se exempel på sid 4.) De nya bok- stavsbrickorna måste bilda ett komplett ord tillsammans med det som redan ﬁnns på spelplanen. Poängen för ordet räknas samman och förs in i protokollet. ";
+  margin: 20px 30px;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid black;
+}
+
