@@ -26,7 +26,7 @@ export default class Startpage {
 
     let infoDiv = $('<div class="info-popup"></div>');
     let closePopupBtn = $('<button class="close-info-popup">X</button>');
-    let info = $('<p class="paragraph-info"></p>');
+    let info = $('<p class="paragraph-info">"I spelets första drag måste spelare nummer 1 lägga sitt ord, lodrätt eller vågrätt, så att den mittersta rutan (se bild) på spelplanen täcks. Poängen för ordet räknas samman och förs in i protokollet. När detta är gjort, tar man lika många brickor ur påsen som man lagt ut på spelplanen. Det ska alltid ﬁnnas sex, sju eller åtta brickor på brickstället, beroende på hur ni bestämt från början. Nästa spelare ska lägga ett ord som binds samman med det första, antingen lodrätt eller vågrätt. (Se exempel på sid 4.) De nya bok- stavsbrickorna måste bilda ett komplett ord tillsammans med det som redan ﬁnns på spelplanen. Poängen för ordet räknas samman och förs in i protokollet. "</p>');
 
     infoDiv.append(closePopupBtn, info);
     $('body').append(infoDiv);
