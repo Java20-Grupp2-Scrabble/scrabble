@@ -177,12 +177,12 @@ export default class Startpage {
         //let { pageX, pageY } = pointer;
 
 
-        /*for (let i = 0; i <= 224; i++) {
+        for (let i = 0; i <= 224; i++) {
           console.log($(`.squares[data-index = ${i}]`).offset());
           if ($(this).offset() === $(`.squares[data-index = ${i}]`).offset()) {
             $(`.squares[data-index = ${i}]`).css("background-color", "red");
           }
-        }*/
+        }
 
 
 
@@ -215,7 +215,6 @@ export default class Startpage {
         // if you have moved a tile to a square on the board
         // (add the square to the board, remove it from the stand)
         // but that code is not written yet ;)
-
         // but we do have the code that let you
         // drag the tiles in a different order in the stands
         let $stand = me.parent('.stand');
