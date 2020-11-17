@@ -51,19 +51,6 @@ body {
   cursor: pointer;
 }
 
-.tile {
-  z-index: 1;
-  position: relative;
-  text-align:center;
-  width: 5.6vh;
-  height: 5.6vh;
-  float: left;
-  background-color: #fff; 
-  border: 1px solid #000;
-  border-radius: 3px;
-  margin: 0 2px;
-  font-size: 3.5vh;
-}
 
 .board .tile {
   position: absolute;
@@ -180,12 +167,12 @@ cursor: pointer;
   clear: both;
 }
 
-.tiles {
+.stand {
   clear: both;
   padding-top: 20px;
 }
 
-.tiles > div, .tile {
+.stand > div, .tile {
   position: relative;
   float: left;
   width: 5.5vh;
@@ -194,8 +181,9 @@ cursor: pointer;
   text-align: center;
   cursor: pointer;
   padding-top: 0.2vh;
-  font-size: 4.5vh;
+  font-size: 3.5vh;
   background-color: #fff;
+  border-radius: 4px;
 }
 
 .board .tile {

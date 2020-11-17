@@ -142,7 +142,7 @@ export default class Startpage {
     // Render the board
     // (will be more code when we know how to represent 
     //  the special squares)
-    $('.board').html(this.board.flat().map(x => `
+    $board.html(this.board.flat().map(x => `
     <div class="${x.special ? 'special-' + x.special : ''}">
     ${x.tile ? `<div class="tile">${x.tile.char}</div>` : ''}
     </div>
@@ -169,6 +169,7 @@ export default class Startpage {
   }
 
   addEvents() {
+    let that = this;
     // Set a css-class hover on the square the mouse is above
     // if we are dragging and there is no tile in the square
     $('.board > div').mouseenter(e => {
@@ -199,7 +200,7 @@ export default class Startpage {
       let tileIndex = $('.stand > div').index($tile);
 
       // put the tile on the board and re-render
-      this.board[y][x].tile = this.stand.splice(tileIndex, 1)[0];
+      this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
       this.render();
     });
   }
