@@ -217,7 +217,7 @@ cursor: pointer;
 }
 
 .board > div.special-red::after {
-  content: 'RED';
+  content: '3 W';
   display: block;
   text-align: center;
   font-size: 1.5vh;
@@ -226,11 +226,27 @@ cursor: pointer;
 }
 
 
-.board > div.special-yellow::after {
-  content: 'YELLOW';
+.board > div.special-orange::after {
+  content: '2 W';
   display: block;
   text-align: center;
-  font-size: 1vh;
+  font-size: 1.5vh;
+  margin-top: 1.5vh;
+}
+
+.board > div.special-blue::after {
+  content: '3 L';
+  display: block;
+  text-align: center;
+  font-size: 1.5vh;
+  margin-top: 1.5vh;
+}
+
+.board > div.special-lightblue::after {
+  content: '2 L';
+  display: block;
+  text-align: center;
+  font-size: 1.5vh;
   margin-top: 1.5vh;
 }
 
