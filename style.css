@@ -141,8 +141,28 @@ cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 }
-
-
+.whoMadeItInfo{
+  right: 500px;
+}
+.madeBy:hover{
+  background-color: green;
+}
+.madeBy{
+  left: 1500px;
+  top:-300px;
+  position: relative;
+  
+}
+.madeBy-popup{
+  background: url(https://i.kym-cdn.com/entries/icons/original/000/027/475/Screen_Shot_2018-10-25_at_11.02.15_AM.png);
+  background-size: 100% 100%;
+  top: 600px;
+  right: 200px;
+  width: 300px;
+  border: solid black;
+  display: none;
+  position: absolute;
+}
 .board > div {
   position: relative;
   width: 6vh;
