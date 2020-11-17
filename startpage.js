@@ -31,11 +31,11 @@ export default class Startpage {
     infoDiv.append(closePopupBtn, info);
     $('body').append(infoDiv);
 
-    $('.helpBtn').on('click', function(){
+    $('.helpBtn').on('click', function () {
       $('.info-popup').toggle();
     });
 
-    $(closePopupBtn).on('click', function(){
+    $(closePopupBtn).on('click', function () {
       $('.info-popup').toggle();
     });
 
@@ -93,21 +93,22 @@ export default class Startpage {
   }
 
   createBoard() {
-    // note: the real board has a lot of special squares
-    // and is symmetrical - maybe we could generate it from a file
-    // with data about the squares?
 
-    // but for now just make an two-dimensional array
-    // with the same object values for each item
-    this.board = [...new Array(15)].map(x => new Array(15).fill({
-      specialValue: '2w', // might be 3w or 2l or 3l or center as well
-      // (2w = 2x word points, 2l = 2 x letters etc)
-      // you need different values for diffrent squares
-      // - not implemented yet ;)
-      tile: undefined     // replace with a tile object when it is
-      // is dragged to the square
-      // - not implemented yet ;)
-    }));
+    let middle = [[7, 7]];
+    let indexRed = [[0, 0], [0, 7], [0, 14], [7, 0], [7, 14], [14, 0], [14, 7], [14, 14]];
+    let indexLightBlue = [[0, 3], [0, 11], [2, 6], [2, 8], [3, 0], [3, 7], [3, 14], [6, 2], [6, 6], [7, 3], [7, 11], [8, 2], [8, 6],
+    [8, 8], [8, 12], [6, 8], [6, 12], [11, 0], [11, 7], [11, 14], [12, 6], [12, 8], [14, 3], [14, 11]];
+    let indexOrange = [[1, 1], [1, 13], [2, 2], [3, 3], [4, 4], [11, 3], [11, 11], [12, 2], [13, 1], [2, 12], [3, 11], [4, 10], [10, 10], [12, 12], [13, 13], [10, 4]];
+    let indexBlue = [[1, 5], [1, 9], [5, 1], [5, 5], [5, 9], [5, 13], [9, 1], [9, 5], [9, 9], [13, 5], [13, 9], [9, 13]];
+
+    this.board = [...new Array(15)].map(x => [...new Array(15)].map(x => ({})));
+
+    middle.forEach(([x, y]) => this.board[x][y].special = 'middle');
+    indexRed.forEach(([x, y]) => this.board[x][y].special = 'red');
+    indexLightBlue.forEach(([x, y]) => this.board[x][y].special = 'lightblue');
+    indexOrange.forEach(([x, y]) => this.board[x][y].special = 'orange');
+    indexBlue.forEach(([x, y]) => this.board[x][y].special = 'blue');
+
   }
 
   async tilesFromFile() {
@@ -135,35 +136,19 @@ export default class Startpage {
   }
 
   render() {
-    let index = 0;
-    let indexRed = [0, 7, 14, 105, 217, 119, 210, 224];
-    let indexLightBlue = [3, 11, 36, 38, 52, 45, 59, 92, 102, 108, 116, 122, 132,
-      126, 128, 98, 96, 165, 179, 172, 186, 188, 213, 221];
-    let indexOrange = [16, 32, 48, 64, 160, 176, 192, 208, 28, 42, 56, 70, 154, 168, 182, 196];
-    let indexBlue = [20, 24, 76, 80, 84, 88, 140, 144, 148, 200, 204, 136];
     $('.board, .players').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     // Render the board
     // (will be more code when we know how to represent 
     //  the special squares)
-    this.board.flat().forEach(x =>
-      $board.append(`<div class="squares" data-index="${index++}"></div>`));
+    $('.board').html(this.board.flat().map(x => `
+    <div class="${x.special ? 'special-' + x.special : ''}">
+    ${x.tile ? `<div class="tile">${x.tile.char}</div>` : ''}
+    </div>
+    `).join(''));
 
-    this.board.flat().forEach(function (x, i) {
-      if (indexRed.includes(i)) {
-        $(`div[data-index = ${i}]`).append('3x W');
-      }
-      if (indexLightBlue.includes(i)) {
-        $(`div[data-index = ${i}]`).append('2x L');
-      }
-      if (indexOrange.includes(i)) {
-        $(`div[data-index = ${i}]`).append('2x W');
-      }
-      if (indexBlue.includes(i)) {
-        $(`div[data-index = ${i}]`).append('3x L');
-      }
-    });
+
 
     // Render the players
     let that = this;
@@ -178,76 +163,45 @@ export default class Startpage {
       }
       $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
       $players.append(that.players[that.count].render());
-      that.addDragEvents();
+      that.addEvents();
     });
-    this.addDragEvents();
+    this.addEvents();
   }
 
-  addDragEvents() {
-    let that = this;
-    // let tile in the stands be draggable
-    $('.stand .tile').not('.none').draggabilly({ containment: 'body' })
-      .on('dragStart', function () {
-        // set a high z-index so that the tile being drag
-        // is on top of everything  
-        $(this).css({ zIndex: 100 });
-      })
-      .on('dragMove', function (e, pointer) {
-        let { pageX, pageY } = pointer;
+  addEvents() {
+    // Set a css-class hover on the square the mouse is above
+    // if we are dragging and there is no tile in the square
+    $('.board > div').mouseenter(e => {
+      let me = $(e.currentTarget);
+      if ($('.is-dragging').length && !me.find('.tile').length) {
+        me.addClass('hover')
+      }
+    });
+    $('.board > div').mouseleave(e =>
+      $(e.currentTarget).removeClass('hover')
+    );
 
+    // Drag-events: We only check if a tile is in place on dragEnd
+    $('.stand > div').draggabilly().on('dragEnd', e => {
+      // get the dropZone square - if none render and return
+      let $dropZone = $('.hover');
+      if (!$dropZone.length) { this.render(); return; }
 
+      // the index of the square we are hovering over
+      let squareIndex = $('.board > div').index($dropZone);
 
-        for (let i = 0; i <= 224; i++) {
-          if (Math.floor($(this).offset().left) <= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
-            Math.floor($(this).offset().left) >= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
-            Math.floor($(this).offset().top) >= Math.floor($(`.squares[data-index = ${i}]`).offset().top) &&
-            Math.floor($(this).offset().top) <= Math.floor($(`.squares[data-index = ${i}]`).offset().top)) {
-            $(`.squares[data-index = ${i}]`).css("background-color", "seagreen");
-          }
-        }
+      // convert to y and x coords in this.board
+      let y = Math.floor(squareIndex / 15);
+      let x = squareIndex % 15;
 
-        // we will need code that reacts
-        // if you have moved a tile to a square on the board
-        // (light it up so the player knows where the tile will drop)
-        // but that code is not written yet ;)
+      // the index of the chosen tile
+      let $tile = $(e.currentTarget);
+      let tileIndex = $('.stand > div').index($tile);
 
-      })
-      .on('dragEnd', function (e, pointer) {
-        let { pageX, pageY } = pointer;
-        let me = $(this);
-
-        // reset the z-index
-        me.css({ zIndex: '' });
-
-        let player = that.players[+me.attr('data-player')];
-        let tileIndex = +me.attr('data-tile');
-        let tile = player.tiles[tileIndex];
-
-        // we will need code that reacts
-        // if you have moved a tile to a square on the board
-        // (add the square to the board, remove it from the stand)
-        // but that code is not written yet ;)
-        // but we do have the code that let you
-        // drag the tiles in a different order in the stands
-        let $stand = me.parent('.stand');
-        let { top, left } = $stand.offset();
-        let bottom = top + $stand.height();
-        let right = left + $stand.width();
-        // if dragged within the limit of the stand
-        if (pageX > left && pageX < right
-          && pageY > top && pageY < bottom) {
-          let newIndex = Math.floor(8 * (pageX - left) / $stand.width());
-          let pt = player.tiles;
-          // move around
-          pt.splice(tileIndex, 1, ' ');
-          pt.splice(newIndex, 0, tile);
-          //preserve the space where the tile used to be
-          while (pt.length > 8) { pt.splice(pt[tileIndex > newIndex ? 'indexOf' : 'lastIndexOf'](' '), 1); }
-        }
-        that.render();
-
-
-      });
+      // put the tile on the board and re-render
+      this.board[y][x].tile = this.stand.splice(tileIndex, 1)[0];
+      this.render();
+    });
   }
 
 }
