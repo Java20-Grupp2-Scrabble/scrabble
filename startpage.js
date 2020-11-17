@@ -83,7 +83,6 @@ export default class Startpage {
 
         $('.pagetitle').hide();
         $('.startpage').hide();
-        $('body > background-image:').hide();
 
 
 
