@@ -20,6 +20,25 @@ export default class Startpage {
     }
     console.table(this.players);
     // render the board + players
+
+    let helpBtn = $('<button class="helpBtn">?</button>');
+    $('body').append(helpBtn);
+
+    let infoDiv = $('<div class="info-popup"></div>');
+    let closePopupBtn = $('<button class="close-info-popup">X</button>');
+    let info = $('<p class="paragraph-info">"I spelets första drag måste spelare nummer 1 lägga sitt ord, lodrätt eller vågrätt, så att den mittersta rutan (se bild) på spelplanen täcks. Poängen för ordet räknas samman och förs in i protokollet. När detta är gjort, tar man lika många brickor ur påsen som man lagt ut på spelplanen. Det ska alltid ﬁnnas sex, sju eller åtta brickor på brickstället, beroende på hur ni bestämt från början. Nästa spelare ska lägga ett ord som binds samman med det första, antingen lodrätt eller vågrätt. (Se exempel på sid 4.) De nya bok- stavsbrickorna måste bilda ett komplett ord tillsammans med det som redan ﬁnns på spelplanen. Poängen för ordet räknas samman och förs in i protokollet. "</p>');
+
+    infoDiv.append(closePopupBtn, info);
+    $('body').append(infoDiv);
+
+    $('.helpBtn').on('click', function(){
+      $('.info-popup').toggle();
+    });
+
+    $(closePopupBtn).on('click', function(){
+      $('.info-popup').toggle();
+    });
+
     this.render();
   }
 
@@ -174,25 +193,18 @@ export default class Startpage {
         $(this).css({ zIndex: 100 });
       })
       .on('dragMove', function (e, pointer) {
-        //let { pageX, pageY } = pointer;
+        let { pageX, pageY } = pointer;
 
 
-        /*for (let i = 0; i <= 224; i++) {
-          console.log($(`.squares[data-index = ${i}]`).offset());
-          if ($(this).offset() === $(`.squares[data-index = ${i}]`).offset()) {
-            $(`.squares[data-index = ${i}]`).css("background-color", "red");
+
+        for (let i = 0; i <= 224; i++) {
+          if (Math.floor($(this).offset().left) <= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
+            Math.floor($(this).offset().left) >= Math.floor($(`.squares[data-index = ${i}]`).offset().left) &&
+            Math.floor($(this).offset().top) >= Math.floor($(`.squares[data-index = ${i}]`).offset().top) &&
+            Math.floor($(this).offset().top) <= Math.floor($(`.squares[data-index = ${i}]`).offset().top)) {
+            $(`.squares[data-index = ${i}]`).css("background-color", "seagreen");
           }
-        }*/
-
-
-
-        /*$('.squares').mouseenter(function () {
-          $(this).css("background-color", "red");
-        });
-        $('.squares').mouseleave(function () {
-          $(this).css("background-color", "#54aa79");
-        });*/
-
+        }
 
         // we will need code that reacts
         // if you have moved a tile to a square on the board
@@ -215,7 +227,6 @@ export default class Startpage {
         // if you have moved a tile to a square on the board
         // (add the square to the board, remove it from the stand)
         // but that code is not written yet ;)
-
         // but we do have the code that let you
         // drag the tiles in a different order in the stands
         let $stand = me.parent('.stand');
