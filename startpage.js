@@ -199,7 +199,9 @@ export default class Startpage {
       let tileIndex = $('.stand > div').index($tile);
 
       // put the tile on the board and re-render
-      this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+      if ($tile.parent('.stand').length) {
+        this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+      }
       this.render();
     });
   }
