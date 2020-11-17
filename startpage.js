@@ -135,7 +135,7 @@ export default class Startpage {
   }
 
   render() {
-    $('.board, .players').remove();
+    $('.board, .players, .next').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     // Render the board
@@ -182,7 +182,7 @@ export default class Startpage {
     );
 
     // Drag-events: We only check if a tile is in place on dragEnd
-    $('.stand > div').draggabilly().on('dragEnd', e => {
+    $('.tile').draggabilly().on('dragEnd', e => {
       // get the dropZone square - if none render and return
       let $dropZone = $('.hover');
       if (!$dropZone.length) { this.render(); return; }
