@@ -12,13 +12,6 @@ body {
   display: inline-block;
 }
 
-.board > div {
-  border: 1px solid #dbfff8;
-  width: 6.2vh;
-  height: 6.2vh;
-  background-color: #54aa79;
-  float: left;
-}
 
 .board > div:nth-child(15n+1){
   clear: both;
@@ -54,7 +47,6 @@ body {
 
 .board .tile {
   position: absolute;
-  margin: 1px;
 }
 
 .tile span {
@@ -237,7 +229,7 @@ cursor: pointer;
 }
 
 .board > div.special-red::after {
-  content: 'RED';
+  content: '3 W';
   display: block;
   text-align: center;
   font-size: 1.5vh;
@@ -246,11 +238,27 @@ cursor: pointer;
 }
 
 
-.board > div.special-yellow::after {
-  content: 'YELLOW';
+.board > div.special-orange::after {
+  content: '2 W';
   display: block;
   text-align: center;
-  font-size: 1vh;
+  font-size: 1.5vh;
+  margin-top: 1.5vh;
+}
+
+.board > div.special-blue::after {
+  content: '3 L';
+  display: block;
+  text-align: center;
+  font-size: 1.5vh;
+  margin-top: 1.5vh;
+}
+
+.board > div.special-lightblue::after {
+  content: '2 L';
+  display: block;
+  text-align: center;
+  font-size: 1.5vh;
   margin-top: 1.5vh;
 }
 

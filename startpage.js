@@ -99,7 +99,6 @@ export default class Startpage {
 
         $('.pagetitle').hide();
         $('.startpage').hide();
-        $('body > background-image:').hide();
 
 
 
@@ -152,7 +151,7 @@ export default class Startpage {
   }
 
   render() {
-    $('.board, .players').remove();
+    $('.board, .players, .next').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     // Render the board
@@ -199,7 +198,7 @@ export default class Startpage {
     );
 
     // Drag-events: We only check if a tile is in place on dragEnd
-    $('.stand > div').draggabilly().on('dragEnd', e => {
+    $('.tile').draggabilly().on('dragEnd', e => {
       // get the dropZone square - if none render and return
       let $dropZone = $('.hover');
       if (!$dropZone.length) { this.render(); return; }
@@ -216,7 +215,9 @@ export default class Startpage {
       let tileIndex = $('.stand > div').index($tile);
 
       // put the tile on the board and re-render
-      this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+      if ($tile.parent('.stand').length) {
+        this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+      }
       this.render();
     });
   }
