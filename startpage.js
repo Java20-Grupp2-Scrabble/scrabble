@@ -164,21 +164,23 @@ export default class Startpage {
     `).join(''));
 
 
-
     // Render the players
     let that = this;
     $('.players').append(`<div class="players-point">points:, ${this.players[this.count].points}</div>`);
     $players.append(this.players[this.count].render());
     $('body').append('<button class="next">Play move</button>');
     $('.next').click(function () {
-      $('.players').empty();
-      that.count++;
-      if (that.count === that.players.length) {
-        that.count = 0;
+      console.log(that.board[7][7].tile);
+      if (that.board[7][7].tile !== undefined) {
+        $('.players').empty();
+        that.count++;
+        if (that.count === that.players.length) {
+          that.count = 0;
+        }
+        $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+        $players.append(that.players[that.count].render());
+        that.addEvents();
       }
-      $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
-      $players.append(that.players[that.count].render());
-      that.addEvents();
     });
     this.addEvents();
   }
@@ -217,7 +219,13 @@ export default class Startpage {
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
         this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+      } else {
+        let current = that.board[0][0].tile;
+        that.board[0][0].tile = '';
+
+        that.board[y][x].tile = current;
       }
+
       this.render();
     });
   }
