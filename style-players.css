@@ -1,0 +1,86 @@
+*, *:before, :after {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  margin: 10px;
+}
+
+.board > div {
+  position: relative;
+  width: 6vh;
+  height: 6vh;
+  background-color: forestgreen;
+  border: 1px solid #000;
+  float: left;
+}
+
+.board > div.hover {
+  opacity: 0.5;
+}
+
+
+.board > div:nth-child(15n + 1){
+  clear: both;
+}
+
+.tiles {
+  clear: both;
+  padding-top: 20px;
+}
+
+.tiles > div, .tile {
+  position: relative;
+  float: left;
+  width: 5.5vh;
+  height: 5.5vh;
+  border: 1px solid #000000;
+  text-align: center;
+  cursor: pointer;
+  padding-top: 0.2vh;
+  font-size: 4.5vh;
+  background-color: #fff;
+}
+
+.board .tile {
+  position: absolute;
+  top: 0.1vh;
+  left: 0.1vh;
+}
+
+
+.is-dragging {
+  z-index: 1;
+  margin-left: -4vh;
+  margin-top: -4vh;
+}
+
+
+.board > div.special-red {
+  background-color: red;
+}
+
+
+.board > div.special-red::after {
+  content: 'RED';
+  display: block;
+  text-align: center;
+  font-size: 1.5vh;
+  margin-top: 1.5vh;
+  color: #fff;
+}
+
+.board > div.special-yellow {
+  background-color: gold;
+}
+
+
+.board > div.special-yellow::after {
+  content: 'YELLOW';
+  display: block;
+  text-align: center;
+  font-size: 1vh;
+  margin-top: 1.5vh;
+}
