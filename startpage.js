@@ -171,12 +171,14 @@ export default class Startpage {
     $players.append(this.players[this.count].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
-      $('.players').empty();
-      that.count++;
-      if (that.count === that.players.length) { that.count = 0 }
-      $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
-      $players.append(that.players[that.count].render());
-      that.addEvents();
+      if (that.Player[that.count].tiles >= 7) {
+        $('.players').empty();
+        that.count++;
+        if (that.count === that.players.length) { that.count = 0 }
+        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
+        $players.append(that.players[that.count].render());
+        that.addEvents();
+      }
     });
 
 
