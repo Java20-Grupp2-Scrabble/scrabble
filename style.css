@@ -148,16 +148,16 @@ cursor: pointer;
   background-color: green;
 }
 .madeBy{
-  left: 1500px;
-  top:-300px;
-  position: relative;
+  left: 90%;
+  top:80%;
+  position: absolute;
   
 }
 .madeBy-popup{
   background: url(https://i.kym-cdn.com/entries/icons/original/000/027/475/Screen_Shot_2018-10-25_at_11.02.15_AM.png);
   background-size: 100% 100%;
-  top: 600px;
-  right: 200px;
+  top: 85%;
+  right: 2%;
   width: 300px;
   border: solid black;
   display: none;
