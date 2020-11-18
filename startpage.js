@@ -65,21 +65,21 @@ export default class Startpage {
     let playerNames = [];
     let startDiv = $('<div class="startpage"></div>');
     let startTitle = $('<div class="pagetitle"></div>');
-    let popmess = $('<div class="popmessage">[Requires minimum of 1 player to start.]</div>');
+    let popmess = $('<div class="popmessage">[Kräver minst 1 spelare för att starta.]</div>');
 
     startDiv.append(`
     <div class="pagetitle">.</div> 
-    <button class="start-button"><h3>Start Game</h3></button>
+    <button class="start-button"><h3>Starta Spelet</h3></button>
     <div class="popmessage"></div>
     <div class="rules">
     <h2 class="rules-headline"></h2>
     <p class="text-rules"></p>
     </div>
     <div class="players-menu">
-    <input type="text" class="player1" placeholder="player1">
-    <input type="text" class="player2" placeholder="player2">
-    <input type="text" class="player3" placeholder="player3">
-    <input type="text" class="player4" placeholder="player4">
+    <input type="text" class="player1" placeholder="spelare 1">
+    <input type="text" class="player2" placeholder="spelare 2">
+    <input type="text" class="player3" placeholder="spelare 3">
+    <input type="text" class="player4" placeholder="spelare 4">
     </div>
     `);
 
@@ -167,9 +167,20 @@ export default class Startpage {
 
     // Render the players
     let that = this;
-    $('.players').append(`<div class="players-point">points:, ${this.players[this.count].points}</div>`);
+    $('.players').append(`<div class="players-point">poäng: ${this.players[this.count].points}</div>`);
     $players.append(this.players[this.count].render());
-    $('body').append('<button class="next">Play move</button>');
+    $('body').append('<button class="pass">Passa</button>');
+    $('.pass').click(function () {
+      $('.players').empty();
+      that.count++;
+      if (that.count === that.players.length) { that.count = 0 }
+      $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+      $players.append(that.players[that.count].render());
+      that.addEvents();
+    });
+
+
+    $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(function () {
       if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();

@@ -65,7 +65,14 @@ body {
   margin-bottom: 20px;
 }
 
-
+.pass{
+  position: absolute;
+  background-color: saddlebrown;
+  width: 90px;
+  height: 50px;
+  top: 17%;
+  left: 78.3%;
+}
 .next{
   position: absolute;
   background-color: saddlebrown;
