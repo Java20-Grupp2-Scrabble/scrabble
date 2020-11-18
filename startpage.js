@@ -8,6 +8,8 @@ export default class Startpage {
 
   constructor() {
     this.count = 0;
+    this.check = true;
+    this.first = 0;
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -174,25 +176,26 @@ export default class Startpage {
     $players.append(this.players[this.count].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
-      $('.players').empty();
-      that.count++;
-      if (that.count === that.players.length) { that.count = 0 }
-      $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
-      $players.append(that.players[that.count].render());
-      that.addEvents();
+      if (that.players[that.count].tiles.length !== 7) {
+        $('.players').empty();
+        that.count++;
+        if (that.count === that.players.length) { that.count = 0 }
+        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
+        $players.append(that.players[that.count].render());
+        that.addEvents();
+      }
     });
 
 
     $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(function () {
-      console.log(that.board[7][7].tile);
-      if (that.board[7][7].tile !== undefined) {
+      if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
         that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
         }
-        $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render());
         that.addEvents();
       }
@@ -248,8 +251,21 @@ export default class Startpage {
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
         this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+        that.check = true;
+        for (let i = 0; i < that.board.length; i++) {
+          for (let j = 0; j < that.board.length; j++) {
+            if (that.board[i][j].tile !== undefined) {
+              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined &&
+                that.board[i][j - 1].tile === undefined && that.board[i - 1][j].tile === undefined && that.first !== 0) {
+                that.check = false;
+              }
+            }
+          }
+        }
+
       }
       this.render();
+      that.first++;
     });
   }
 
