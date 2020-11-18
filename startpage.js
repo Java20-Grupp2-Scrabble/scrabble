@@ -193,7 +193,8 @@ export default class Startpage {
     $('.next').click(function () {
       if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
-        that.placedTiles = [];
+        that.placedTiles = []
+        that.indexholder = [];
         that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
