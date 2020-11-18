@@ -38,7 +38,7 @@ body{
 .rules-headline::before{
   color: white;
   z-index: 100;
-  content: "Regler";
+  content: " 🇸🇪 Regler  🇸🇪";
 }
 
 .text-rules::before{

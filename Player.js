@@ -20,7 +20,7 @@ export default class Player {
         <span>${x.points || ''}</span>
       </div>`).join('')}
       </div>
-      <div class="pname">${this.name}</div>
+      <div class="pname">👤${this.name}</div>
       `;
   }
 }
