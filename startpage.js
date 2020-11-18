@@ -4,6 +4,7 @@ export default class Startpage {
 
   constructor() {
     this.count = 0;
+    this.check = false;
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -170,8 +171,7 @@ export default class Startpage {
     $players.append(this.players[this.count].render());
     $('body').append('<button class="next">Play move</button>');
     $('.next').click(function () {
-      console.log(that.board[7][7].tile);
-      if (that.board[7][7].tile !== undefined) {
+      if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
         that.count++;
         if (that.count === that.players.length) {
@@ -219,6 +219,16 @@ export default class Startpage {
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
         this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+        for (let i = 0; i < that.board.length; i++) {
+          for (let j = 0; j < that.board.length; j++) {
+            if (that.board[i][j].tile !== undefined) {
+              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined) {
+              } else {
+                that.check = true;
+              }
+            }
+          }
+        }
       }
       this.render();
     });
