@@ -168,7 +168,12 @@ export default class Startpage {
     let that = this;
     $('.players').append(`<div class="players-point">points:, ${this.players[this.count].points}</div>`);
     $players.append(this.players[this.count].render());
-    $('body').append('<button class="next">Play move</button>');
+    $('body').append('<button class="pass">Passa</button>');
+    $('.pass').click(function () {
+
+    })
+
+    $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(function () {
       console.log(that.board[7][7].tile);
       if (that.board[7][7].tile !== undefined) {
