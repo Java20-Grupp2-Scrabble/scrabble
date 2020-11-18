@@ -224,13 +224,7 @@ export default class Startpage {
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
         this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
-      } else {
-        let current = that.board[0][0].tile;
-        that.board[0][0].tile = '';
-
-        that.board[y][x].tile = current;
       }
-
       this.render();
     });
   }
