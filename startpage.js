@@ -2,6 +2,10 @@ import Player from "./Player.js";
 import SAOLchecker from "./SAOLchecker.js";
 export default class Startpage {
 
+  getCurrentPlayerTiles(){
+    return $('.stand').children('.tile');
+  }
+
   constructor() {
     this.count = 0;
   }
@@ -193,10 +197,24 @@ export default class Startpage {
         that.addEvents();
       }
     });
+
+    /* let currentPlayerTiles = $('.stand').children('.tile').text();
+    console.log(currentPlayerTiles); */
+
+    $('body').append('<button class="undo-btn">Undo</div>');
+    
+    $('.undo-btn').click(function (){
+      
+    });
+  
     this.addEvents();
   }
 
   addEvents() {
+    let currentPlayerTiles = this.getCurrentPlayerTiles();
+    console.log(currentPlayerTiles);
+    /* let currentPlayerTiles = $('.stand').children('.tile');
+    console.log(this.players[this.count].name + currentPlayerTiles); */
     let that = this;
     // Set a css-class hover on the square the mouse is above
     // if we are dragging and there is no tile in the square
