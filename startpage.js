@@ -2,9 +2,16 @@ import Player from "./Player.js";
 import SAOLchecker from "./SAOLchecker.js";
 export default class Startpage {
 
+  getCurrentPlayerTiles() {
+    return $('.stand').children('.tile');
+  }
+
   constructor() {
     this.count = 0;
-    this.check = false;
+    this.check = true;
+    this.first = 0;
+    this.placedTiles = [];
+    this.indexholder = [];
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -171,12 +178,14 @@ export default class Startpage {
     $players.append(this.players[this.count].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
-      $('.players').empty();
-      that.count++;
-      if (that.count === that.players.length) { that.count = 0 }
-      $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
-      $players.append(that.players[that.count].render());
-      that.addEvents();
+      if (that.players[that.count].tiles.length !== 7) {
+        $('.players').empty();
+        that.count++;
+        if (that.count === that.players.length) { that.count = 0 }
+        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
+        $players.append(that.players[that.count].render());
+        that.addEvents();
+      }
     });
 
 
@@ -184,6 +193,8 @@ export default class Startpage {
     $('.next').click(function () {
       if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
+        that.placedTiles = []
+        that.indexholder = [];
         that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
@@ -193,10 +204,31 @@ export default class Startpage {
         that.addEvents();
       }
     });
+
+    /* let currentPlayerTiles = $('.stand').children('.tile').text();
+    console.log(currentPlayerTiles); */
+
+    $('body').append('<button class="undo-btn">Undo</div>');
+
+    $('.undo-btn').click(function () {
+      if (that.placedTiles.length !== 0) {
+        that.players[that.count].tiles.push(...that.placedTiles);
+        that.placedTiles = [];
+
+        that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
+        //that.board[that.indexholder[0][0]][that.indexholder[0][1]].tile = '';
+        that.render();
+      }
+    });
+
     this.addEvents();
   }
 
   addEvents() {
+    let currentPlayerTiles = this.getCurrentPlayerTiles();
+    //console.log(currentPlayerTiles);
+    /* let currentPlayerTiles = $('.stand').children('.tile');
+    console.log(this.players[this.count].name + currentPlayerTiles); */
     let that = this;
     // Set a css-class hover on the square the mouse is above
     // if we are dragging and there is no tile in the square
@@ -229,19 +261,27 @@ export default class Startpage {
 
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
-        this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+        let holder = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+        this.board[y][x].tile = holder;
+        this.placedTiles.push(holder);
+        this.indexholder.push([y, x]);
+        console.log(this.indexholder);
+
+        that.check = true;
         for (let i = 0; i < that.board.length; i++) {
           for (let j = 0; j < that.board.length; j++) {
             if (that.board[i][j].tile !== undefined) {
-              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined) {
-              } else {
-                that.check = true;
+              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined &&
+                that.board[i][j - 1].tile === undefined && that.board[i - 1][j].tile === undefined && that.first !== 0) {
+                that.check = false;
               }
             }
           }
         }
+
       }
       this.render();
+      that.first++;
     });
   }
 

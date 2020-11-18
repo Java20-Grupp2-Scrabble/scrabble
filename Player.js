@@ -7,6 +7,10 @@ export default class Player {
     this.points = 0;
   }
 
+  getCurrentTiles(){
+    return this.tiles;
+  }
+
   render() {
     let that = this;
     return `<div class="stand">
