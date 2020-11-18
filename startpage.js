@@ -4,7 +4,8 @@ export default class Startpage {
 
   constructor() {
     this.count = 0;
-    this.check = false;
+    this.check = true;
+    this.first = 0;
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -230,18 +231,21 @@ export default class Startpage {
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
         this.board[y][x].tile = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+        that.check = true;
         for (let i = 0; i < that.board.length; i++) {
           for (let j = 0; j < that.board.length; j++) {
             if (that.board[i][j].tile !== undefined) {
-              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined) {
-              } else {
-                that.check = true;
+              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined &&
+                that.board[i][j - 1].tile === undefined && that.board[i - 1][j].tile === undefined && that.first !== 0) {
+                that.check = false;
               }
             }
           }
         }
+
       }
       this.render();
+      that.first++;
     });
   }
 
