@@ -172,7 +172,7 @@ export default class Startpage {
     $players.append(this.players[this.count].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
-      if (that.Player[that.count].tiles >= 7) {
+      if (that.players[that.count].tiles.length !== 7) {
         $('.players').empty();
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
