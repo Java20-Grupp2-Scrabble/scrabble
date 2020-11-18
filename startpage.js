@@ -173,7 +173,7 @@ export default class Startpage {
       $('.players').empty();
       that.count++;
       if (that.count === that.players.length) { that.count = 0 }
-      $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+      $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
       $players.append(that.players[that.count].render());
       that.addEvents();
     });
@@ -188,7 +188,7 @@ export default class Startpage {
         if (that.count === that.players.length) {
           that.count = 0;
         }
-        $('.players').append(`<div class="players-point">points:, ${that.players[that.count].points}</div>`);
+        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render());
         that.addEvents();
       }
