@@ -224,6 +224,37 @@ export default class Startpage {
     this.addEvents();
   }
 
+  checkIfDraggedWithinStand($draggedTile) {
+    // Find the stand that is a parent element of the dragged tile
+    let $stand = $draggedTile.parents('.stand');
+    // Get the top and left corner of the dragged tile - remember as y and x
+    let { left: x, top: y } = $draggedTile.offset();
+    // Get the top, left, bottom, right positions of the stand
+    let { top: standTop, left: standLeft } = $stand.offset();
+    let standBottom = standTop + $stand.outerHeight();
+    let standRight = standLeft + $stand.outerWidth();
+    // Checked if the dragged tile is within the stands coordinates
+    let posWithinStand = y >= standTop && y <= standBottom && x >= standLeft && x <= standRight; // true/false
+    // If not do nothing more
+    if (!posWithinStand) { return; }
+    // Get all tiles in the stand (divs in the DOM)
+    let $tiles = $stand.find('.tile');
+    // Get the real tile array with objects from the player
+    let tileArr = this.players[this.count].tiles;
+    // The tile divs in the DOM and the tileArr have the same corresponding order
+    // now loop through every tile div and add the property left to the real objects in tileArr
+    $tiles.each(function (i) {
+      tileArr[i].left = $(this).offset().left;
+    });
+    // Sort the tileArr according to the left property
+    tileArr.sort((a, b) => a.left > b.left ? 1 : - 1);
+    // Remove the left property from the objects in tileArr
+    // we only needed it for sorting...
+    tileArr.forEach(x => delete x.left);
+  }
+
+
+
   addEvents() {
     let currentPlayerTiles = this.getCurrentPlayerTiles();
     //console.log(currentPlayerTiles);
@@ -244,6 +275,10 @@ export default class Startpage {
 
     // Drag-events: We only check if a tile is in place on dragEnd
     $('.tile').draggabilly().on('dragEnd', e => {
+
+      // check if drag within stand
+      this.checkIfDraggedWithinStand($(e.currentTarget));
+
       // get the dropZone square - if none render and return
       let $dropZone = $('.hover');
       if (!$dropZone.length) { this.render(); return; }
