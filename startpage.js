@@ -182,13 +182,19 @@ export default class Startpage {
     $players.append(this.players[this.count].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
-      if (that.players[that.count].tiles.length !== 7) {
+      if (that.players[that.count].tiles.length === 7) {
         $('.players').empty();
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
         $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render());
         that.addEvents();
+      } else {
+        that.players[that.count].tiles.push(...that.placedTiles);
+        that.placedTiles = [];
+
+        that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
+        that.render();
       }
     });
 
