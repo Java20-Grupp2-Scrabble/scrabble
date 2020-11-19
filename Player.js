@@ -3,11 +3,11 @@ export default class Player {
   constructor(game, name) {
     this.game = game;
     this.name = name;
-    this.tiles = [...this.game.getTiles(), ' '];
+    this.tiles = [...this.game.getTiles()];
     this.points = 0;
   }
 
-  getCurrentTiles(){
+  getCurrentTiles() {
     return this.tiles;
   }
 
