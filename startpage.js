@@ -290,7 +290,7 @@ export default class Startpage {
     );
 
     // Drag-events: We only check if a tile is in place on dragEnd
-    $('.tile').draggabilly().on('dragEnd', e => {
+    $('.stand > .tile').draggabilly().on('dragEnd', e => {
 
       // check if drag within stand
       this.checkIfDraggedWithinStand($(e.currentTarget));
