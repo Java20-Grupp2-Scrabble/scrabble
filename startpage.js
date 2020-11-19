@@ -197,11 +197,14 @@ export default class Startpage {
     $('.next').click(function () {
       if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
+        that.collectWordVert();
         that.collectWord();
-        console.log(that.wordHoriz);
+        console.log('HORIZ: ', that.wordHoriz);
+        console.log('VERT: ', that.wordVert);
         that.placedTiles = []
         that.indexholder = [];
         that.wordHoriz = '';
+        that.wordVert = '';
         that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
@@ -332,7 +335,10 @@ export default class Startpage {
       for (let j = 0; j < this.board.length; j++) {
         if (this.board[i][j].tile !== undefined) {
           if (this.board[i][j + 1].tile === undefined) {
-            this.wordHoriz += this.board[i][j].tile.char + ',';
+            if (this.board[i][j - 1].tile === undefined) { }
+            else {
+              this.wordHoriz += this.board[i][j].tile.char + ',';
+            }
           } else { this.wordHoriz += this.board[i][j].tile.char; }
         }
       }
@@ -340,7 +346,20 @@ export default class Startpage {
   }
 
   collectWordVert() {
-
+    for (let j = 0; j < this.board.length; j++) {
+      for (let i = 0; i < this.board.length; i++) {
+        if (this.board[i][j].tile !== undefined) {
+          if (this.board[i + 1][j].tile === undefined) {
+            if (this.board[i - 1][j].tile === undefined) { }
+            else {
+              this.wordVert += this.board[i][j].tile.char + ',';
+            }
+          } else {
+            this.wordVert += this.board[i][j].tile.char;
+          }
+        }
+      }
+    }
   }
 
 
