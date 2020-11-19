@@ -12,6 +12,8 @@ export default class Startpage {
     this.first = 0;
     this.placedTiles = [];
     this.indexholder = [];
+    this.outerBoard = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13], [0, 14],
+    [1, 14], [2, 14], [3, 14], [4, 14], [5, 14], [6, 14], [7, 14], [8, 14], [9, 14], [10, 14], [11, 14], [12, 14], [13, 14], [14, 14],];
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -300,11 +302,11 @@ export default class Startpage {
         this.board[y][x].tile = holder;
         this.placedTiles.push(holder);
         this.indexholder.push([y, x]);
-        console.log(this.indexholder);
 
         that.check = true;
         for (let i = 0; i < that.board.length; i++) {
           for (let j = 0; j < that.board.length; j++) {
+            if (i === 0 || i === 14 || j === 0 || j === 14) { continue; }
             if (that.board[i][j].tile !== undefined) {
               if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined &&
                 that.board[i][j - 1].tile === undefined && that.board[i - 1][j].tile === undefined && that.first !== 0) {
@@ -319,5 +321,6 @@ export default class Startpage {
       that.first++;
     });
   }
+
 
 }
