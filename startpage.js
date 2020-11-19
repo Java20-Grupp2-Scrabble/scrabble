@@ -10,6 +10,8 @@ export default class Startpage {
     this.count = 0;
     this.check = true;
     this.first = 0;
+    this.wordVert = '';
+    this.wordHoriz = '';
     this.placedTiles = [];
     this.indexholder = [];
     this.outerBoard = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13], [0, 14],
@@ -195,8 +197,11 @@ export default class Startpage {
     $('.next').click(function () {
       if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
+        that.collectWord();
+        console.log(that.wordVert);
         that.placedTiles = []
         that.indexholder = [];
+        that.wordVert = '';
         that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
@@ -285,6 +290,18 @@ export default class Startpage {
       this.render();
       that.first++;
     });
+  }
+
+  collectWord() {
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board.length; j++) {
+        if (this.board[i][j].tile !== undefined) {
+          if (this.board[i][j + 1].tile === undefined) {
+            this.wordVert += this.board[i][j].tile.char + ',';
+          } else { this.wordVert += this.board[i][j].tile.char; }
+        }
+      }
+    }
   }
 
 
