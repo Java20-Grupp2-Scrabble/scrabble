@@ -198,10 +198,10 @@ export default class Startpage {
       if (that.board[7][7].tile !== undefined && that.check === true) {
         $('.players').empty();
         that.collectWord();
-        console.log(that.wordVert);
+        console.log(that.wordHoriz);
         that.placedTiles = []
         that.indexholder = [];
-        that.wordVert = '';
+        that.wordHoriz = '';
         that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
@@ -332,11 +332,15 @@ export default class Startpage {
       for (let j = 0; j < this.board.length; j++) {
         if (this.board[i][j].tile !== undefined) {
           if (this.board[i][j + 1].tile === undefined) {
-            this.wordVert += this.board[i][j].tile.char + ',';
-          } else { this.wordVert += this.board[i][j].tile.char; }
+            this.wordHoriz += this.board[i][j].tile.char + ',';
+          } else { this.wordHoriz += this.board[i][j].tile.char; }
         }
       }
     }
+  }
+
+  collectWordVert() {
+
   }
 
 
