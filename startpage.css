@@ -78,10 +78,12 @@ body{
   margin: 0;
   top: 73%;
   left: 25%;
-
+  
   }
 
 .player1 , .player2, .player3, .player4{
+  color: white;
+  font-weight: bold;
   border-radius: 5px;
   text-align: center;
   height: 40px;
