@@ -177,7 +177,7 @@ export default class Startpage {
 
     // Render the players
     let that = this;
-    $('.players').append(`<div class="players-point">poäng: ${this.players[this.count].points}</div>`);
+    $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.count].points}</div>`);
     $players.append(this.players[this.count].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
@@ -185,7 +185,7 @@ export default class Startpage {
         $('.players').empty();
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
-        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
+        $('.players').append(`<div class="players-point"> ★ poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render());
         that.addEvents();
       } else {
@@ -204,8 +204,8 @@ export default class Startpage {
       that.collectWord();
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
       let valid = that.checkIfWordIsValid(that.wordHolder[that.wordHolder.length - 1]);
-      Promise.resolve(valid);
-      console.log(valid);
+      console.log((valid));
+
       if (that.board[7][7].tile !== undefined && that.check === true && valid) {
         $('.players').empty();
         that.placedTiles = [];
@@ -389,6 +389,12 @@ export default class Startpage {
 
   async checkIfWordIsValid(word) {
     let test = await SAOLchecker.scrabbleOk(word);
+    if (test == true) {
+      true;
+    }
+    else {
+      false;
+    }
     return Promise.resolve(test);
   }
 }
