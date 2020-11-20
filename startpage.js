@@ -15,6 +15,7 @@ export default class Startpage {
     this.placedTiles = [];
     this.indexholder = [];
     this.wordHolder = [];
+    this.scoreHolder = [];
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -207,10 +208,14 @@ export default class Startpage {
       Promise.resolve(valid)
       console.log('här', valid);
       if (that.board[7][7].tile !== undefined && that.check === true && valid) {
+        let points = 0;
+        that.scoreHolder.forEach(x => points += (x + 0));
+        that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
         $('.players').empty();
         that.placedTiles = [];
         that.indexholder = [];
+        that.scoreHolder = [];
         that.wordHoriz = '';
         that.wordVert = '';
         that.count++;
@@ -232,7 +237,7 @@ export default class Startpage {
       if (that.placedTiles.length !== 0) {
         that.players[that.count].tiles.push(...that.placedTiles);
         that.placedTiles = [];
-
+        that.scoreHolder = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         //that.board[that.indexholder[0][0]][that.indexholder[0][1]].tile = '';
         that.render();
@@ -317,6 +322,7 @@ export default class Startpage {
         let holder = this.players[that.count].tiles.splice(tileIndex, 1)[0];
         this.board[y][x].tile = holder;
         this.placedTiles.push(holder);
+        this.scoreHolder.push(holder.points);
         this.indexholder.push([y, x]);
 
         that.check = true;
