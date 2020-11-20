@@ -230,8 +230,7 @@ export default class Startpage {
 
     $('body').append('<button class="swap">Byt ut</button>');
     $('.swap').click(function () {
-
-
+      // Fuction for swap tiles that you placed on board. They will be removed and you will get new ones. 
     });
 
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
