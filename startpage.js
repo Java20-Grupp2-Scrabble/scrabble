@@ -33,7 +33,7 @@ export default class Startpage {
     console.table(this.players);
     // render the board + players
 
-    let helpBtn = $('<button class="helpBtn">?</button>');
+    let helpBtn = $('<button class="helpBtn">?<span class="tooltiptext">extra hjälp om spelet</span></button>');
     $('body').append(helpBtn);
 
     let infoDiv = $('<div class="info-popup"></div>');
