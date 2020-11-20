@@ -14,8 +14,7 @@ export default class Startpage {
     this.wordHoriz = '';
     this.placedTiles = [];
     this.indexholder = [];
-    this.outerBoard = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13], [0, 14],
-    [1, 14], [2, 14], [3, 14], [4, 14], [5, 14], [6, 14], [7, 14], [8, 14], [9, 14], [10, 14], [11, 14], [12, 14], [13, 14], [14, 14],];
+    this.wordHolder = [];
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -205,8 +204,8 @@ export default class Startpage {
         $('.players').empty();
         that.collectWordVert();
         that.collectWord();
-        console.log('HORIZ: ', that.wordHoriz);
-        console.log('VERT: ', that.wordVert);
+        that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
+        console.log(that.wordHolder);
         that.placedTiles = []
         that.indexholder = [];
         that.wordHoriz = '';
@@ -364,6 +363,18 @@ export default class Startpage {
             this.wordVert += this.board[i][j].tile.char;
           }
         }
+      }
+    }
+  }
+
+  makeCollectedWordsToArray(x, y) {
+    let a = x.split(',');
+    let b = y.split(',');
+    this.wordHolder.push(...a);
+    this.wordHolder.push(...b);
+    for (let i = 0; i < this.wordHolder.length; i++) {
+      if (this.wordHolder[i] === '') {
+        this.wordHolder.splice(i, 1);
       }
     }
   }
