@@ -163,7 +163,7 @@ export default class Startpage {
   }
 
   render() {
-    $('.board, .players, .next').remove();
+    $('.board, .players, .next, .swap').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     // Render the board
@@ -225,6 +225,13 @@ export default class Startpage {
         $players.append(that.players[that.count].render());
         that.addEvents();
       }
+    });
+
+
+    $('body').append('<button class="swap">Byt ut</button>');
+    $('.swap').click(function () {
+
+
     });
 
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
