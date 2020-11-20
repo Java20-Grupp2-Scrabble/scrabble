@@ -199,13 +199,14 @@ export default class Startpage {
 
 
     $('body').append('<button class="next">Spela drag</button>');
-    $('.next').click(function () {
+    $('.next').click(async function () {
       that.collectWordVert();
       that.collectWord();
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
-      //let valid = that.checkIfWordIsValid(that.wordHolder[that.wordHolder.length - 1]);
-      //console.log('här', Promise.resolve(valid));
-      if (that.board[7][7].tile !== undefined && that.check === true) {
+      let valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
+      Promise.resolve(valid)
+      console.log('här', valid);
+      if (that.board[7][7].tile !== undefined && that.check === true && valid) {
         that.players[that.count].pushTiles(that.placedTiles.length);
         $('.players').empty();
         that.placedTiles = [];
@@ -384,12 +385,7 @@ export default class Startpage {
         this.wordHolder.splice(i, 1);
       }
     }
-    //return this.wordHolder;
+
   }
 
-  async checkIfWordIsValid(word) {
-    let test = await SAOLchecker.scrabbleOk(word);
-
-    return test;
-  }
 }
