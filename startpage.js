@@ -205,8 +205,7 @@ export default class Startpage {
       that.collectWord();
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
       let valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
-      Promise.resolve(valid)
-      console.log('här', valid);
+      Promise.resolve(valid);
       if (that.board[7][7].tile !== undefined && that.check === true && valid) {
         let points = 0;
         that.scoreHolder.forEach(x => points += (x + 0));
