@@ -224,7 +224,7 @@ export default class Startpage {
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
     console.log(currentPlayerTiles); */
 
-    $('body').append('<button class="undo-btn">Undo</div>');
+    $('body').append('<button class="undo-btn">Ångra</div>');
 
     $('.undo-btn').click(function () {
       if (that.placedTiles.length !== 0) {
