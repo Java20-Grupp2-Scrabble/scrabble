@@ -161,7 +161,7 @@ export default class Startpage {
     return this.tiles.splice(0, howMany);
   }
 
-  async render() {
+  render() {
     $('.board, .players, .next').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
@@ -203,10 +203,10 @@ export default class Startpage {
       that.collectWordVert();
       that.collectWord();
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
-      let valid = that.checkIfWordIsValid(that.wordHolder[that.wordHolder.length - 1]);
-      Promise.resolve(valid);
-      console.log(valid);
-      if (that.board[7][7].tile !== undefined && that.check === true && valid) {
+      //let valid = that.checkIfWordIsValid(that.wordHolder[that.wordHolder.length - 1]);
+      //console.log('här', Promise.resolve(valid));
+      if (that.board[7][7].tile !== undefined && that.check === true) {
+        that.players[that.count].pushTiles(that.placedTiles.length);
         $('.players').empty();
         that.placedTiles = [];
         that.indexholder = [];
@@ -389,6 +389,7 @@ export default class Startpage {
 
   async checkIfWordIsValid(word) {
     let test = await SAOLchecker.scrabbleOk(word);
-    return Promise.resolve(test);
+
+    return test;
   }
 }

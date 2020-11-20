@@ -11,6 +11,11 @@ export default class Player {
     return this.tiles;
   }
 
+  pushTiles(x) {
+    this.tiles.push(...this.game.getTiles(x));
+    this.render();
+  }
+
   render() {
     let that = this;
     return `<div class="stand">
