@@ -161,7 +161,7 @@ export default class Startpage {
     return this.tiles.splice(0, howMany);
   }
 
-  render() {
+  async render() {
     $('.board, .players, .next').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
@@ -200,13 +200,15 @@ export default class Startpage {
 
     $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(function () {
-      if (that.board[7][7].tile !== undefined && that.check === true) {
+      that.collectWordVert();
+      that.collectWord();
+      that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
+      let valid = that.checkIfWordIsValid(that.wordHolder[that.wordHolder.length - 1]);
+      Promise.resolve(valid);
+      console.log(valid);
+      if (that.board[7][7].tile !== undefined && that.check === true && valid) {
         $('.players').empty();
-        that.collectWordVert();
-        that.collectWord();
-        that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
-        console.log(that.wordHolder);
-        that.placedTiles = []
+        that.placedTiles = [];
         that.indexholder = [];
         that.wordHoriz = '';
         that.wordVert = '';
@@ -368,16 +370,25 @@ export default class Startpage {
   }
 
   makeCollectedWordsToArray(x, y) {
-    let a = x.split(',');
-    let b = y.split(',');
-    this.wordHolder.push(...a);
-    this.wordHolder.push(...b);
+
+    if (x.length !== 0) {
+      let a = x.split(',');
+      this.wordHolder.push(...a);
+    }
+    if (y.length !== 0) {
+      let b = y.split(',');
+      this.wordHolder.push(...b);
+    }
     for (let i = 0; i < this.wordHolder.length; i++) {
-      if (this.wordHolder[i] === '') {
+      if (this.wordHolder[i].length === 0) {
         this.wordHolder.splice(i, 1);
       }
     }
+    //return this.wordHolder;
   }
 
-
+  async checkIfWordIsValid(word) {
+    let test = await SAOLchecker.scrabbleOk(word);
+    return Promise.resolve(test);
+  }
 }
