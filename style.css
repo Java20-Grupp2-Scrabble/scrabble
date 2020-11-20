@@ -7,7 +7,7 @@ body {
 }
 
 .board {
-  border: 10px solid #245a4c;
+  border: 10px solid #5e2222;
   border-radius: 3px;
   display: inline-block;
 }
@@ -32,6 +32,10 @@ body {
   background-color: rgb(94, 34, 34);
   padding: 10px;
   width: 53vh;
+
+  border: 2px solid black;
+  border-radius: 5px;
+ 
 }
 
 .stand::after {
@@ -62,47 +66,51 @@ body {
 }
 
 .pname{
+  
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
   position: absolute;
-  top: 0.1%;
+  top: -3%;
   left: 0;
   margin-bottom: 20px; 
 }
 
-.pass{
-  position: absolute;
-  background-color: saddlebrown;
-  width: 90px;
-  height: 50px;
-  top: 17%;
-  left: 78.3%;
-  border-radius: 5px;
-}
 .next{
+  font-size: 17px;
   position: absolute;
   background-color: saddlebrown;
-  width: 90px;
-  height: 50px;
+  width: 7%;
+  height: 6%;
   top: 17%;
-  left: 71.3%;
+  left: 69.3%;
   border-radius: 5px;
+  
 }
 
-/*
-Undo button styling
-*/
+.pass{
+  font-size: 17px;
+  position: absolute;
+  background-color: saddlebrown;
+  width: 7%;
+  height: 6%;
+  top: 17%;
+  left: 80.5%;
+  border-radius: 5px;
+}
 
 .undo-btn {
+  font-size: 17px;
   position: absolute;
+  color: black;
   background-color: saddlebrown;
-  width: 90px;
-  height: 50px;
+  width: 7%;
+  height: 6%;
   top: 17%;
-  left: 90%;
+  left: 92%;
+  border-radius: 5px;
 }
 .undo-btn:hover {
-color: white;
+color: rgb(255, 255, 255);
 cursor: pointer;
 }
 
@@ -253,16 +261,16 @@ cursor: pointer;
 
 
 .board > div.special-red {
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.863);
 }
 .board > div.special-orange {
-  background-color: rgb(255, 179, 0);
+  background-color: rgba(255, 179, 0, 0.897);
 }
 .board > div.special-lightblue {
   background-color: lightblue;
 }
 .board > div.special-blue {
-  background-color: blue;
+  background-color: rgba(0, 28, 189, 0.918);
 }
 .board > div.special-middle {
   background-color: gold;
