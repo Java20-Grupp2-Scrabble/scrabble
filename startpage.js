@@ -208,6 +208,7 @@ export default class Startpage {
       Promise.resolve(valid);
       if (that.board[7][7].tile !== undefined && that.check === true && valid) {
         let points = 0;
+        console.log(that.checkIfOnlyOneWord());
         that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
@@ -396,6 +397,40 @@ export default class Startpage {
       if (this.wordHolder[i].length === 0) {
         this.wordHolder.splice(i, 1);
       }
+    }
+
+  }
+
+  checkIfOnlyOneWord() {
+    let temp = this.indexholder[0][0];
+    let temp1 = this.indexholder[0][1];
+    let count = 0;
+    let count1 = 0;
+    for (let i = 0; i < this.indexholder.length; i++) {
+      if (temp === this.indexholder[i][0]) {
+        let a = this.indexholder[i][0];
+        let b = this.indexholder[i][1];
+        if (this.board[a][b + 1].tile === undefined && this.board[a][b - 1].tile === undefined) {
+          continue;
+        } else {
+          count++;
+        }
+      }
+    }
+
+    for (let i = 0; i < this.indexholder.length; i++) {
+      if (temp1 === this.indexholder[i][1]) {
+        count1++;
+      }
+    }
+    if (count === this.indexholder.length || count1 === this.indexholder.length) {
+      console.log('c', count);
+      console.log('c1', count1);
+      return true;
+    } else {
+      console.log('c', count);
+      console.log('c1', count1);
+      return false;
     }
 
   }
