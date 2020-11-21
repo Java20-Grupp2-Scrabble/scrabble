@@ -32,7 +32,6 @@ body {
   background-color: rgb(94, 34, 34);
   padding: 10px;
   width: 53vh;
-
   border: 2px solid black;
   border-radius: 5px;
  
@@ -102,13 +101,17 @@ body {
 .swap{
   color: white;
   font-size: 17px;
-  position: absolute;
+  position: fixed;
   background-color: #5e2222;
   width: 7%;
   height: 6%;
   top: 17%;
   left: 77%;
   border-radius: 5px;
+}
+.swap:hover {
+color: rgb(0, 197, 171);
+cursor: pointer;
 }
 
 .undo-btn {
@@ -146,12 +149,14 @@ cursor: pointer;
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  position: absolute;
-  right: 530px;
+  position: fixed;
+  right: 9%;
+  top: 90.8%;
   font-family: 'Oswald';
   font-size: 20px;
   cursor: pointer;
   outline: none;
+  background-color: #8b45138f;
 }
 
 .helpBtn:hover {
@@ -163,8 +168,8 @@ cursor: pointer;
   height: 400px;
   background-color: rgb(189, 188, 188);
   position: absolute;
-  top: 150px;
-  left: 410px;
+  top: 250px;
+  left: 1000px;
   border-radius: 10px;
   border: 2px solid rgb(124, 123, 123);
   display: none;
@@ -209,7 +214,7 @@ cursor: pointer;
   top: 92%;
   position: absolute; 
   border-radius: 5px;
-  background-color: rgba(139, 69, 19, 0.562);
+  background-color: #8b45138f;
   width: 6%;
   height: 3%;
 }
@@ -339,4 +344,37 @@ cursor: pointer;
 }
 
 
+/* CSS for the whole tooltip design */
+.helpBtn .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: rgba(85, 85, 85, 0.63);
+  color: rgba(255, 255, 255, 0.747);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 5%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 15px;
+}
 
+.helpBtn .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.helpBtn:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
