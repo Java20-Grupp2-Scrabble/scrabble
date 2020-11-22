@@ -403,17 +403,17 @@ export default class Startpage {
   checkIfOnlyOneWord() {
     let temp = this.indexholder[0][0];
     let temp1 = this.indexholder[0][1];
+    let end = this.indexholder[this.indexholder.length - 1][1];
+    let end1 = this.indexholder[this.indexholder.length - 1][0];
     let count = 0;
     let count1 = 0;
+    let check;
+    let check1;
+
+
     for (let i = 0; i < this.indexholder.length; i++) {
       if (temp === this.indexholder[i][0]) {
-        let a = this.indexholder[i][0];
-        let b = this.indexholder[i][1];
-        if (this.board[a][b + 1].tile === undefined && this.board[a][b - 1].tile === undefined) {
-          continue;
-        } else {
-          count++;
-        }
+        count++;
       }
     }
 
@@ -421,15 +421,28 @@ export default class Startpage {
       if (temp1 === this.indexholder[i][1]) {
         count1++;
       }
+
     }
-    if (count === this.indexholder.length || count1 === this.indexholder.length) {
-      console.log('c', count);
-      console.log('c1', count1);
-      return true;
+    if (count === this.indexholder.length) {
+      for (let i = temp1; i <= end; i++) {
+        if (this.board[temp][i].tile === undefined) {
+          check = true;
+        }
+      }
+    }
+
+    if (count1 === this.indexholder.length) {
+      for (let i = temp; i <= end1; i++) {
+        if (this.board[i][temp1].tile === undefined) {
+          check1 = true;
+        }
+      }
+    }
+
+    if (check || check1) {
+      console.log('FALSKT');
     } else {
-      console.log('c', count);
-      console.log('c1', count1);
-      return false;
+      console.log('RÄTT');
     }
 
   }
