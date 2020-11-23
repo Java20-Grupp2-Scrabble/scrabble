@@ -206,9 +206,8 @@ export default class Startpage {
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
       let valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
       Promise.resolve(valid);
-      if (that.board[7][7].tile !== undefined && that.check === true && valid) {
+      if (that.board[7][7].tile !== undefined && that.check === true && valid && that.checkIfOnlyOneWord()) {
         let points = 0;
-        console.log(that.checkIfOnlyOneWord());
         that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
@@ -401,15 +400,33 @@ export default class Startpage {
   }
 
   checkIfOnlyOneWord() {
+
+    this.indexholder.sort(function (a, b) {
+      if (a[0] === b[0]) {
+        return 0;
+      }
+      else {
+        return (a[0] < b[0]) ? -1 : 1;
+      }
+    });
+
+    this.indexholder.sort(function (a, b) {
+      if (a[1] === b[1]) {
+        return 0;
+      }
+      else {
+        return (a[1] < b[1]) ? -1 : 1;
+      }
+    });
+
     let temp = this.indexholder[0][0];
     let temp1 = this.indexholder[0][1];
     let end = this.indexholder[this.indexholder.length - 1][1];
     let end1 = this.indexholder[this.indexholder.length - 1][0];
     let count = 0;
     let count1 = 0;
-    let check;
-    let check1;
-
+    let check = false;
+    let check1 = false;
 
     for (let i = 0; i < this.indexholder.length; i++) {
       if (temp === this.indexholder[i][0]) {
@@ -422,27 +439,38 @@ export default class Startpage {
         count1++;
       }
 
+
     }
     if (count === this.indexholder.length) {
       for (let i = temp1; i <= end; i++) {
         if (this.board[temp][i].tile === undefined) {
+          check = false;
+          break;
+        } else {
           check = true;
         }
       }
+    } else {
+      check = false;
     }
 
     if (count1 === this.indexholder.length) {
       for (let i = temp; i <= end1; i++) {
         if (this.board[i][temp1].tile === undefined) {
+          check1 = false;
+          break;
+        } else {
           check1 = true;
         }
       }
+    } else {
+      check1 = false;
     }
 
-    if (check || check1) {
-      console.log('FALSKT');
+    if (check === false && check1 === false) {
+      return false;
     } else {
-      console.log('RÄTT');
+      return true;
     }
 
   }
