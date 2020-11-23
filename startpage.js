@@ -331,17 +331,7 @@ export default class Startpage {
         this.indexholder.push([y, x]);
 
         that.check = true;
-        for (let i = 0; i < that.board.length; i++) {
-          for (let j = 0; j < that.board.length; j++) {
-            if (i === 0 || i === 14 || j === 0 || j === 14) { continue; }
-            if (that.board[i][j].tile !== undefined) {
-              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined &&
-                that.board[i][j - 1].tile === undefined && that.board[i - 1][j].tile === undefined && that.first !== 0) {
-                that.check = false;
-              }
-            }
-          }
-        }
+        that.checkTileOnBoard();
 
       }
       this.render();
@@ -375,6 +365,20 @@ export default class Startpage {
             }
           } else {
             this.wordVert += this.board[i][j].tile.char;
+          }
+        }
+      }
+    }
+  }
+
+  checkTileOnBoard() {
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board.length; j++) {
+        if (i === 0 || i === 14 || j === 0 || j === 14) { continue; }
+        if (this.board[i][j].tile !== undefined) {
+          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
+            this.board[i][j - 1].tile === undefined && this.board[i - 1][j].tile === undefined && this.first !== 0) {
+            this.check = false;
           }
         }
       }
