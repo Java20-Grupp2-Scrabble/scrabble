@@ -218,6 +218,7 @@ export default class Startpage {
         for (let i = 0; i < that.wordHolder.length; i++) {
           if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
           else {
+            console.log(that.wordHolder[i]);
             that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[i]);
             Promise.resolve(that.valid)
             if (that.valid === false) {
@@ -481,7 +482,7 @@ export default class Startpage {
     if (x.length !== 0) {
       let a = x.split(',');
       for (let i = 0; i < a.length; i++) {
-        if (a[i].includes('undefined' || a[i] === '')) {
+        if (a[i] === '') {
           continue;
         } else {
           this.wordHolder.push(a[i]);
@@ -491,7 +492,7 @@ export default class Startpage {
     if (y.length !== 0) {
       let b = y.split(',');
       for (let i = 0; i < b.length; i++) {
-        if (b[i].includes('undefined' || b[i] === '')) {
+        if (b[i] === '') {
           continue;
         } else {
           this.wordHolder.push(b[i]);
