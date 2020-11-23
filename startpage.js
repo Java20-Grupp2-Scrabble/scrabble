@@ -237,9 +237,16 @@ export default class Startpage {
         that.placedTiles = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.players[that.count].pushTiles(that.indexholder.length);
+        $('.players').empty();
+        that.placedTiles = [];
         that.indexholder = [];
-        that.scoreHolder = [];
+        that.count++;
         that.render();
+        if (that.count === that.players.length) {
+          that.count = 0;
+        }
+        $players.append(that.players[that.count].render(0));
+        that.addEvents();
       }
     });
 
