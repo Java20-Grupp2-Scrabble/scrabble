@@ -194,6 +194,7 @@ export default class Startpage {
         that.placedTiles = [];
 
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
+        that.indexholder = [];
         that.render();
       }
     });
