@@ -195,6 +195,7 @@ export default class Startpage {
 
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
+        that.scoreHolder = [];
         that.render();
       }
     });
@@ -237,6 +238,7 @@ export default class Startpage {
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.players[that.count].pushTiles(that.indexholder.length);
         that.indexholder = [];
+        that.scoreHolder = [];
         that.render();
       }
     });
