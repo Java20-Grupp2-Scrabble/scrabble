@@ -166,9 +166,7 @@ export default class Startpage {
     $('.board, .players, .next, .swap').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
-    // Render the board
-    // (will be more code when we know how to represent 
-    //  the special squares)
+    $('body').append('<div class="invalid"></div>');
     $board.html(this.board.flat().map(x => `
     <div class="${x.special ? 'special-' + x.special : ''}">
     ${x.tile ? `<div class="tile">${x.tile.char}</div>` : ''}
@@ -227,6 +225,8 @@ export default class Startpage {
         $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render(2));
         that.addEvents();
+      } else {
+        //$('.invalid').slideToggle("slow");
       }
     });
 
