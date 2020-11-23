@@ -17,6 +17,7 @@ export default class Startpage {
     this.wordHolder = [];
     this.scoreHolder = [];
     this.valid = false;
+    this.checker = true;
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -164,6 +165,7 @@ export default class Startpage {
   }
 
   render() {
+
     $('.board, .players, .next, .swap').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
@@ -205,19 +207,30 @@ export default class Startpage {
 
     $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(async function () {
+      that.checker = true;
       that.wordHolder = [];
       that.wordHoriz = '';
       that.wordVert = '';
-      that.collectWordVert();
       that.collectWord();
-      that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
+      that.collectWordVert();
+      that.makeCollectedWordsToArray(that.wordVert, that.wordHoriz);
       if (that.wordHolder.length !== 0) {
-        that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
-        Promise.resolve(that.valid);
+        for (let i = 0; i < that.wordHolder.length; i++) {
+          if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
+          else {
+            that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[i]);
+            Promise.resolve(that.valid)
+            if (that.valid === false) {
+              that.checker = false;
+              break;
+            }
+          }
+        }
       }
 
-      if (that.board[7][7].tile !== undefined && that.check === true && that.valid && that.checkIfOnlyOneWord()) {
-        console.log(that.wordHolder[that.wordHolder.length - 1]);
+      if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord()) {
+        that.checker = true;
+        console.log(that.wordHolder);
         $('.invalid').hide();
         let points = 0;
         that.scoreHolder.forEach(x => points += (x + 0));
@@ -278,8 +291,7 @@ export default class Startpage {
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
         that.wordHolder = [];
-        that.wordHoriz = '';
-        that.wordVert = '';
+
         that.render();
       }
     });
@@ -468,16 +480,31 @@ export default class Startpage {
 
   makeCollectedWordsToArray(x, y) {
 
+
     if (x.length !== 0) {
       let a = x.split(',');
-      this.wordHolder.push(...a);
+      for (let i = 0; i < a.length; i++) {
+        if (a[i].includes('undefined' || a[i] === '')) {
+          continue;
+        } else {
+          this.wordHolder.push(a[i]);
+        }
+      }
     }
     if (y.length !== 0) {
       let b = y.split(',');
-      this.wordHolder.push(...b);
+      for (let i = 0; i < b.length; i++) {
+        if (b[i].includes('undefined' || b[i] === '')) {
+          continue;
+        } else {
+          this.wordHolder.push(b[i]);
+        }
+      }
     }
+
+
     for (let i = 0; i < this.wordHolder.length; i++) {
-      if (this.wordHolder[i].length === 0) {
+      if (this.wordHolder[i] === '') {
         this.wordHolder.splice(i, 1);
       }
     }
