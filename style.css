@@ -345,7 +345,7 @@ cursor: pointer;
 
 
 /* CSS for the whole tooltip design */
-.helpBtn .tooltiptext {
+.swap .tooltiptext {
   visibility: hidden;
   width: 150px;
   background-color: rgba(85, 85, 85, 0.63);
@@ -355,26 +355,27 @@ cursor: pointer;
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 5%;
+  bottom: -120%;
+  left: 34%;
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 15px;
 }
 
-.helpBtn .tooltiptext::after {
-  content: "";
+.swap .tooltiptext::after {
+  content: " ";
   position: absolute;
-  top: 100%;
+  bottom: 100%;  
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  border-color: transparent transparent black transparent;
 }
 
-.helpBtn:hover .tooltiptext {
+
+.swap:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
 }
