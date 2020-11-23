@@ -375,11 +375,57 @@ export default class Startpage {
   checkTileOnBoard() {
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board.length; j++) {
-        if (i === 0 || i === 14 || j === 0 || j === 14) { continue; }
-        if (this.board[i][j].tile !== undefined) {
+        if (i > 0 && i < 14 && j === 0 && this.board[i][j].tile !== undefined) {
           if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
-            this.board[i][j - 1].tile === undefined && this.board[i - 1][j].tile === undefined && this.first !== 0) {
+            this.board[i - 1][j].tile === undefined && this.first !== 0) {
             this.check = false;
+          }
+        }
+        else if (i === 0 && j > 0 && j < 14 && this.board[i][j].tile !== undefined) {
+          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
+            this.board[i][j - 1].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else if (i > 0 && i < 14 && j === 14 && this.board[i][j].tile !== undefined) {
+          if (this.board[i + 1][j].tile === undefined && this.board[i - 1][j].tile === undefined &&
+            this.board[i][j - 1].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else if (j > 0 && j < 14 && i === 14 && this.board[i][j].tile !== undefined) {
+          if (this.board[i][j + 1].tile === undefined && this.board[i][j - 1].tile === undefined &&
+            this.board[i - 1][j].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else if (i === 0 && j === 0 && this.board[i][j].tile !== undefined) {
+          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else if (i === 14 && j === 0 && this.board[i][j].tile !== undefined) {
+          if (this.board[i - 1][j].tile === undefined && this.board[i][j + 1].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else if (i === 14 && j === 14 && this.board[i][j].tile !== undefined) {
+          if (this.board[i - 1][j].tile === undefined && this.board[i][j - 1].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else if (i === 0 && j === 14 && this.board[i][j].tile !== undefined) {
+          if (this.board[i + 1][j].tile === undefined && this.board[i][j - 1].tile === undefined && this.first !== 0) {
+            this.check = false;
+          }
+        }
+        else {
+          if (this.board[i][j].tile !== undefined) {
+            if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
+              this.board[i][j - 1].tile === undefined && this.board[i - 1][j].tile === undefined && this.first !== 0) {
+              this.check = false;
+
+            }
           }
         }
       }
