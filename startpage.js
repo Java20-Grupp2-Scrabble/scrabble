@@ -238,7 +238,6 @@ export default class Startpage {
         that.indexholder = [];
         that.render();
       }
-
     });
 
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
