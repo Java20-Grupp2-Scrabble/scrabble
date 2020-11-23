@@ -245,6 +245,7 @@ export default class Startpage {
         that.scoreHolder = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         //that.board[that.indexholder[0][0]][that.indexholder[0][1]].tile = '';
+        that.indexholder = [];
         that.render();
       }
     });
