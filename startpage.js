@@ -206,8 +206,9 @@ export default class Startpage {
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
       let valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
       Promise.resolve(valid);
-      if (that.board[7][7].tile !== undefined && that.check === true && valid && that.checkIfOnlyOneWord()) {
+      if (that.board[7][7].tile !== undefined && that.check === true && valid) {
         let points = 0;
+        console.log(that.checkIfOnlyOneWord());
         that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
@@ -222,7 +223,7 @@ export default class Startpage {
           that.count = 0;
         }
         $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
-        $players.append(that.players[that.count].render());
+        $players.append(that.players[that.count].render(2));
         that.addEvents();
       }
     });
@@ -230,7 +231,14 @@ export default class Startpage {
 
     $('body').append('<button class="swap">Byt ut</button>');
     $('.swap').click(function () {
-      // Fuction for swap tiles that you placed on board. They will be removed and you will get new ones. 
+      if (that.placedTiles.length !== 0) {
+        that.placedTiles = [];
+        that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
+        that.players[that.count].pushTiles(that.indexholder.length);
+        that.indexholder = [];
+        that.render();
+      }
+
     });
 
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
@@ -244,8 +252,6 @@ export default class Startpage {
         that.placedTiles = [];
         that.scoreHolder = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
-        //that.board[that.indexholder[0][0]][that.indexholder[0][1]].tile = '';
-        that.indexholder = [];
         that.render();
       }
     });
@@ -332,7 +338,17 @@ export default class Startpage {
         this.indexholder.push([y, x]);
 
         that.check = true;
-        that.checkTileOnBoard();
+        for (let i = 0; i < that.board.length; i++) {
+          for (let j = 0; j < that.board.length; j++) {
+            if (i === 0 || i === 14 || j === 0 || j === 14) { continue; }
+            if (that.board[i][j].tile !== undefined) {
+              if (that.board[i + 1][j].tile === undefined && that.board[i][j + 1].tile === undefined &&
+                that.board[i][j - 1].tile === undefined && that.board[i - 1][j].tile === undefined && that.first !== 0) {
+                that.check = false;
+              }
+            }
+          }
+        }
 
       }
       this.render();
@@ -372,20 +388,6 @@ export default class Startpage {
     }
   }
 
-  checkTileOnBoard() {
-    for (let i = 0; i < this.board.length; i++) {
-      for (let j = 0; j < this.board.length; j++) {
-        if (i === 0 || i === 14 || j === 0 || j === 14) { continue; }
-        if (this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
-            this.board[i][j - 1].tile === undefined && this.board[i - 1][j].tile === undefined && this.first !== 0) {
-            this.check = false;
-          }
-        }
-      }
-    }
-  }
-
   makeCollectedWordsToArray(x, y) {
 
     if (x.length !== 0) {
@@ -405,33 +407,15 @@ export default class Startpage {
   }
 
   checkIfOnlyOneWord() {
-
-    this.indexholder.sort(function (a, b) {
-      if (a[0] === b[0]) {
-        return 0;
-      }
-      else {
-        return (a[0] < b[0]) ? -1 : 1;
-      }
-    });
-
-    this.indexholder.sort(function (a, b) {
-      if (a[1] === b[1]) {
-        return 0;
-      }
-      else {
-        return (a[1] < b[1]) ? -1 : 1;
-      }
-    });
-
     let temp = this.indexholder[0][0];
     let temp1 = this.indexholder[0][1];
     let end = this.indexholder[this.indexholder.length - 1][1];
     let end1 = this.indexholder[this.indexholder.length - 1][0];
     let count = 0;
     let count1 = 0;
-    let check = false;
-    let check1 = false;
+    let check;
+    let check1;
+
 
     for (let i = 0; i < this.indexholder.length; i++) {
       if (temp === this.indexholder[i][0]) {
@@ -444,38 +428,27 @@ export default class Startpage {
         count1++;
       }
 
-
     }
     if (count === this.indexholder.length) {
       for (let i = temp1; i <= end; i++) {
         if (this.board[temp][i].tile === undefined) {
-          check = false;
-          break;
-        } else {
           check = true;
         }
       }
-    } else {
-      check = false;
     }
 
     if (count1 === this.indexholder.length) {
       for (let i = temp; i <= end1; i++) {
         if (this.board[i][temp1].tile === undefined) {
-          check1 = false;
-          break;
-        } else {
           check1 = true;
         }
       }
-    } else {
-      check1 = false;
     }
 
-    if (check === false && check1 === false) {
-      return false;
+    if (check || check1) {
+      console.log('FALSKT');
     } else {
-      return true;
+      console.log('RÄTT');
     }
 
   }
