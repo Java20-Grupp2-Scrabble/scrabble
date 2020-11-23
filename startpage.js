@@ -16,6 +16,7 @@ export default class Startpage {
     this.indexholder = [];
     this.wordHolder = [];
     this.scoreHolder = [];
+    this.valid = false;
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -194,6 +195,9 @@ export default class Startpage {
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
         that.scoreHolder = [];
+        that.wordHolder = [];
+        that.wordHoriz = '';
+        that.wordVert = '';
         that.render();
       }
     });
@@ -201,14 +205,21 @@ export default class Startpage {
 
     $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(async function () {
+      that.wordHolder = [];
+      that.wordHoriz = '';
+      that.wordVert = '';
       that.collectWordVert();
       that.collectWord();
       that.makeCollectedWordsToArray(that.wordHoriz, that.wordVert);
-      let valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
-      Promise.resolve(valid);
-      if (that.board[7][7].tile !== undefined && that.check === true && valid && that.checkIfOnlyOneWord()) {
+      if (that.wordHolder.length !== 0) {
+        that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[that.wordHolder.length - 1]);
+        Promise.resolve(that.valid);
+      }
+
+      if (that.board[7][7].tile !== undefined && that.check === true && that.valid && that.checkIfOnlyOneWord()) {
+        console.log(that.wordHolder[that.wordHolder.length - 1]);
+        $('.invalid').hide();
         let points = 0;
-        console.log(that.checkIfOnlyOneWord());
         that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
@@ -216,6 +227,7 @@ export default class Startpage {
         that.placedTiles = [];
         that.indexholder = [];
         that.scoreHolder = [];
+        that.wordHolder = [];
         that.wordHoriz = '';
         that.wordVert = '';
         that.count++;
@@ -226,7 +238,7 @@ export default class Startpage {
         $players.append(that.players[that.count].render(2));
         that.addEvents();
       } else {
-        //$('.invalid').slideToggle("slow");
+        $('.invalid').slideToggle("slow");
       }
     });
 
@@ -239,6 +251,9 @@ export default class Startpage {
         that.players[that.count].pushTiles(that.indexholder.length);
         that.indexholder = [];
         that.scoreHolder = [];
+        that.wordHolder = [];
+        that.wordHoriz = '';
+        that.wordVert = '';
         that.render();
       }
     });
@@ -255,6 +270,9 @@ export default class Startpage {
         that.scoreHolder = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
+        that.wordHolder = [];
+        that.wordHoriz = '';
+        that.wordVert = '';
         that.render();
       }
     });
