@@ -378,3 +378,21 @@ cursor: pointer;
   visibility: visible;
   opacity: 1;
 }
+
+.invalid{
+  background-color: rgba(255, 8, 8, 0.829);
+  z-index: 100;
+  width: 110px;
+  height: 28px;
+  border-radius: 10px;
+  position: absolute;
+  left: 69%;
+  bottom: 72%;
+  text-align: center;
+  display: none;
+}
+
+.invalid::after{
+  content: 'INVALID MOVE';
+  margin: 0;
+}
