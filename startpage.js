@@ -209,11 +209,11 @@ export default class Startpage {
     $('.next').click(async function () {
       that.checker = true;
       that.wordHolder = [];
-      that.wordHoriz = '';
-      that.wordVert = '';
       that.collectWord();
       that.collectWordVert();
       that.makeCollectedWordsToArray(that.wordVert, that.wordHoriz);
+      that.wordHoriz = '';
+      that.wordVert = '';
       if (that.wordHolder.length !== 0) {
         for (let i = 0; i < that.wordHolder.length; i++) {
           if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
@@ -227,11 +227,10 @@ export default class Startpage {
           }
         }
       }
-
+      console.log(that.check);
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord()) {
         that.checker = true;
         console.log(that.wordHolder);
-        $('.invalid').hide();
         let points = 0;
         that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
@@ -250,8 +249,6 @@ export default class Startpage {
         $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render(2));
         that.addEvents();
-      } else {
-        $('.invalid').slideToggle("slow");
       }
     });
 
@@ -291,7 +288,6 @@ export default class Startpage {
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
         that.wordHolder = [];
-
         that.render();
       }
     });
@@ -421,6 +417,7 @@ export default class Startpage {
   checkTileOnBoard() {
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board.length; j++) {
+        if (this.board[i][j].tile === '') { continue; }
         if (i > 0 && i < 14 && j === 0 && this.board[i][j].tile !== undefined) {
           if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
             this.board[i - 1][j].tile === undefined && this.first !== 0) {
