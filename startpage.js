@@ -215,11 +215,11 @@ export default class Startpage {
       that.makeCollectedWordsToArray(that.wordVert, that.wordHoriz);
       that.wordHoriz = '';
       that.wordVert = '';
+      console.log(that.wordHolder);
       if (that.wordHolder.length !== 0) {
         for (let i = 0; i < that.wordHolder.length; i++) {
           if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
           else {
-
             that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[i]);
             Promise.resolve(that.valid)
             if (that.valid === false) {
@@ -392,12 +392,17 @@ export default class Startpage {
   collectWord() {
     this.wordHoriz = '';
 
+
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board.length; j++) {
         if (this.board[i][j].tile === '') { continue; }
         if (this.board[i][j].tile !== undefined) {
           if (this.board[i][j + 1].tile === undefined || this.board[i][j + 1].tile === '') {
-            if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') { }
+            if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') {
+              if (this.firstRound) {
+                this.wordHoriz += this.board[i][j].tile.char + ',';
+              }
+            }
             else {
               this.wordHoriz += this.board[i][j].tile.char + ',';
             }
