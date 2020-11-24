@@ -23,17 +23,12 @@ export default class Startpage {
   async start(ammountOfPlayers, playernames) {
     this.createBoard();
     await this.tilesFromFile();
-    // console.table is a nice way
-    // to log arrays and objects
-    console.log(this.board);
-    console.table(this.tiles);
-    // create players
+
     this.players = [];
     for (let i = 1; i <= ammountOfPlayers; i++) {
       this.players.push(new Player(this, `${playernames[i - 1]}`));
     }
-    console.table(this.players);
-    // render the board + players
+
 
     let helpBtn = $('<button class="helpBtn">?</button>');
     $('body').append(helpBtn);
@@ -218,7 +213,7 @@ export default class Startpage {
         for (let i = 0; i < that.wordHolder.length; i++) {
           if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
           else {
-            console.log(that.wordHolder[i]);
+
             that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[i]);
             Promise.resolve(that.valid)
             if (that.valid === false) {
@@ -228,10 +223,10 @@ export default class Startpage {
           }
         }
       }
-      console.log(that.check);
+
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord()) {
-        that.checker = true;
         console.log(that.wordHolder);
+        that.checker = true;
         let points = 0;
         that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
