@@ -226,6 +226,7 @@ export default class Startpage {
 
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord()) {
         console.log(that.wordHolder);
+        $('.invalid').hide();
         that.checker = true;
         let points = 0;
         that.scoreHolder.forEach(x => points += (x + 0));
@@ -245,6 +246,8 @@ export default class Startpage {
         $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
         $players.append(that.players[that.count].render(2));
         that.addEvents();
+      } else {
+        $('.invalid').slideToggle("slow");
       }
     });
 
