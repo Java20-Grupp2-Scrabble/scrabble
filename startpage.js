@@ -16,8 +16,11 @@ export default class Startpage {
     this.indexholder = [];
     this.wordHolder = [];
     this.scoreHolder = [];
+    this.correctIndexHolder = [];
     this.valid = false;
     this.checker = true;
+    this.firstRound = true;
+    this.validTiles = true;
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -202,6 +205,9 @@ export default class Startpage {
 
     $('body').append('<button class="next">Spela drag</button>');
     $('.next').click(async function () {
+      if (!that.firstRound) {
+        that.checkIfConnected();
+      }
       that.checker = true;
       that.wordHolder = [];
       that.collectWord();
@@ -224,8 +230,9 @@ export default class Startpage {
         }
       }
 
-      if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord()) {
-        console.log(that.wordHolder);
+      if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
+        that.firstRound = false;
+        that.addNewIndex();
         $('.invalid').hide();
         that.checker = true;
         let points = 0;
@@ -595,19 +602,66 @@ export default class Startpage {
 
   }
 
-  checkIfConnected() {
-    //lastWord1 = horisontellt
-    //console.log('häääär', this.lastWord);
-    //console.log('hääär', this.lastWord1);
+  addNewIndex() {
+    this.correctIndexHolder = [];
 
-    /*for (let i = 0; i < this.board.length; i++){
-      for (let j = 0; j < this.board.length; j++){
-        if (this.board[i][j].tile !== undefined || this.board[i][j].tile !== '') {
-          
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board.length; j++) {
+        if (this.board[i][j].tile !== undefined) {
+          if (this.board[i][j].tile === '') { continue; }
+          this.correctIndexHolder.push([i, j]);
         }
       }
-    }*/
+    }
 
+  }
+
+  checkIfConnected() {
+
+    let rowPlus = [];
+    let rowMinus = [];
+    let collumPlus = [];
+    let collumMinus = [];
+
+    for (let i = 0; i < this.indexholder.length; i++) {
+      rowPlus.push([this.indexholder[i][0] + 1, this.indexholder[i][1]]);
+    }
+
+    for (let i = 0; i < this.indexholder.length; i++) {
+      rowMinus.push([this.indexholder[i][0] - 1, this.indexholder[i][1]]);
+    }
+
+    for (let i = 0; i < this.indexholder.length; i++) {
+      collumPlus.push([this.indexholder[i][0], this.indexholder[i][1] + 1]);
+    }
+
+    for (let i = 0; i < this.indexholder.length; i++) {
+      collumMinus.push([this.indexholder[i][0], this.indexholder[i][1] - 1]);
+    }
+
+
+    for (let i = 0; i < this.correctIndexHolder.length; i++) {
+      for (let j = 0; j < this.indexholder.length; j++) {
+        if (this.correctIndexHolder[i][0] === rowPlus[j][0] && this.correctIndexHolder[i][1] === rowPlus[j][1]) {
+          this.validTiles = true;
+          return true;
+        }
+        if (this.correctIndexHolder[i][0] === rowMinus[j][0] && this.correctIndexHolder[i][1] === rowMinus[j][1]) {
+          this.validTiles = true;
+          return true;
+        }
+        if (this.correctIndexHolder[i][0] === collumPlus[j][0] && this.correctIndexHolder[i][1] === collumPlus[j][1]) {
+          this.validTiles = true;
+          return true;
+        }
+        if (this.correctIndexHolder[i][0] === collumMinus[j][0] && this.correctIndexHolder[i][1] === collumMinus[j][1]) {
+          this.validTiles = true;
+          return true;
+        } else {
+          this.validTiles = false;
+        }
+      }
+    }
 
   }
 
