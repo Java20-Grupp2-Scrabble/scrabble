@@ -384,11 +384,14 @@ export default class Startpage {
   }
 
   collectWord() {
+    this.wordHoriz = '';
+
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board.length; j++) {
+        if (this.board[i][j].tile === '') { continue; }
         if (this.board[i][j].tile !== undefined) {
-          if (this.board[i][j + 1].tile === undefined) {
-            if (this.board[i][j - 1].tile === undefined) { }
+          if (this.board[i][j + 1].tile === undefined || this.board[i][j + 1].tile === '') {
+            if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') { }
             else {
               this.wordHoriz += this.board[i][j].tile.char + ',';
             }
@@ -399,11 +402,14 @@ export default class Startpage {
   }
 
   collectWordVert() {
+    this.wordVert = '';
+
     for (let j = 0; j < this.board.length; j++) {
       for (let i = 0; i < this.board.length; i++) {
+        if (this.board[i][j].tile === '') { continue; }
         if (this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined) {
-            if (this.board[i - 1][j].tile === undefined) { }
+          if (this.board[i + 1][j].tile === undefined || this.board[i + 1][j].tile === '') {
+            if (this.board[i - 1][j].tile === undefined || this.board[i - 1][j].tile === '') { }
             else {
               this.wordVert += this.board[i][j].tile.char + ',';
             }
@@ -482,9 +488,12 @@ export default class Startpage {
     if (x.length !== 0) {
       let a = x.split(',');
       for (let i = 0; i < a.length; i++) {
-        if (a[i] === '') {
+        if (a[i] === '' || a[i] === undefined) {
           continue;
         } else {
+          if (i === a.length - 2) {
+            this.lastWord = a[i];
+          }
           this.wordHolder.push(a[i]);
         }
       }
@@ -492,9 +501,12 @@ export default class Startpage {
     if (y.length !== 0) {
       let b = y.split(',');
       for (let i = 0; i < b.length; i++) {
-        if (b[i] === '') {
+        if (b[i] === '' || b[i] === undefined) {
           continue;
         } else {
+          if (i === b.length - 2) {
+            this.lastWord1 = b[i];
+          }
           this.wordHolder.push(b[i]);
         }
       }
@@ -582,6 +594,22 @@ export default class Startpage {
     } else {
       return true;
     }
+
+  }
+
+  checkIfConnected() {
+    //lastWord1 = horisontellt
+    //console.log('häääär', this.lastWord);
+    //console.log('hääär', this.lastWord1);
+
+    /*for (let i = 0; i < this.board.length; i++){
+      for (let j = 0; j < this.board.length; j++){
+        if (this.board[i][j].tile !== undefined || this.board[i][j].tile !== '') {
+          
+        }
+      }
+    }*/
+
 
   }
 
