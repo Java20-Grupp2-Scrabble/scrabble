@@ -260,7 +260,7 @@ export default class Startpage {
     });
 
 
-    $('body').append('<button class="swap">Byt ut<span class="tooltiptext">Lägg ut brickor du vill byta på brädet</span></button>');
+    $('body').append('<button class="swap">Byt ut<span class="tooltiptext">Lägg ut brickor du vill byta ut på brädet</span></button>');
     $('.swap').click(function () {
       if (that.placedTiles.length !== 0) {
         that.placedTiles = [];
@@ -271,15 +271,16 @@ export default class Startpage {
         that.indexholder = [];
         that.scoreHolder = [];
         that.wordHolder = [];
-        that.wordHoriz = '';
-        that.wordVert = '';
         that.render();
+        that.count++;
         if (that.count === that.players.length) {
           that.count = 0;
         }
         $players.append(that.players[that.count].render(0));
         that.addEvents();
+        that.render();
       }
+
     });
 
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
