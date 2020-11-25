@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald);
 
 body{
-   background-image: url(/back2dpic.jpg);
+   background-image: url(images/back2dpic.jpg);
    background-repeat: no-repeat;
    background-size: cover;
 }
@@ -12,7 +12,7 @@ body{
   display: ruby-base-container;
   
 
-    background-image:url("ClipartKey_1226540.png");
+    background-image:url("images/ClipartKey_1226540.png");
     background-repeat: no-repeat;
     background-size: contain;
     zoom: 0.5;  
