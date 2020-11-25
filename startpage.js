@@ -208,6 +208,7 @@ export default class Startpage {
       if (!that.firstRound) {
         that.checkIfConnected();
       }
+      that.countPoints();
       that.checker = true;
       that.wordHolder = [];
       that.collectWord();
@@ -221,7 +222,7 @@ export default class Startpage {
           if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
           else {
             that.valid = await SAOLchecker.scrabbleOk(that.wordHolder[i]);
-            Promise.resolve(that.valid)
+            Promise.resolve(that.valid);
             if (that.valid === false) {
               that.checker = false;
               break;
@@ -669,6 +670,36 @@ export default class Startpage {
       }
     }
 
+  }
+
+  countPoints() {
+
+    console.log('indexholder', this.indexholder);
+    console.log('placedtiles', this.placedTiles);
+
+    let points = 0;
+    this.placedTiles.forEach(x => {
+      points += x.points;
+    })
+
+    for (let i = 0; i < this.indexholder.length; i++) {
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
+
+      }
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
+        points = points * 2;
+      }
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'red') {
+        points = points * 3;
+      }
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'lightblue') {
+        points = this.placedTiles[i].points * 2;
+      }
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'blue') {
+        points = this.placedTiles[i].points * 3;
+      }
+    }
+    console.log(points);
   }
 
 }
