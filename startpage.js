@@ -94,7 +94,7 @@ export default class Startpage {
     </div>
     `);
 
-
+    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append(startTitle);
     $('body').append(startDiv);
     $('.start-button').click(function () {

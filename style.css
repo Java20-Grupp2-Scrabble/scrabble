@@ -246,8 +246,8 @@ cursor: pointer;
   position: relative;
   width: 6vh;
   height: 6vh;
-  background-color: rgb(180, 180, 180);
-  border: 1px solid #000;
+  background-color: rgb(255, 235, 224);
+  border: 1px solid rgb(0, 0, 0);
   float: left;
 }
 
@@ -292,16 +292,16 @@ cursor: pointer;
 
 
 .board > div.special-red {
-  background-color: rgba(255, 122, 122, 0.863);
+  background-color: rgb(255, 122, 122);
 }
 .board > div.special-orange {
-  background-color: #fddc8fe5;
+  background-color: rgb(253, 220, 143);
 }
 .board > div.special-lightblue {
   background-color: rgb(134, 222, 251);
 }
 .board > div.special-blue {
-  background-color: rgba(92, 122, 255, 0.918);
+  background-color: rgb(108, 152, 248);
 }
 .board > div.special-middle {
   background-color: rgb(255, 238, 0);
