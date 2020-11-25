@@ -351,10 +351,7 @@ cursor: pointer;
 
 
 /* CSS for the whole tooltip design */
-.swap .tooltiptext, 
-.pass .tooltiptext2,
-.undo-btn .tooltiptext3
-{
+.swap .tooltiptext{
   visibility: hidden;
   width: 150px;
   background-color: rgba(85, 85, 85, 0.63);
@@ -372,10 +369,7 @@ cursor: pointer;
   font-size: 15px;
 }
 
-.swap .tooltiptext::after,
-.pass .tooltiptext2::after,
-.undo-btn .tooltiptext3::after
-{
+.swap .tooltiptext::after{
   content: " ";
   position: absolute;
   bottom: 100%;  
@@ -387,9 +381,7 @@ cursor: pointer;
 }
 
 
-.swap:hover .tooltiptext,
-.pass:hover .tooltiptext2,
-.undo-btn:hover .tooltiptext3 {
+.swap:hover .tooltiptext{
   visibility: visible;
   opacity: 1;
 }

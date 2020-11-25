@@ -180,7 +180,7 @@ export default class Startpage {
     let that = this;
     $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.count].points}</div>`);
     $players.append(this.players[this.count].render());
-    $('body').append('<button class="pass">Passa<span class="tooltiptext2">Passa vidare till nästa spelare</span></button>');
+    $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
       if (that.players[that.count].tiles.length === 7) {
         $('.players').empty();
@@ -287,7 +287,7 @@ export default class Startpage {
     /* let currentPlayerTiles = $('.stand').children('.tile').text();
     console.log(currentPlayerTiles); */
 
-    $('body').append('<button class="undo-btn">Ångra<span class="tooltiptext3">Tar tillbaka dina brickor från brädet</span></div>');
+    $('body').append('<button class="undo-btn">Ångra</div>');
 
     $('.undo-btn').click(function () {
       if (that.placedTiles.length !== 0) {
