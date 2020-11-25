@@ -204,7 +204,7 @@ export default class Startpage {
     });
 
 
-    $('body').append('<button class="next">Spela drag</button>');
+    $('body').append('<button class="next">Spela</button>');
     $('.next').click(async function () {
       if (!that.firstRound) {
         that.checkIfConnected();
@@ -343,6 +343,7 @@ export default class Startpage {
     let that = this;
     // Set a css-class hover on the square the mouse is above
     // if we are dragging and there is no tile in the square
+
     $('.board > div').mouseenter(e => {
       let me = $(e.currentTarget);
       if ($('.is-dragging').length && !me.find('.tile').length) {
