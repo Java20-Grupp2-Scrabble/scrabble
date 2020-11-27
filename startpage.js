@@ -17,6 +17,7 @@ export default class Startpage {
     this.wordHolder = [];
     this.scoreHolder = [];
     this.correctIndexHolder = [];
+    this.oldWords = [];
     this.valid = false;
     this.checker = true;
     this.firstRound = true;
@@ -94,7 +95,7 @@ export default class Startpage {
     </div>
     `);
 
-
+    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append(startTitle);
     $('body').append(startDiv);
     $('.start-button').click(function () {
@@ -171,7 +172,7 @@ export default class Startpage {
     $('body').append('<div class="invalid"></div>');
     $board.html(this.board.flat().map(x => `
     <div class="${x.special ? 'special-' + x.special : ''}">
-    ${x.tile ? `<div class="tile">${x.tile.char}</div>` : ''}
+    ${x.tile ? `<div class="tile">${x.tile.char}<span class="boardpoints">${x.tile.points}</span></div>` : ''}
     </div>
     `).join(''));
 
@@ -209,7 +210,6 @@ export default class Startpage {
       if (!that.firstRound) {
         that.checkIfConnected();
       }
-      that.countPoints();
       that.checker = true;
       that.wordHolder = [];
       that.collectWord();
@@ -217,7 +217,6 @@ export default class Startpage {
       that.makeCollectedWordsToArray(that.wordVert, that.wordHoriz);
       that.wordHoriz = '';
       that.wordVert = '';
-      console.log(that.wordHolder);
       if (that.wordHolder.length !== 0) {
         for (let i = 0; i < that.wordHolder.length; i++) {
           if (that.wordHolder[i] === '') { that.wordHolder.splice(i, 1); }
@@ -231,8 +230,10 @@ export default class Startpage {
           }
         }
       }
+      that.countPoints();
 
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
+        that.oldWords = that.wordHolder.slice();
         that.firstRound = false;
         that.addNewIndex();
         $('.invalid').hide();
@@ -675,18 +676,61 @@ export default class Startpage {
   }
 
   countPoints() {
-
-    console.log('indexholder', this.indexholder);
-    console.log('placedtiles', this.placedTiles);
-
+    //Holds the current players point. 
     let points = 0;
-    this.placedTiles.forEach(x => {
-      points += x.points;
-    })
+    //Slice the original arrays. 
+    let oldOld = this.oldWords.slice();
+    let newNew = this.wordHolder.slice();
+    //Arrays for different points, depending on the letters. 
+    let onePoints = ['A', 'D', 'E', 'I', 'L', 'N', 'R', 'S', 'T'];
+    let twoPoints = ['G', 'H', 'K', 'M', 'O'];
+    let threePoints = ['F', 'V', 'Ä'];
+    let fourPoints = ['B', 'P', 'U', 'Å', 'Ö'];
+    let sevenPoints = ['J', 'Y'];
+    let eightPoints = ['C', 'X'];
+    let tenPoints = ['Z'];
 
-    for (let i = 0; i < this.indexholder.length; i++) {
+    //looping through the original array, 
+    //and print out the last correct word in a new array.
+    while (oldOld.length) {
+      newNew.splice(newNew.indexOf(oldOld.shift()), 1);
+    }
+
+    console.log(newNew);
+    //newNew - the array that holds all the new words thi round.
+    // Check splits the array an hold every letter. 
+    let check = newNew.toString().split('');
+
+    for (let i = 0; i < check.length; i++) {
+      if (onePoints.includes(check[i])) {
+        points++;
+      }
+      if (twoPoints.includes(check[i])) {
+        points += 2;
+      }
+      if (threePoints.includes(check[i])) {
+        points += 3;
+      }
+      if (fourPoints.includes(check[i])) {
+        points += 4;
+      }
+      if (sevenPoints.includes(check[i])) {
+        points += 7;
+      }
+      if (eightPoints.includes(check[i])) {
+        points += 8;
+      }
+      if (tenPoints.includes(check[i])) {
+        points += 10;
+      }
+    }
+
+    console.log(points);
+
+
+    /*for (let i = 0; i < this.indexholder.length; i++) {
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
-
+ 
       }
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
         points = points * 2;
@@ -700,8 +744,9 @@ export default class Startpage {
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'blue') {
         points = this.placedTiles[i].points * 3;
       }
-    }
-    console.log(points);
+    }*/
+
+
   }
 
 }

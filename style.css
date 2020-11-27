@@ -52,6 +52,12 @@ body {
   position: absolute;
 }
 
+.boardpoints{
+  position: relative;
+  bottom: 0;
+  right: 0;
+}
+
 .tile span {
   position: absolute;
   font-size: 1.5vh;
@@ -86,7 +92,6 @@ body {
   top: 17%;
   left: 69.3%;
   border-radius: 5px;
-  
 }
 
 .pass{
@@ -233,7 +238,7 @@ cursor: pointer;
   -webkit-text-fill-color: rgb(0, 0, 0);
 }
 .madeBy-popup{
-  background: url(https://i.kym-cdn.com/entries/icons/original/000/027/475/Screen_Shot_2018-10-25_at_11.02.15_AM.png);
+  background: rgb(151, 151, 245);
   background-size: 100% 100%;
   top: 70.3%;
   right: 2%;
@@ -246,8 +251,8 @@ cursor: pointer;
   position: relative;
   width: 6vh;
   height: 6vh;
-  background-color: rgb(180, 180, 180);
-  border: 1px solid #000;
+  background-color: rgb(175, 145, 128);
+  border: 1px solid rgb(0, 0, 0);
   float: left;
 }
 
@@ -292,16 +297,16 @@ cursor: pointer;
 
 
 .board > div.special-red {
-  background-color: rgba(255, 122, 122, 0.863);
+  background-color: rgb(255, 122, 122);
 }
 .board > div.special-orange {
-  background-color: #fddc8fe5;
+  background-color: rgb(253, 220, 143);
 }
 .board > div.special-lightblue {
   background-color: rgb(134, 222, 251);
 }
 .board > div.special-blue {
-  background-color: rgba(92, 122, 255, 0.918);
+  background-color: rgb(108, 152, 248);
 }
 .board > div.special-middle {
   background-color: rgb(255, 238, 0);
