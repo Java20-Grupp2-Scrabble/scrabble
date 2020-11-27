@@ -2,6 +2,10 @@ import Store from 'https://network-lite.nodehill.com/store';
 
 export default class Multiplayer {
 
+  constructor() {
+    //kom ihåg mellen side om laddningar
+    this.localStore = Store.getLocalStore();
+ }
   async createKey() {
     this.key = await Store.createNetworkKey();
   }
