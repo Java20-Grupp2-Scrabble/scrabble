@@ -57,7 +57,7 @@ export default class Startpage {
     $('body').append(madeBy);
 
     let madeByDiv = $('<div class="madeBy-popup"></div>');
-    let whoMadeIt = $('<p class="whoMadeItInfo">"Det här spelet är gjort av Java 2020 grupp2. Medlemmar: Ali, Ermin, Hanan, Jonathan , Lukas och Oscar "</p>');
+    let whoMadeIt = $('<p class="whoMadeItInfo">"Det här spelet är gjort av Java 2020 grupp2. Medlemmar: Ali, Ermin, Hanan, Jonathan , Lukas, Edvin och Oscar "</p>');
     madeByDiv.append(whoMadeIt);
     $('body').append(madeByDiv);
 
@@ -95,7 +95,7 @@ export default class Startpage {
     </div>
     `);
 
-
+    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append(startTitle);
     $('body').append(startDiv);
     $('.start-button').click(function () {
@@ -168,6 +168,7 @@ export default class Startpage {
     $('.board, .players, .next, .swap').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
+    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append('<div class="invalid"></div>');
     $board.html(this.board.flat().map(x => `
     <div class="${x.special ? 'special-' + x.special : ''}">
@@ -204,7 +205,7 @@ export default class Startpage {
     });
 
 
-    $('body').append('<button class="next">Spela drag</button>');
+    $('body').append('<button class="next">Spela</button>');
     $('.next').click(async function () {
       if (!that.firstRound) {
         that.checkIfConnected();
@@ -343,6 +344,7 @@ export default class Startpage {
     let that = this;
     // Set a css-class hover on the square the mouse is above
     // if we are dragging and there is no tile in the square
+
     $('.board > div').mouseenter(e => {
       let me = $(e.currentTarget);
       if ($('.is-dragging').length && !me.find('.tile').length) {
