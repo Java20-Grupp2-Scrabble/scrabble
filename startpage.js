@@ -331,9 +331,21 @@ export default class Startpage {
 
   addEvents() {
 
-    $('.tileblank').dblclick(function () {
-
+    $('.tileblank').click(function () {
+      $('body').append(`
+        <div class ="blank">
+        <input placeholder="?" type="text" class="blankinput" pattern="[A-Ö]{1}"></input>
+        <button class="blankbutton">Välj</button>
+        </div>
+      `);
+      $('.blankbutton').click(function () {
+        let letter = $('.blankinput').val();
+        $('.tileblank').char = letter.toUpperCase();
+      })
     });
+
+    $('.tileblank').toggleClass('tile');
+
 
 
     let currentPlayerTiles = this.getCurrentPlayerTiles();

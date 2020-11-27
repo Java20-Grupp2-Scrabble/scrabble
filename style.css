@@ -420,3 +420,21 @@ cursor: pointer;
   font-size: 15px;
  
 }
+
+.blankinput{
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 150%;
+  width: 3%;
+  height: 5%;
+  position: absolute;
+  top: 8.5%;
+  left: 62%;
+}
+
+.blankbutton{
+  height: 5%;
+  position: absolute;
+  top: 8.5%;
+  left: 65%;
+}
