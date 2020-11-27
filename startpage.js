@@ -330,6 +330,12 @@ export default class Startpage {
 
 
   addEvents() {
+
+    $('.tileblank').dblclick(function () {
+
+    });
+
+
     let currentPlayerTiles = this.getCurrentPlayerTiles();
     //console.log(currentPlayerTiles);
     /* let currentPlayerTiles = $('.stand').children('.tile');

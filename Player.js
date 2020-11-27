@@ -19,7 +19,9 @@ export default class Player {
   render() {
     let that = this;
     return `<div class="stand">
-      ${this.tiles.map((x, i) => `<div 
+      ${this.tiles.map((x, i) =>
+      `<div 
+          class="tile${x.char === ' ' ? 'blank' : ''}"
           class="tile ${x.char ? '' : 'none'}"
           data-player="${this.game.players.indexOf(this)}"
           data-tile="${i}"
