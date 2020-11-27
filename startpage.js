@@ -15,7 +15,6 @@ export default class Startpage {
     this.placedTiles = [];
     this.indexholder = [];
     this.wordHolder = [];
-    this.scoreHolder = [];
     this.correctIndexHolder = [];
     this.oldWords = [];
     this.valid = false;
@@ -196,7 +195,6 @@ export default class Startpage {
 
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
-        that.scoreHolder = [];
         that.wordHolder = [];
         that.wordHoriz = '';
         that.wordVert = '';
@@ -230,22 +228,19 @@ export default class Startpage {
           }
         }
       }
-      that.countPoints();
 
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
-        that.oldWords = that.wordHolder.slice();
+        let points = that.countPoints();
         that.firstRound = false;
         that.addNewIndex();
         $('.invalid').hide();
         that.checker = true;
-        let points = 0;
-        that.scoreHolder.forEach(x => points += (x + 0));
         that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
         $('.players').empty();
+        that.oldWords = that.wordHolder.slice();
         that.placedTiles = [];
         that.indexholder = [];
-        that.scoreHolder = [];
         that.wordHolder = [];
         that.wordHoriz = '';
         that.wordVert = '';
@@ -271,7 +266,6 @@ export default class Startpage {
         $('.players').empty();
         that.placedTiles = [];
         that.indexholder = [];
-        that.scoreHolder = [];
         that.wordHolder = [];
         that.render();
         that.count++;
@@ -294,7 +288,6 @@ export default class Startpage {
       if (that.placedTiles.length !== 0) {
         that.players[that.count].tiles.push(...that.placedTiles);
         that.placedTiles = [];
-        that.scoreHolder = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
         that.wordHolder = [];
@@ -381,7 +374,6 @@ export default class Startpage {
         let holder = this.players[that.count].tiles.splice(tileIndex, 1)[0];
         this.board[y][x].tile = holder;
         this.placedTiles.push(holder);
-        this.scoreHolder.push(holder.points);
         this.indexholder.push([y, x]);
 
         that.check = true;
@@ -756,7 +748,6 @@ export default class Startpage {
     if (tripleWord) {
       points *= 3;
     }
-
     return points;
   }
 
