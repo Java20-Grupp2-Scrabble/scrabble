@@ -7,6 +7,16 @@ export default class Player {
     this.points = 0;
   }
 
+  blankTile(ch, tileIndex) {
+
+    let tile = {
+      char: ch,
+      points: '0'
+    }
+
+    this.tiles.splice(tileIndex, 1, tile);
+  }
+
   getCurrentTiles() {
     return this.tiles;
   }

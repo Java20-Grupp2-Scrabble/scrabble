@@ -330,9 +330,12 @@ export default class Startpage {
 
 
   addEvents() {
-
+    let indexTile = 0;
     $('.tileblank').click(function () {
-      $('body').append(`
+      $('.blank').empty();
+      indexTile = $(this).attr('data-tile');
+      $('body').append(
+        `
         <div class ="blank">
         <input placeholder="?" type="text" class="blankinput" pattern="[A-Ö]{1}"></input>
         <button class="blankbutton">Välj</button>
@@ -340,12 +343,15 @@ export default class Startpage {
       `);
       $('.blankbutton').click(function () {
         let letter = $('.blankinput').val();
-        $('.tileblank').char = letter.toUpperCase();
+        console.log(letter);
+        that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
+        $('.players').empty();
+        $('.players').append(that.players[that.count].render());
+        that.render();
+        $('.blankbutton').hide();
+        $('.blankinput').hide();
       })
     });
-
-    $('.tileblank').toggleClass('tile');
-
 
 
     let currentPlayerTiles = this.getCurrentPlayerTiles();
