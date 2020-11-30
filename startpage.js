@@ -90,7 +90,7 @@ export default class Startpage {
 
     startDiv.append(`
     <button class = "getKeyButton">Få en nyckel</button>
-    <button class = "joinChatButton">Spela online</button>
+    <button class = "joinGameButton">Spela online</button>
 
     <div class="pagetitle">.</div> 
     <button class="start-button"><h3>Starta Spelet</h3></button>
@@ -133,7 +133,7 @@ export default class Startpage {
 
     /* <span class="key">${this.localStore.networkKey || ''}</span> */
 
-  
+
     $('.getKeyButton').click(async () => {
       $('body > span').empty();
       console.log("this is a test");
@@ -142,8 +142,42 @@ export default class Startpage {
         <span class="key">${this.localStore}</span>
       `);
       console.log(this.localStore)
-      // this.connectToChat();
+      //this.connectToGame();
     });
+
+    $('.joinGameButton').click(() => {
+      this.localStore = prompt('Ange spelets kod:');
+      //this.connectToGame();
+    });
+  }
+
+  async connectToGame() {
+
+    let key = this.localStore.networkKey;
+
+    // Get the network store 
+    // and setup a listener to changes from others
+    // (an object shared between all clients in the network)
+    this.networkStore = await Store.getNetworkStore(key, () => {
+      // listener on changes from others in the network
+      this.renderMessages();
+    });
+
+    // Something went wrong (propably: the key was incorrect)
+    if (this.networkStore.error) {
+      console.log('Could not connect!', this.networkStore.error);
+      delete this.networkStore;
+      delete this.localStore.networkKey;
+    }
+    // We are connected
+    else {
+      // If there is not a property messages in the network store
+      // add it a let the value be an empty array
+      this.networkStore.messages = this.networkStore.messages || [];
+    }
+
+    // Render the GUI
+    this.render();
   }
 
   createBoard() {
