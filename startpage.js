@@ -21,6 +21,7 @@ export default class Startpage {
     this.checker = true;
     this.firstRound = true;
     this.validTiles = true;
+    this.zeroTile = '';
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -228,7 +229,6 @@ export default class Startpage {
           }
         }
       }
-
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
         let points = that.countPoints();
         that.firstRound = false;
@@ -697,6 +697,14 @@ export default class Startpage {
     //Slice the original arrays. 
     let oldOld = this.oldWords.slice();
     let newNew = this.wordHolder.slice();
+    let second = [];
+    console.log(this.oldWords);
+    console.log(this.wordHolder);
+    for (let i = 0; i < this.indexholder.length; i++) {
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points === '0') {
+        this.zeroTile = this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.char;
+      }
+    }
     //Arrays for different points, depending on the letters. 
     let onePoints = ['A', 'D', 'E', 'I', 'L', 'N', 'R', 'S', 'T'];
     let twoPoints = ['G', 'H', 'K', 'M', 'O'];
@@ -706,15 +714,40 @@ export default class Startpage {
     let eightPoints = ['C', 'X'];
     let tenPoints = ['Z'];
 
+
     //looping through the original array, 
     //and print out the last correct word in a new array.
     while (oldOld.length) {
       newNew.splice(newNew.indexOf(oldOld.shift()), 1);
     }
+    if (!newNew.length) {
+      for (let i = 0; i < this.wordHolder.length; i++) {
+        for (let j = 0; j < this.oldWords.length; j++) {
+          if (this.wordHolder[i] === this.oldWords[i]) {
+
+          } else {
+            second.push(this.wordHolder[i]);
+          }
+        }
+      }
+    }
 
     //newNew - the array that holds all the new words thi round.
     // Check splits the array an hold every letter. 
-    let check = newNew.toString().split('');
+    let check = '';
+    if (!newNew.length) {
+      check = second[0].toString().split('');
+    } else {
+      check = newNew.toString().split('');
+    }
+    if (this.zeroTile.length) {
+      for (let i = 0; i < check.length; i++) {
+        if (check[i] === this.zeroTile) {
+          check.splice(i, 1);
+        }
+      }
+    }
+
 
     for (let i = 0; i < check.length; i++) {
       if (onePoints.includes(check[i])) {
@@ -772,6 +805,7 @@ export default class Startpage {
     if (tripleWord) {
       points *= 3;
     }
+    console.log(points);
     return points;
   }
 
