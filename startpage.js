@@ -490,16 +490,27 @@ export default class Startpage {
       for (let j = 0; j < this.board.length; j++) {
         if (this.board[i][j].tile === '') { continue; }
         if (this.board[i][j].tile !== undefined) {
-          if (this.board[i][j + 1].tile === undefined || this.board[i][j + 1].tile === '') {
+          if (j === 14) {
             if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') {
               if (this.firstRound) {
                 this.wordHoriz += this.board[i][j].tile.char + ',';
               }
+              else {
+                this.wordHoriz += this.board[i][j].tile.char + ',';
+              }
             }
-            else {
-              this.wordHoriz += this.board[i][j].tile.char + ',';
-            }
-          } else { this.wordHoriz += this.board[i][j].tile.char; }
+          } else {
+            if (this.board[i][j + 1].tile === undefined || this.board[i][j + 1].tile === '') {
+              if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') {
+                if (this.firstRound) {
+                  this.wordHoriz += this.board[i][j].tile.char + ',';
+                }
+              }
+              else {
+                this.wordHoriz += this.board[i][j].tile.char + ',';
+              }
+            } else { this.wordHoriz += this.board[i][j].tile.char; }
+          }
         }
       }
     }
