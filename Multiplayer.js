@@ -12,15 +12,10 @@ export default class Multiplayer {
 
   async setKey(key) {//Allows you to join someone if you have the right key
     //Other users should get the key from the user that started the game/chat and use it...
-    this.key;
+    this.key=key;
   }
   async connect() {// This connect to the store, needs a key to be created first
 
-    this.networkStore = Store.getNetworkStore(this.key, ()
-
-      => {//Every time there is a change by a user it prints out 'the  store was changed by someone else!'
-      console.log('the  store was changed by someone else!');
-
-    })
+    this.networkStore = await Store.getNetworkStore(this.key,);
   }
 }

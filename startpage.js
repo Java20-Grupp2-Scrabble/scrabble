@@ -80,6 +80,7 @@ export default class Startpage {
     let popmess = $('<div class="popmessage">[Kräver minst 1 spelare för att starta.]</div>');
 
     startDiv.append(`
+    <button class = "getKeyButton">Få en nyckel</button>
     <div class="pagetitle">.</div> 
     <button class="start-button"><h3>Starta Spelet</h3></button>
     <div class="popmessage"></div>
