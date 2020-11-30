@@ -26,7 +26,7 @@ export default class Startpage {
     this.checker = true;
     this.firstRound = true;
     this.validTiles = true;
-    this.zeroTile = '';
+    this.zeroHolder = [];
   }
 
   async start(ammountOfPlayers, playernames) {
@@ -755,6 +755,7 @@ export default class Startpage {
     //Holds the current players point. 
     let points = 0;
     //Slice the original arrays. 
+    let zeroTile = '';
     let oldOld = this.oldWords.slice();
     let newNew = this.wordHolder.slice();
     let second = [];
@@ -762,9 +763,37 @@ export default class Startpage {
     console.log(this.wordHolder);
     for (let i = 0; i < this.indexholder.length; i++) {
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points === '0') {
-        this.zeroTile = this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.char;
+        this.zeroHolder.push([this.indexholder[i][0], this.indexholder[i][1]]);
       }
     }
+    let loop = true
+    if (loop) {
+      for (let i = 0; i < this.indexholder.length; i++) {
+        for (let j = 0; j < this.zeroHolder.length; j++) {
+          if ((this.indexholder[i][0] - 1) === this.zeroHolder[j][0] && this.indexholder[i][1] === this.zeroHolder[j][1]) {
+            console.log('!!!!', this.board[(this.indexholder[i][0] - 1)][this.indexholder[i][1]].tile.char);
+            zeroTile = this.board[(this.indexholder[i][0] - 1)][this.indexholder[i][1]].tile.char;
+            loop = false;
+          }
+          if ((this.indexholder[i][0] + 1) === this.zeroHolder[j][0] && this.indexholder[i][1] === this.zeroHolder[j][1]) {
+            console.log('!!!!', this.board[(this.indexholder[i][0] + 1)][this.indexholder[i][1]].tile.char);
+            zeroTile = this.board[(this.indexholder[i][0] + 1)][this.indexholder[i][1]].tile.char;
+            loop = false;
+          }
+          if (this.indexholder[i][0] === this.zeroHolder[j][0] && (this.indexholder[i][1] - 1) === this.zeroHolder[j][1]) {
+            console.log('!!!!', this.board[this.indexholder[i][0]][(this.indexholder[i][1] - 1)].tile.char);
+            zeroTile = this.board[this.indexholder[i][0]][(this.indexholder[i][1] - 1)].tile.char;
+            loop = false;
+          }
+          if (this.indexholder[i][0] === this.zeroHolder[j][0] && (this.indexholder[i][1] + 1) === this.zeroHolder[j][1]) {
+            console.log('!!!!', this.board[this.indexholder[i][0]][(this.indexholder[i][1] + 1)].tile.char);
+            zeroTile = this.board[this.indexholder[i][0]][(this.indexholder[i][1] + 1)].tile.char;
+            loop = false;
+          }
+        }
+      }
+    }
+    console.log('funkar', this.zeroHolder);
     //Arrays for different points, depending on the letters. 
     let onePoints = ['A', 'D', 'E', 'I', 'L', 'N', 'R', 'S', 'T'];
     let twoPoints = ['G', 'H', 'K', 'M', 'O'];
@@ -800,9 +829,9 @@ export default class Startpage {
     } else {
       check = newNew.toString().split('');
     }
-    if (this.zeroTile.length) {
+    if (zeroTile.length) {
       for (let i = 0; i < check.length; i++) {
-        if (check[i] === this.zeroTile) {
+        if (check[i] === zeroTile) {
           check.splice(i, 1);
         }
       }
