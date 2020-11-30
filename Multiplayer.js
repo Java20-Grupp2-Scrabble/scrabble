@@ -12,7 +12,7 @@ export default class Multiplayer {
 
   async setKey(key) {//Allows you to join someone if you have the right key
     //Other users should get the key from the user that started the game/chat and use it...
-    this.key;
+    this.key=key;
   }
   async connect() {// This connect to the store, needs a key to be created first
 
