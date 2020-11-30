@@ -1,5 +1,10 @@
 import Player from "./Player.js";
 import SAOLchecker from "./SAOLchecker.js";
+import Multiplayer from './Multiplayer.js';
+import Store from 'https://network-lite.nodehill.com/store';
+
+window.game = new Multiplayer();
+
 export default class Startpage {
 
   getCurrentPlayerTiles() {
@@ -25,6 +30,8 @@ export default class Startpage {
   }
 
   async start(ammountOfPlayers, playernames) {
+    //let key = this.localStore.networkKey;
+
     this.createBoard();
     await this.tilesFromFile();
 
@@ -72,6 +79,8 @@ export default class Startpage {
   }
 
   startPage() {
+    // Get the localStore (an object that survives between page loads)
+    this.localStore = Store.getLocalStore();
     let that = this;
     let ammountOfPlayers = 0;
     let playerNames = [];
@@ -81,6 +90,8 @@ export default class Startpage {
 
     startDiv.append(`
     <button class = "getKeyButton">Få en nyckel</button>
+    <button class = "joinChatButton">Spela online</button>
+
     <div class="pagetitle">.</div> 
     <button class="start-button"><h3>Starta Spelet</h3></button>
     <div class="popmessage"></div>
@@ -118,6 +129,20 @@ export default class Startpage {
 
 
       }
+    });
+
+    /* <span class="key">${this.localStore.networkKey || ''}</span> */
+
+  
+    $('.getKeyButton').click(async () => {
+      $('body > span').empty();
+      console.log("this is a test");
+      this.localStore = await Store.createNetworkKey();
+      $('body').append(`
+        <span class="key">${this.localStore}</span>
+      `);
+      console.log(this.localStore)
+      // this.connectToChat();
     });
   }
 
