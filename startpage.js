@@ -130,9 +130,17 @@ export default class Startpage {
 
       }
     });
+
+    /* <span class="key">${this.localStore.networkKey || ''}</span> */
+
+  
     $('.getKeyButton').click(async () => {
+      $('body > span').empty();
       console.log("this is a test");
       this.localStore = await Store.createNetworkKey();
+      $('body').append(`
+        <span class="key">${this.localStore}</span>
+      `);
       console.log(this.localStore)
       // this.connectToChat();
     });
