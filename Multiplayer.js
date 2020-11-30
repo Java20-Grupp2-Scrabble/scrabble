@@ -16,11 +16,6 @@ export default class Multiplayer {
   }
   async connect() {// This connect to the store, needs a key to be created first
 
-    this.networkStore = await Store.getNetworkStore(this.key, ()
-
-      => {//Every time there is a change by a user it prints out 'the  store was changed by someone else!'
-      console.log('the  store was changed by someone else!');
-
-    })
+    this.networkStore = await Store.getNetworkStore(this.key,);
   }
 }
