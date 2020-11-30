@@ -1,2 +1,2 @@
-import MultiPlayer from './Multiplayer';
+import MultiPlayer from './Multiplayer.js';
 window.MultiPlayer = new MultiPlayer();
