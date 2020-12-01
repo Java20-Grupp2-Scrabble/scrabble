@@ -867,6 +867,7 @@ export default class Startpage {
       }
     }
 
+
     //newNew - the array that holds all the new words thi round.
     // Check splits the array an hold every letter. 
     let check = '';
@@ -882,6 +883,20 @@ export default class Startpage {
         }
       }
     }
+
+    for (let i = 0; i < check.length; i++) {
+      if (check[i] === ',') {
+        if (check[i - 1] === check[check.length - 1]) {
+          check.splice(i - 1, 1);
+        }
+        if (check[0] === check[i + 1]) {
+          check.splice(0, 1);
+        }
+      }
+    }
+
+
+    console.log('check', check);
 
 
     for (let i = 0; i < check.length; i++) {
@@ -911,6 +926,7 @@ export default class Startpage {
 
     let doubleWord = false;
     let tripleWord = false;
+    let triggerd = true;
 
     for (let i = 0; i < this.indexholder.length; i++) {
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
@@ -922,10 +938,11 @@ export default class Startpage {
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'red') {
         tripleWord = true;
       }
-      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'lightblue') {
+      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'lightblue' && triggerd) {
         let add = this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 2;
         points += add;
         points -= this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
+        triggerd = false;
       }
       if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'blue') {
         let add = this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 3;
