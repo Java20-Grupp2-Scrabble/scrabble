@@ -10,7 +10,7 @@ export default class Player {
   blankTile(ch, tileIndex) {
 
     let tile = {
-      char: ch,
+      char: ch.toLowerCase(),
       points: '0'
     }
 
@@ -37,7 +37,7 @@ export default class Player {
           data-tile="${i}"
           data-points="${that.points}"
         >
-        ${x.char || ''}
+        ${x.char.toUpperCase() || ''}
         <span>${x.points || ''}</span>
       </div>`).join('')}
       </div>
