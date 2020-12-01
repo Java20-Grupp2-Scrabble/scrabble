@@ -139,22 +139,23 @@ export default class Startpage {
     $('.getKeyButton').click(async () => {
       $('body > span').empty();
       console.log("this is a test");
-      this.localStore = await Store.createNetworkKey();
+      this.localStore.networkKey = await Store.createNetworkKey();
       $('body').append(`
-        <span class="key">${this.localStore}</span>
+        <span class="key">${this.localStore.networkKey}</span>
       `);
-      console.log(this.localStore)
+      console.log(this.localStore.networkKey)
       //this.connectToGame();
     });
 
     $('.joinGameButton').click(() => {
-      this.localStore = prompt('Ange spelets kod:');
+      this.localStore.networkKey = prompt('Ange spelets kod:');
       //this.connectToGame();
     });
   }
 
   async connectToGame() {
 
+    // The network key we have in our localStore
     let key = this.localStore.networkKey;
 
     // Get the network store 
