@@ -144,12 +144,12 @@ export default class Startpage {
         <span class="key">${this.localStore.networkKey}</span>
       `);
       console.log(this.localStore.networkKey)
-      //this.connectToGame();
+      this.connectToGame();
     });
 
     $('.joinGameButton').click(() => {
       this.localStore.networkKey = prompt('Ange spelets kod:');
-      //this.connectToGame();
+      this.connectToGame();
     });
   }
 
@@ -163,8 +163,19 @@ export default class Startpage {
     // (an object shared between all clients in the network)
     this.networkStore = await Store.getNetworkStore(key, () => {
       // listener on changes from others in the network
-      this.renderMessages();
+      console.log("SOMEONE ELSE CHANGED THE OBJECT", this.networkStore)
+      console.log("Connected players", this.networkStore.players)
+      //this.render();
     });
+
+    // If there is not a players property in the networkStore then create it
+    if (!this.networkStore.players) {
+      this.networkStore.players = [];
+    }
+
+    // EXEMPEL
+    this.name = prompt("Vad heter du?")
+    this.networkStore.players.push(this.name);
 
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
@@ -180,7 +191,8 @@ export default class Startpage {
     }
 
     // Render the GUI
-    this.render();
+    // this.render();
+    //this.createBoard();
   }
 
   createBoard() {
