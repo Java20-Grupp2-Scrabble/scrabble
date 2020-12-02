@@ -12,6 +12,7 @@ export default class Startpage {
   }
 
   constructor() {
+    this.passCounter = 0;
     this.count = 0;
     this.check = true;
     this.first = 0;
@@ -260,6 +261,7 @@ export default class Startpage {
     $('.pass').click(function () {
       if (that.players[that.count].tiles.length === 7) {
         $('.players').empty();
+        that.passCounter++;
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
         $('.players').append(`<div class="players-point"> ★ poäng: ${that.players[that.count].points}</div>`);
@@ -269,6 +271,7 @@ export default class Startpage {
         that.players[that.count].tiles.push(...that.placedTiles);
         that.placedTiles = [];
 
+
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
         that.wordHolder = [];
@@ -276,6 +279,7 @@ export default class Startpage {
         that.wordVert = '';
         that.render();
       }
+      that.endGame();
     });
 
 
@@ -306,6 +310,7 @@ export default class Startpage {
       }
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
         let points = that.countPoints();
+
         that.firstRound = false;
         that.addNewIndex();
         $('.invalid').hide();
@@ -320,6 +325,7 @@ export default class Startpage {
         that.wordHoriz = '';
         that.wordVert = '';
         that.count++;
+        that.passCounter = 0;
         if (that.count === that.players.length) {
           that.count = 0;
         }
@@ -344,6 +350,7 @@ export default class Startpage {
         that.wordHolder = [];
         that.render();
         that.count++;
+        that.passCounter = 0;
         if (that.count === that.players.length) {
           that.count = 0;
         }
@@ -924,4 +931,23 @@ export default class Startpage {
     return points;
   }
 
+  endGame() {
+    if (this.passCounter === (this.players.length + 1)) {
+      $('.board').hide();
+      $('.stand').hide();
+      $('.players').hide();
+      $('.swap').hide();
+      $('.undo-btn').hide();
+      $('.pass').hide();
+      $('.next').hide();
+
+      this.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
+
+      for (let i = 0; i < this.players.length; i++) {
+        $('body').append(`
+        <div class="winner">Spelare ${this.players[i].name} fick ${this.players[i].points} poäng!</div>
+      `);
+      }
+    }
+  }
 }
