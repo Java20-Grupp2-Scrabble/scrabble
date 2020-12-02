@@ -142,14 +142,14 @@ export default class Startpage {
       console.log("this is a test");
       this.localStore.networkKey = await Store.createNetworkKey();
       $('body').append(`
-        <span class="key">${this.localStore.networkKey}</span>
+        <a class="key">${this.localStore.networkKey}</a>
       `);
       console.log(this.localStore.networkKey)
       this.connectToGame();
     });
 
     $('.joinGameButton').click(() => {
-      this.localStore.networkKey = prompt('Ange spelets kod:');
+      this.localStore.networkKey = prompt(`Ange spelets kod:  ${this.localStore.networkKey}`);
       this.connectToGame();
     });
   }
