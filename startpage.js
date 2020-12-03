@@ -35,14 +35,14 @@ export default class Startpage {
   async start(ammountOfPlayers, playernames) {
     //let key = this.localStore.networkKey;
 
-    this.createBoard();
+    //this.createBoard();
     await this.tilesFromFile();
 
     this.players = [];
     for (let i = 1; i <= ammountOfPlayers; i++) {
       this.players.push(new Player(this, `${playernames[i - 1]}`));
     }
-
+    //this.networkStore.players = this.players;
 
     let helpBtn = $('<button class="helpBtn">?</button>');
     $('body').append(helpBtn);
@@ -166,6 +166,7 @@ export default class Startpage {
     // (an object shared between all clients in the network)
     this.networkStore = await Store.getNetworkStore(key, () => {
       // listener on changes from others in the network
+      console.log("SOMEONE PLACED A TILE", this.networkStore.board)
       console.log("SOMEONE ELSE CHANGED THE OBJECT", this.networkStore)
       console.log("Connected players", this.networkStore.players)
       //this.render();
@@ -193,8 +194,10 @@ export default class Startpage {
       this.networkStore.messages = this.networkStore.messages || [];
     }
     console.log(this.howManyPlayers)
-    if (this.networkStore.players.length === this.howManyPlayers) {
-      console.log("Det fungerar")
+    if (this.networkStore.players.length + '' === this.howManyPlayers + '') {
+      $('.pagetitle').hide();
+      $('.startpage').hide();
+      this.start(this.howManyPlayers, this.networkStore.players);
     }
     // Render the GUI
     // this.render();
@@ -251,7 +254,7 @@ export default class Startpage {
     let $players = $('<div class="players"/>').appendTo('body');
     $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append('<div class="invalid"></div>');
-    $board.html(this.board.flat().map(x => `
+    $board.html(this.networkStore.board.flat().map(x => `
     <div class="${x.special ? 'special-' + x.special : ''}">
     ${x.tile ? `<div class="tile">${x.tile.char.toUpperCase()}<span class="boardpoints">${x.tile.points}</span></div>` : ''}
     </div>
@@ -483,7 +486,7 @@ export default class Startpage {
       // the index of the square we are hovering over
       let squareIndex = $('.board > div').index($dropZone);
 
-      // convert to y and x coords in this.board
+      // convert to y and x coords in this.networkStore.board
       let y = Math.floor(squareIndex / 15);
       let x = squareIndex % 15;
 
@@ -494,7 +497,7 @@ export default class Startpage {
       // put the tile on the board and re-render
       if ($tile.parent('.stand').length) {
         let holder = this.players[that.count].tiles.splice(tileIndex, 1)[0];
-        this.board[y][x].tile = holder;
+        this.networkStore.board[y][x].tile = holder;
         this.placedTiles.push(holder);
         this.indexholder.push([y, x]);
 
@@ -511,25 +514,25 @@ export default class Startpage {
     this.wordHoriz = '';
 
 
-    for (let i = 0; i < this.board.length; i++) {
-      for (let j = 0; j < this.board.length; j++) {
-        if (this.board[i][j].tile === '') { continue; }
-        if (this.board[i][j].tile !== undefined) {
+    for (let i = 0; i < this.networkStore.board.length; i++) {
+      for (let j = 0; j < this.networkStore.board.length; j++) {
+        if (this.networkStore.board[i][j].tile === '') { continue; }
+        if (this.networkStore.board[i][j].tile !== undefined) {
           if (j === 14) {
-            if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') {
-            } else { this.wordHoriz += this.board[i][j].tile.char + ','; }
+            if (this.networkStore.board[i][j - 1].tile === undefined || this.networkStore.board[i][j - 1].tile === '') {
+            } else { this.wordHoriz += this.networkStore.board[i][j].tile.char + ','; }
           }
           else if (j === 0) {
-            if (this.board[i][j + 1].tile === undefined || this.board[i][j + 1].tile === '') {
-            } else { this.wordHoriz += this.board[i][j].tile.char; }
+            if (this.networkStore.board[i][j + 1].tile === undefined || this.networkStore.board[i][j + 1].tile === '') {
+            } else { this.wordHoriz += this.networkStore.board[i][j].tile.char; }
           }
           else {
-            if (this.board[i][j + 1].tile === undefined || this.board[i][j + 1].tile === '') {
-              if (this.board[i][j - 1].tile === undefined || this.board[i][j - 1].tile === '') { }
+            if (this.networkStore.board[i][j + 1].tile === undefined || this.networkStore.board[i][j + 1].tile === '') {
+              if (this.networkStore.board[i][j - 1].tile === undefined || this.networkStore.board[i][j - 1].tile === '') { }
               else {
-                this.wordHoriz += this.board[i][j].tile.char + ',';
+                this.wordHoriz += this.networkStore.board[i][j].tile.char + ',';
               }
-            } else { this.wordHoriz += this.board[i][j].tile.char; }
+            } else { this.wordHoriz += this.networkStore.board[i][j].tile.char; }
           }
         }
       }
@@ -539,88 +542,88 @@ export default class Startpage {
   collectWordVert() {
     this.wordVert = '';
 
-    for (let j = 0; j < this.board.length; j++) {
-      for (let i = 0; i < this.board.length; i++) {
-        if (this.board[i][j].tile === '') { continue; }
-        if (this.board[i][j].tile !== undefined) {
+    for (let j = 0; j < this.networkStore.board.length; j++) {
+      for (let i = 0; i < this.networkStore.board.length; i++) {
+        if (this.networkStore.board[i][j].tile === '') { continue; }
+        if (this.networkStore.board[i][j].tile !== undefined) {
           if (i === 14) {
-            if (this.board[i - 1][j].tile === undefined || this.board[i - 1][j].tile === '') {
-            } else { this.wordVert += this.board[i][j].tile.char + ','; }
+            if (this.networkStore.board[i - 1][j].tile === undefined || this.networkStore.board[i - 1][j].tile === '') {
+            } else { this.wordVert += this.networkStore.board[i][j].tile.char + ','; }
           }
           else if (i === 0) {
-            if (this.board[i + 1][j].tile === undefined || this.board[i + 1][j].tile === '') {
-            } else { this.wordVert += this.board[i][j].tile.char; }
+            if (this.networkStore.board[i + 1][j].tile === undefined || this.networkStore.board[i + 1][j].tile === '') {
+            } else { this.wordVert += this.networkStore.board[i][j].tile.char; }
           }
           else {
-            if (this.board[i + 1][j].tile === undefined || this.board[i + 1][j].tile === '') {
-              if (this.board[i - 1][j].tile === undefined || this.board[i - 1][j].tile === '') { }
+            if (this.networkStore.board[i + 1][j].tile === undefined || this.networkStore.board[i + 1][j].tile === '') {
+              if (this.networkStore.board[i - 1][j].tile === undefined || this.networkStore.board[i - 1][j].tile === '') { }
               else {
-                this.wordVert += this.board[i][j].tile.char + ',';
+                this.wordVert += this.networkStore.board[i][j].tile.char + ',';
               }
             } else {
-              this.wordVert += this.board[i][j].tile.char;
+              this.wordVert += this.networkStore.board[i][j].tile.char;
             }
           }
         }
       }
     }
     if (this.wordHoriz === '' && this.wordVert.length <= 1 && this.firstRound) {
-      this.wordVert += this.board[7][7].tile.char + ',';
+      this.wordVert += this.networkStore.board[7][7].tile.char + ',';
     }
   }
 
   checkTileOnBoard() {
-    for (let i = 0; i < this.board.length; i++) {
-      for (let j = 0; j < this.board.length; j++) {
-        if (this.board[i][j].tile === '') { continue; }
-        if (i > 0 && i < 14 && j === 0 && this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
-            this.board[i - 1][j].tile === undefined && this.first !== 0) {
+    for (let i = 0; i < this.networkStore.board.length; i++) {
+      for (let j = 0; j < this.networkStore.board.length; j++) {
+        if (this.networkStore.board[i][j].tile === '') { continue; }
+        if (i > 0 && i < 14 && j === 0 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i + 1][j].tile === undefined && this.networkStore.board[i][j + 1].tile === undefined &&
+            this.networkStore.board[i - 1][j].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (i === 0 && j > 0 && j < 14 && this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
-            this.board[i][j - 1].tile === undefined && this.first !== 0) {
+        else if (i === 0 && j > 0 && j < 14 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i + 1][j].tile === undefined && this.networkStore.board[i][j + 1].tile === undefined &&
+            this.networkStore.board[i][j - 1].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (i > 0 && i < 14 && j === 14 && this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined && this.board[i - 1][j].tile === undefined &&
-            this.board[i][j - 1].tile === undefined && this.first !== 0) {
+        else if (i > 0 && i < 14 && j === 14 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i + 1][j].tile === undefined && this.networkStore.board[i - 1][j].tile === undefined &&
+            this.networkStore.board[i][j - 1].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (j > 0 && j < 14 && i === 14 && this.board[i][j].tile !== undefined) {
-          if (this.board[i][j + 1].tile === undefined && this.board[i][j - 1].tile === undefined &&
-            this.board[i - 1][j].tile === undefined && this.first !== 0) {
+        else if (j > 0 && j < 14 && i === 14 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i][j + 1].tile === undefined && this.networkStore.board[i][j - 1].tile === undefined &&
+            this.networkStore.board[i - 1][j].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (i === 0 && j === 0 && this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined && this.first !== 0) {
+        else if (i === 0 && j === 0 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i + 1][j].tile === undefined && this.networkStore.board[i][j + 1].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (i === 14 && j === 0 && this.board[i][j].tile !== undefined) {
-          if (this.board[i - 1][j].tile === undefined && this.board[i][j + 1].tile === undefined && this.first !== 0) {
+        else if (i === 14 && j === 0 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i - 1][j].tile === undefined && this.networkStore.board[i][j + 1].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (i === 14 && j === 14 && this.board[i][j].tile !== undefined) {
-          if (this.board[i - 1][j].tile === undefined && this.board[i][j - 1].tile === undefined && this.first !== 0) {
+        else if (i === 14 && j === 14 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i - 1][j].tile === undefined && this.networkStore.board[i][j - 1].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
-        else if (i === 0 && j === 14 && this.board[i][j].tile !== undefined) {
-          if (this.board[i + 1][j].tile === undefined && this.board[i][j - 1].tile === undefined && this.first !== 0) {
+        else if (i === 0 && j === 14 && this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i + 1][j].tile === undefined && this.networkStore.board[i][j - 1].tile === undefined && this.first !== 0) {
             this.check = false;
           }
         }
         else {
-          if (this.board[i][j].tile !== undefined) {
-            if (this.board[i + 1][j].tile === undefined && this.board[i][j + 1].tile === undefined &&
-              this.board[i][j - 1].tile === undefined && this.board[i - 1][j].tile === undefined && this.first !== 0) {
+          if (this.networkStore.board[i][j].tile !== undefined) {
+            if (this.networkStore.board[i + 1][j].tile === undefined && this.networkStore.board[i][j + 1].tile === undefined &&
+              this.networkStore.board[i][j - 1].tile === undefined && this.networkStore.board[i - 1][j].tile === undefined && this.first !== 0) {
               this.check = false;
 
             }
@@ -712,7 +715,7 @@ export default class Startpage {
     }
     if (count === this.indexholder.length) {
       for (let i = temp1; i <= end; i++) {
-        if (this.board[temp][i].tile === undefined) {
+        if (this.networkStore.board[temp][i].tile === undefined) {
           check = false;
           break;
         } else {
@@ -726,7 +729,7 @@ export default class Startpage {
 
     if (count1 === this.indexholder.length) {
       for (let i = temp; i <= end1; i++) {
-        if (this.board[i][temp1].tile === undefined) {
+        if (this.networkStore.board[i][temp1].tile === undefined) {
           check1 = false;
           break;
         } else {
@@ -748,10 +751,10 @@ export default class Startpage {
   addNewIndex() {
     this.correctIndexHolder = [];
 
-    for (let i = 0; i < this.board.length; i++) {
-      for (let j = 0; j < this.board.length; j++) {
-        if (this.board[i][j].tile !== undefined) {
-          if (this.board[i][j].tile === '') { continue; }
+    for (let i = 0; i < this.networkStore.board.length; i++) {
+      for (let j = 0; j < this.networkStore.board.length; j++) {
+        if (this.networkStore.board[i][j].tile !== undefined) {
+          if (this.networkStore.board[i][j].tile === '') { continue; }
           this.correctIndexHolder.push([i, j]);
         }
       }
@@ -905,24 +908,24 @@ export default class Startpage {
     let tripleWord = false;
 
     for (let i = 0; i < this.indexholder.length; i++) {
-      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
+      if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
 
       }
-      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
+      if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
         doubleWord = true;
       }
-      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'red') {
+      if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'red') {
         tripleWord = true;
       }
-      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'lightblue') {
-        let add = this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 2;
+      if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'lightblue') {
+        let add = this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 2;
         points += add;
-        points -= this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
+        points -= this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
       }
-      if (this.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'blue') {
-        let add = this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 3;
+      if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'blue') {
+        let add = this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 3;
         points += add;
-        points -= this.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
+        points -= this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
       }
     }
 
