@@ -13,7 +13,6 @@ export default class Startpage {
 
   constructor() {
     this.passCounter = 0;
-    this.count = 0;
     this.check = true;
     this.first = 0;
     this.wordVert = '';
@@ -34,14 +33,15 @@ export default class Startpage {
 
   async start(ammountOfPlayers, playernames) {
     //let key = this.localStore.networkKey;
-
+    console.log(ammountOfPlayers, playernames);
     //this.createBoard();
     await this.tilesFromFile();
 
     this.players = [];
-    for (let i = 1; i <= ammountOfPlayers; i++) {
+    for (let i = 1; i <= +ammountOfPlayers; i++) {
       this.players.push(new Player(this, `${playernames[i - 1]}`));
     }
+    console.log(this.players)
     //this.networkStore.players = this.players;
 
     let helpBtn = $('<button class="helpBtn">?</button>');
@@ -128,9 +128,6 @@ export default class Startpage {
         $('.pagetitle').hide();
         $('.startpage').hide();
 
-
-
-
       }
     });
 
@@ -145,19 +142,17 @@ export default class Startpage {
         <a class="key">${this.localStore.networkKey}</a>
       `);
       console.log(this.localStore.networkKey)
-      this.howManyPlayers = prompt(`Hur många spelare ska spela?`)
-      console.log(this.howManyPlayers)
-      this.connectToGame();
+      let howManyPlayers = prompt(`Hur många spelare ska spela?`)
+      this.connectToGame(howManyPlayers);
     });
 
     $('.joinGameButton').click(() => {
-      this.localStore.networkKey = prompt(`Ange spelets kod:  ${this.localStore.networkKey}`);
+      this.localStore.networkKey = prompt(`Ange spelets kod:`);
       this.connectToGame();
     });
   }
 
-  async connectToGame() {
-    this.createBoard();
+  async connectToGame(howManyPlayers) {
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
 
@@ -169,9 +164,21 @@ export default class Startpage {
       console.log("SOMEONE PLACED A TILE", this.networkStore.board)
       console.log("SOMEONE ELSE CHANGED THE OBJECT", this.networkStore)
       console.log("Connected players", this.networkStore.players)
+      if (this.networkStore.players.length + '' === howManyPlayers + '') {
+        $('.pagetitle').hide();
+        $('.startpage').hide();
+        this.start(howManyPlayers, this.networkStore.players);
+      }
       //this.render();
     });
-    this.networkStore.board = this.networkStore.board || this.board;
+    if (howManyPlayers) {
+      this.networkStore.howManyPlayers = howManyPlayers;
+      this.createBoard();
+
+    } else {
+      howManyPlayers = this.networkStore.howManyPlayers;
+    }
+    this.count = 0;
     // If there is not a players property in the networkStore then create it
     if (!this.networkStore.players) {
       this.networkStore.players = [];
@@ -179,6 +186,7 @@ export default class Startpage {
 
     // EXEMPEL
     this.name = prompt("Vad heter du?")
+    this.playerIndex = this.networkStore.players.length;
     this.networkStore.players.push(this.name);
 
     // Something went wrong (propably: the key was incorrect)
@@ -193,17 +201,28 @@ export default class Startpage {
       // add it a let the value be an empty array
       this.networkStore.messages = this.networkStore.messages || [];
     }
-    console.log(this.howManyPlayers)
-    if (this.networkStore.players.length + '' === this.howManyPlayers + '') {
+    console.log(howManyPlayers)
+    if (this.networkStore.players.length + '' === howManyPlayers + '') {
       $('.pagetitle').hide();
       $('.startpage').hide();
-      this.start(this.howManyPlayers, this.networkStore.players);
+      this.start(howManyPlayers, this.networkStore.players);
     }
     // Render the GUI
     // this.render();
     //this.createBoard();
   }
-
+  set board(x) {
+    this.networkStore.board = x;
+  }
+  get board() {
+    return this.networkStore.board;
+  }
+  set count(x) {
+    this.networkStore.count = x;
+  }
+  get count() {
+    return this.networkStore.count;
+  }
   createBoard() {
 
     let middle = [[7, 7]];
@@ -264,7 +283,8 @@ export default class Startpage {
     // Render the players
     let that = this;
     $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.count].points}</div>`);
-    $players.append(this.players[this.count].render());
+    console.log(this.playerIndex);
+    $players.append(this.players[this.playerIndex].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
       if (that.players[that.count].tiles.length === 7) {
@@ -273,7 +293,7 @@ export default class Startpage {
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
         $('.players').append(`<div class="players-point"> ★ poäng: ${that.players[that.count].points}</div>`);
-        $players.append(that.players[that.count].render());
+        $players.append(that.players[that.playerIndex].render());
         that.addEvents();
       } else {
         that.players[that.count].tiles.push(...that.placedTiles);
@@ -338,7 +358,7 @@ export default class Startpage {
           that.count = 0;
         }
         $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
-        $players.append(that.players[that.count].render(2));
+        $players.append(that.players[that.playerIndex].render());
         that.addEvents();
       } else {
         $('.invalid').slideToggle("slow");
@@ -362,7 +382,7 @@ export default class Startpage {
         if (that.count === that.players.length) {
           that.count = 0;
         }
-        $players.append(that.players[that.count].render(0));
+        $players.append(that.players[that.playerIndex].render());
         that.addEvents();
         that.render();
       }
@@ -443,7 +463,7 @@ export default class Startpage {
         console.log(letter);
         that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
         $('.players').empty();
-        $('.players').append(that.players[that.count].render());
+        $('.players').append(that.players[that.playerIndex].render());
         that.render();
         $('.blankbutton').hide();
         $('.blankinput').hide();
