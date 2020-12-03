@@ -145,6 +145,8 @@ export default class Startpage {
         <a class="key">${this.localStore.networkKey}</a>
       `);
       console.log(this.localStore.networkKey)
+      this.howManyPlayers = prompt(`Hur många spelare ska spela?`)
+      console.log(this.howManyPlayers)
       this.connectToGame();
     });
 
@@ -155,7 +157,7 @@ export default class Startpage {
   }
 
   async connectToGame() {
-
+    this.createBoard();
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
 
@@ -168,7 +170,7 @@ export default class Startpage {
       console.log("Connected players", this.networkStore.players)
       //this.render();
     });
-
+    this.networkStore.board = this.networkStore.board || this.board;
     // If there is not a players property in the networkStore then create it
     if (!this.networkStore.players) {
       this.networkStore.players = [];
@@ -190,7 +192,10 @@ export default class Startpage {
       // add it a let the value be an empty array
       this.networkStore.messages = this.networkStore.messages || [];
     }
-
+    console.log(this.howManyPlayers)
+    if (this.networkStore.players.length === this.howManyPlayers) {
+      console.log("Det fungerar")
+    }
     // Render the GUI
     // this.render();
     //this.createBoard();
