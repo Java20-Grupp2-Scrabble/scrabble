@@ -1031,7 +1031,7 @@ export default class Startpage {
 
       for (let i = 0; i < this.players.length; i++) {
         $('body').append(`
-        <div class="winner">Spelare ${this.players[i].name} fick ${this.players[i].points} poäng!</div>
+        <div class="winner">Spelare ${this.networkStore.players[i].name} fick ${this.networkStore.players[i].points} poäng!</div>
       `);
       }
     }
