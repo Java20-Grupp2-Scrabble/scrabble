@@ -392,6 +392,10 @@ export default class Startpage {
     $('body').append('<button class="swap">Byt ut<span class="tooltiptext">Lägg ut brickor du vill byta ut på brädet</span></button>');
     $('.swap').click(function () {
       if (that.placedTiles.length !== 0) {
+        that.networkStore.currentPlayer++;
+        if (that.networkStore.currentPlayer === that.networkStore.players.length) {
+          that.networkStore.currentPlayer = 0;
+        }
         that.placedTiles = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.players[that.count].pushTiles(that.indexholder.length);
