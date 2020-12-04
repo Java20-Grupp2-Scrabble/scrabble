@@ -14,6 +14,7 @@ export default class Startpage {
   constructor() {
     this.passCounter = 0;
     this.check = true;
+    this.test = true;
     this.first = 0;
     this.wordVert = '';
     this.wordHoriz = '';
@@ -163,13 +164,15 @@ export default class Startpage {
       // listener on changes from others in the network
       console.log("SOMEONE PLACED A TILE", this.networkStore.board)
       console.log("SOMEONE ELSE CHANGED THE OBJECT", this.networkStore)
-      console.log("Connected players", this.networkStore.players)
-      if (this.networkStore.players.length + '' === howManyPlayers + '') {
+      console.log("Connected players", this.networkStore.players);
+      if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
         $('.pagetitle').hide();
         $('.startpage').hide();
+        this.test = false;
         this.start(howManyPlayers, this.networkStore.players);
+      } else {
+        this.render();
       }
-      //this.render();
     });
     if (howManyPlayers) {
       this.networkStore.howManyPlayers = howManyPlayers;
@@ -201,9 +204,10 @@ export default class Startpage {
       // add it a let the value be an empty array
       this.networkStore.messages = this.networkStore.messages || [];
     }
-    console.log(howManyPlayers)
-    if (this.networkStore.players.length + '' === howManyPlayers + '') {
+    console.log(howManyPlayers);
+    if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
       $('.pagetitle').hide();
+      this.test = false;
       $('.startpage').hide();
       this.start(howManyPlayers, this.networkStore.players);
     }
@@ -461,6 +465,7 @@ export default class Startpage {
           return;
         }
         console.log(letter);
+        //this.playerIndex
         that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
         $('.players').empty();
         $('.players').append(that.players[that.playerIndex].render());
@@ -525,6 +530,7 @@ export default class Startpage {
         that.checkTileOnBoard();
 
       }
+
       this.render();
       that.first++;
     });
