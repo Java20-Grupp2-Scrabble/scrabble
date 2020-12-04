@@ -274,7 +274,7 @@ export default class Startpage {
 
   render() {
     this.endGame();
-    if (this.networkStore.passCounter >= 3) {
+    if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
       return;
     }
     $('.board, .players, .next, .swap').remove();
