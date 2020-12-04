@@ -191,6 +191,7 @@ export default class Startpage {
     this.name = prompt("Vad heter du?")
     this.playerIndex = this.networkStore.players.length;
     this.networkStore.players.push(this.name);
+    this.networkStore.currentPlayer = 0;
 
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
@@ -342,7 +343,10 @@ export default class Startpage {
       }
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
         let points = that.countPoints();
-
+        that.networkStore.currentPlayer++;
+        if (that.networkStore.currentPlayer === that.networkStore.players.length) {
+          that.networkStore.currentPlayer = 0;
+        }
         that.firstRound = false;
         that.addNewIndex();
         $('.invalid').hide();
@@ -444,6 +448,17 @@ export default class Startpage {
 
 
   addEvents() {
+
+    console.log(this.players[this.networkStore.currentPlayer]);
+    if (this.playerIndex !== this.networkStore.currentPlayer) {
+
+      $('.next').hide();
+      $('.swap').hide();
+      $('.pass').hide();
+      $('.undo-btn').hide();
+
+    }
+
     let indexTile = 0;
     $('.tileblank').click(function () {
       $('.next').hide();
@@ -499,41 +514,44 @@ export default class Startpage {
     );
 
     // Drag-events: We only check if a tile is in place on dragEnd
-    $('.stand > .tile').draggabilly().on('dragEnd', e => {
+    if (this.playerIndex !== this.networkStore.currentPlayer) { return; }
+    else {
+      $('.stand > .tile').draggabilly().on('dragEnd', e => {
 
-      // check if drag within stand
-      this.checkIfDraggedWithinStand($(e.currentTarget));
+        // check if drag within stand
+        this.checkIfDraggedWithinStand($(e.currentTarget));
 
-      // get the dropZone square - if none render and return
-      let $dropZone = $('.hover');
-      if (!$dropZone.length) { this.render(); return; }
+        // get the dropZone square - if none render and return
+        let $dropZone = $('.hover');
+        if (!$dropZone.length) { this.render(); return; }
 
-      // the index of the square we are hovering over
-      let squareIndex = $('.board > div').index($dropZone);
+        // the index of the square we are hovering over
+        let squareIndex = $('.board > div').index($dropZone);
 
-      // convert to y and x coords in this.networkStore.board
-      let y = Math.floor(squareIndex / 15);
-      let x = squareIndex % 15;
+        // convert to y and x coords in this.networkStore.board
+        let y = Math.floor(squareIndex / 15);
+        let x = squareIndex % 15;
 
-      // the index of the chosen tile
-      let $tile = $(e.currentTarget);
-      let tileIndex = $('.stand > div').index($tile);
+        // the index of the chosen tile
+        let $tile = $(e.currentTarget);
+        let tileIndex = $('.stand > div').index($tile);
 
-      // put the tile on the board and re-render
-      if ($tile.parent('.stand').length) {
-        let holder = this.players[that.count].tiles.splice(tileIndex, 1)[0];
-        this.networkStore.board[y][x].tile = holder;
-        this.placedTiles.push(holder);
-        this.indexholder.push([y, x]);
+        // put the tile on the board and re-render
+        if ($tile.parent('.stand').length) {
+          let holder = this.players[that.count].tiles.splice(tileIndex, 1)[0];
+          this.networkStore.board[y][x].tile = holder;
+          this.placedTiles.push(holder);
+          this.indexholder.push([y, x]);
 
-        that.check = true;
-        that.checkTileOnBoard();
+          that.check = true;
+          that.checkTileOnBoard();
 
-      }
+        }
 
-      this.render();
-      that.first++;
-    });
+        this.render();
+        that.first++;
+      });
+    }
   }
 
   collectWord() {
