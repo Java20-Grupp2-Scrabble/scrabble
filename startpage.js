@@ -294,13 +294,13 @@ export default class Startpage {
     ${x.tile ? `<div class="tile">${x.tile.char.toUpperCase()}<span class="boardpoints">${x.tile.points}</span></div>` : ''}
     </div>
     `).join(''));
-    if (this.firstRound === false) {
-      for (let i = 0; i < this.players.length; i++) {
-        if (i === this.networkStore.currentPlayer) { continue; } else {
-          $('.playerNamesPoints').append(`<p>${this.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
-        }
+    //this.playerIndex !== this.networkStore.currentPlayer
+    for (let i = 0; i < this.players.length; i++) {
+      if (i === this.playerIndex) { continue; } else {
+        $('.playerNamesPoints').append(`<p>Poäng tavla:</p><p>${this.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
       }
     }
+
 
     // Render the players
     let that = this;
