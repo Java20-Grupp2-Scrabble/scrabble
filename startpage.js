@@ -296,6 +296,10 @@ export default class Startpage {
     $players.append(this.players[this.playerIndex].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
+      that.networkStore.currentPlayer++;
+      if (that.networkStore.currentPlayer === that.networkStore.players.length) {
+        that.networkStore.currentPlayer = 0;
+      }
       if (that.players[that.count].tiles.length === 7) {
         $('.players').empty();
         that.networkStore.passCounter++;
