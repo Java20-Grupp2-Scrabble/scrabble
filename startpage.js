@@ -38,7 +38,7 @@ export default class Startpage {
 
     this.players = [];
     for (let i = 1; i <= +ammountOfPlayers; i++) {
-      this.players.push(new Player(this, `${playernames[i - 1]}`));
+      this.players.push(new Player(this, `${playernames[i - 1].name}`));
     }
     console.log(this.players)
     //this.networkStore.players = this.players;
@@ -190,7 +190,7 @@ export default class Startpage {
     // EXEMPEL
     this.name = prompt("Vad heter du?")
     this.playerIndex = this.networkStore.players.length;
-    this.networkStore.players.push(this.name);
+    this.networkStore.players.push({ name: this.name, points: 0 });
     this.networkStore.passCounter = 0;
     this.networkStore.currentPlayer = 0;
     this.networkStore.oldWords = [];
@@ -283,17 +283,24 @@ export default class Startpage {
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
       return;
     }
-    $('.board, .players, .next, .swap').remove();
+    $('.board, .players, .next, .swap, .playerNamesPoints').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
     $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append('<div class="invalid"></div>');
+    $('body').append('<div class="playerNamesPoints"></div>')
     $board.html(this.networkStore.board.flat().map(x => `
     <div class="${x.special ? 'special-' + x.special : ''}">
     ${x.tile ? `<div class="tile">${x.tile.char.toUpperCase()}<span class="boardpoints">${x.tile.points}</span></div>` : ''}
     </div>
     `).join(''));
-
+    if (this.firstRound === false) {
+      for (let i = 0; i < this.players.length; i++) {
+        if (i === this.networkStore.currentPlayer) { continue; } else {
+          $('.playerNamesPoints').append(`<p>${this.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
+        }
+      }
+    }
 
     // Render the players
     let that = this;
@@ -358,6 +365,7 @@ export default class Startpage {
       }
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
         let points = that.countPoints();
+        that.networkStore.players[that.playerIndex].points += points;
         that.networkStore.currentPlayer++;
         if (that.networkStore.currentPlayer === that.networkStore.players.length) {
           that.networkStore.currentPlayer = 0;
@@ -468,7 +476,6 @@ export default class Startpage {
 
   addEvents() {
 
-    console.log(this.players[this.networkStore.currentPlayer]);
     if (this.playerIndex !== this.networkStore.currentPlayer) {
       $('.notmyturn').remove();
       $('.myturn').remove();
