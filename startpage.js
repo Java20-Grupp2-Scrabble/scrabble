@@ -466,12 +466,18 @@ export default class Startpage {
 
     console.log(this.players[this.networkStore.currentPlayer]);
     if (this.playerIndex !== this.networkStore.currentPlayer) {
-
+      $('.notmyturn').remove();
+      $('.myturn').remove();
       $('.next').hide();
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
+      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur</p></div>`);
 
+    } else {
+      $('.notmyturn').remove();
+      $('.myturn').remove();
+      $('body').append(`<div class="myturn"><p>Din tur</p></div>`)
     }
 
     let indexTile = 0;
