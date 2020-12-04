@@ -21,7 +21,6 @@ export default class Startpage {
     this.indexholder = [];
     this.wordHolder = [];
     this.correctIndexHolder = [];
-    this.oldWords = [];
     this.valid = false;
     this.checker = true;
     this.firstRound = true;
@@ -174,6 +173,7 @@ export default class Startpage {
         this.render();
       }
     });
+
     if (howManyPlayers) {
       this.networkStore.howManyPlayers = howManyPlayers;
       this.createBoard();
@@ -193,7 +193,7 @@ export default class Startpage {
     this.networkStore.players.push(this.name);
     this.networkStore.passCounter = 0;
     this.networkStore.currentPlayer = 0;
-
+    this.networkStore.oldWords = [];
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
       console.log('Could not connect!', this.networkStore.error);
@@ -216,6 +216,12 @@ export default class Startpage {
     // Render the GUI
     // this.render();
     //this.createBoard();
+  }
+  get oldWords() {
+    return this.networkStore.oldWords;
+  }
+  set oldWords(x) {
+    this.networkStore.oldWords = x;
   }
   set board(x) {
     this.networkStore.board = x;
@@ -291,7 +297,7 @@ export default class Startpage {
 
     // Render the players
     let that = this;
-    $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.count].points}</div>`);
+    $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.playerIndex].points}</div>`);
     console.log(this.playerIndex);
     $players.append(this.players[this.playerIndex].render());
     $('body').append('<button class="pass">Passa</button>');
@@ -306,7 +312,7 @@ export default class Startpage {
         console.log(that.networkStore.passCounter + "This is passcounter")
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
-        $('.players').append(`<div class="players-point"> ★ poäng: ${that.players[that.count].points}</div>`);
+        $('.players').append(`<div class="players-point"> ★ poäng: ${that.players[that.playerIndex].points}</div>`);
         $players.append(that.players[that.playerIndex].render());
         that.addEvents();
       } else {
@@ -374,7 +380,7 @@ export default class Startpage {
         if (that.count === that.players.length) {
           that.count = 0;
         }
-        $('.players').append(`<div class="players-point">poäng: ${that.players[that.count].points}</div>`);
+        $('.players').append(`<div class="players-point">poäng: ${that.players[that.playerIndex].points}</div>`);
         $players.append(that.players[that.playerIndex].render());
         that.addEvents();
       } else {
@@ -871,7 +877,7 @@ export default class Startpage {
     let oldOld = this.oldWords.slice();
     let newNew = this.wordHolder.slice();
     let second = [];
-    console.log(this.oldWords);
+    console.log('oldWords', this.oldWords);
     console.log(this.wordHolder);
 
 
@@ -889,6 +895,7 @@ export default class Startpage {
     while (oldOld.length) {
       newNew.splice(newNew.indexOf(oldOld.shift()), 1);
     }
+    console.log('newNew', newNew)
     if (!newNew.length) {
       for (let i = 0; i < this.wordHolder.length; i++) {
         for (let j = 0; j < this.oldWords.length; j++) {
