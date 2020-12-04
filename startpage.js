@@ -12,7 +12,6 @@ export default class Startpage {
   }
 
   constructor() {
-    this.passCounter = 0;
     this.check = true;
     this.test = true;
     this.first = 0;
@@ -154,6 +153,7 @@ export default class Startpage {
   }
 
   async connectToGame(howManyPlayers) {
+
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
 
@@ -191,6 +191,7 @@ export default class Startpage {
     this.name = prompt("Vad heter du?")
     this.playerIndex = this.networkStore.players.length;
     this.networkStore.players.push(this.name);
+    this.networkStore.passCounter = 0;
 
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
@@ -271,7 +272,10 @@ export default class Startpage {
   }
 
   render() {
-
+    this.endGame();
+    if (this.networkStore.passCounter >= 3) {
+      return;
+    }
     $('.board, .players, .next, .swap').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
@@ -293,7 +297,8 @@ export default class Startpage {
     $('.pass').click(function () {
       if (that.players[that.count].tiles.length === 7) {
         $('.players').empty();
-        that.passCounter++;
+        that.networkStore.passCounter++;
+        console.log(that.networkStore.passCounter + "This is passcounter")
         that.count++;
         if (that.count === that.players.length) { that.count = 0 }
         $('.players').append(`<div class="players-point"> ★ poäng: ${that.players[that.count].points}</div>`);
@@ -357,7 +362,7 @@ export default class Startpage {
         that.wordHoriz = '';
         that.wordVert = '';
         that.count++;
-        that.passCounter = 0;
+        that.networkStore.passCounter = 0;
         if (that.count === that.players.length) {
           that.count = 0;
         }
@@ -382,7 +387,7 @@ export default class Startpage {
         that.wordHolder = [];
         that.render();
         that.count++;
-        that.passCounter = 0;
+        that.networkStore.passCounter = 0;
         if (that.count === that.players.length) {
           that.count = 0;
         }
@@ -966,7 +971,8 @@ export default class Startpage {
   }
 
   endGame() {
-    if (this.passCounter === (this.players.length + 1)) {
+    if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
+
       $('.board').hide();
       $('.stand').hide();
       $('.players').hide();
@@ -975,7 +981,7 @@ export default class Startpage {
       $('.pass').hide();
       $('.next').hide();
 
-      this.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
+      this.networkStore.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
 
       for (let i = 0; i < this.players.length; i++) {
         $('body').append(`
