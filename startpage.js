@@ -161,9 +161,7 @@ export default class Startpage {
     // (an object shared between all clients in the network)
     this.networkStore = await Store.getNetworkStore(key, () => {
       // listener on changes from others in the network
-      console.log("SOMEONE PLACED A TILE", this.networkStore.board)
-      console.log("SOMEONE ELSE CHANGED THE OBJECT", this.networkStore)
-      console.log("Connected players", this.networkStore.players);
+      console.log('tiles?', this.networkStore.tiles.length);
       if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
         $('.pagetitle').hide();
         $('.startpage').hide();
@@ -194,6 +192,7 @@ export default class Startpage {
     this.networkStore.passCounter = 0;
     this.networkStore.currentPlayer = 0;
     this.networkStore.oldWords = [];
+    this.networkStore.tiles = [];
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
       console.log('Could not connect!', this.networkStore.error);
@@ -222,6 +221,12 @@ export default class Startpage {
   }
   set oldWords(x) {
     this.networkStore.oldWords = x;
+  }
+  get tiles() {
+    return this.networkStore.tiles;
+  }
+  set tiles(x) {
+    this.networkStore.tiles = x;
   }
   set board(x) {
     this.networkStore.board = x;
