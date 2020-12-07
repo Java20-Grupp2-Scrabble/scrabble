@@ -138,7 +138,6 @@ export default class Startpage {
           $('.players-menu').append(`<p class="showKey">Ge följande nyckel:  <span>${that.localStore.networkKey}</span></p>`);
           $('.confirm').prop('disabled', true);
           $('.textInButton').text('Väntar på andra spelare...');
-          // $('body').append('<div><div class="loader"></div>');
           $('body').append('<div class="progress container"><span>V</span ><span>ä</span><span>n</span><span>t</span><span>a</span><span>r</span> &nbsp; <span>p</span><span>å</span> &nbsp; <span>s</span ><span>p</span><span>e</span><span>l</span><span>a</span><span>r</span><span>e</span> </div >');
           that.connectToGame(haha);
         }
@@ -166,6 +165,8 @@ export default class Startpage {
 
   }
 
+  // DIN  TUR LOADING:  $('body').append('<div><div class="loader"></div>');
+
   async connectToGame(howManyPlayers) {
 
     // The network key we have in our localStore
@@ -181,7 +182,7 @@ export default class Startpage {
         $('.pagetitle').hide();
         $('.startpage').hide();
         $('.key').hide();
-        $('.loader').hide();
+        $('.progress').hide();
         this.test = false;
         this.start(howManyPlayers, this.networkStore.players);
       } else {
@@ -1103,6 +1104,7 @@ export default class Startpage {
       $('.playerNamesPoints').hide();
       $('.notmyturn').hide();
       $('body').append('<h1 class="gameOverH1">Spelet är slut</h1>');
+      $('body').append('<div class="pyro"><div class="before"></div><div class="after"></div></div>');
       this.$winners = '';
       let pointCounter = 0;
 
