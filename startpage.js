@@ -138,7 +138,8 @@ export default class Startpage {
           $('.players-menu').append(`<p class="showKey">Ge följande nyckel:  <span>${that.localStore.networkKey}</span></p>`);
           $('.confirm').prop('disabled', true);
           $('.textInButton').text('Väntar på andra spelare...');
-          $('body').append('<div class="loader"></div>');
+          // $('body').append('<div><div class="loader"></div>');
+          $('body').append('<div class="progress container"><span>V</span ><span>ä</span><span>n</span><span>t</span><span>a</span><span>r</span> &nbsp; <span>p</span><span>å</span> &nbsp; <span>s</span ><span>p</span><span>e</span><span>l</span><span>a</span><span>r</span><span>e</span> </div >');
           that.connectToGame(haha);
         }
       });

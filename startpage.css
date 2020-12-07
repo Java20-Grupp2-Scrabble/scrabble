@@ -129,6 +129,10 @@ body{
 .connect-btn:hover{
   color: white;
 }
+.confirm:hover{
+  cursor: pointer;
+  color: white;
+}
 
 .players-menu{
   position: absolute;
@@ -138,7 +142,8 @@ body{
   
   }
 
-.player1 , .player2, .player3, .player4{
+.player1{
+  box-shadow: black 2px 1px 4px 1px;
   color: white;
   font-weight: bold;
   border-radius: 5px;
@@ -146,26 +151,29 @@ body{
   height: 40px;
   background-color: rgba(59, 30, 30, 0.788);
   font-size: 15px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  
 } 
 
 .confirm{
-    height: 40px;
+  margin-right: 5px;
+    height: 38px;
   background-color: rgba(59, 30, 30, 0.788);
   font-size: 15px;
   border-radius: 4px;
   margin-left: 2px;
   color: white;
+  box-shadow: rgb(37, 37, 37) 1px 1px 1px 1px;
 }
 
 .showKey{
   display: inline;
-  margin-left: 5px;
+  margin-left: 4px;
   background-color: rgba(59, 30, 30, 0.788);
   color: white;
-  font-size: 19px;
+  font-size: 18px;
   border-radius: 5px;
   padding: 3px 3px 9px 3px;
+  box-shadow: black 2px 1px 4px 1px;
 }
 
 .showKey > span{
@@ -173,6 +181,7 @@ body{
 }
 
 .ammountOfPlayers{
+  margin-right: 4px;
    color: white;
   font-weight: bold;
   border-radius: 5px;
@@ -180,7 +189,7 @@ body{
   height: 40px;
   background-color: rgba(59, 30, 30, 0.788);
   font-size: 15px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: black 2px 1px 4px 1px;
 }
 
 .popmessage{
@@ -200,20 +209,20 @@ body{
 }
 .nrTwo, .nrThree {
   position: absolute;
-  left: 45vh;
+  left: 47vh;
   bottom: 12vh;
   font-size: large;
 }
 
 .loader {
   position: absolute;
-  left: 82vh;
+  left: 89vh;
   top: 38vh;
   border: 7px solid #2d515a;
   border-radius: 50%;
   border-top: 7px solid #46b993;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
@@ -226,3 +235,56 @@ body{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.progress{
+  height: 40px;
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  margin: -20px 0 0 -50px;
+}
+.progress span{
+  
+  
+  
+ padding: 0px 2px 10px 5px;
+  transition: all 500ms ease;
+  background: #2d515a;
+  box-shadow: 5px 2px 3px rgba(3, 3, 3, 0.685);
+  height: 30px;
+  width: 25px;  
+  display: inline-block; 
+  border-radius: 2px;
+  animation: wave 2s ease  infinite;
+  border: 1px solid black;
+}  
+
+.progress span:nth-child(1){  animation-delay: 0; }
+.progress span:nth-child(2){  animation-delay: 100ms; }
+.progress span:nth-child(3){  animation-delay: 200ms; }
+.progress span:nth-child(4){  animation-delay: 300ms; }
+.progress span:nth-child(5){  animation-delay: 400ms; }
+.progress span:nth-child(6){  animation-delay: 500ms; }
+.progress span:nth-child(7){  animation-delay: 600ms; }
+.progress span:nth-child(8){  animation-delay: 700ms; }
+.progress span:nth-child(9){  animation-delay: 800ms; }
+.progress span:nth-child(10){  animation-delay: 900ms; }
+.progress span:nth-child(11){  animation-delay: 1000ms; }
+.progress span:nth-child(12){  animation-delay: 1100ms; }
+.progress span:nth-child(13){  animation-delay: 1200ms; }
+.progress span:nth-child(14){  animation-delay: 1300ms; }
+.progress span:nth-child(15){  animation-delay: 1400ms; }
+.progress span:nth-child(16){  animation-delay: 1500ms; }
+.progress span:nth-child(17){  animation-delay: 1600ms; }
+@keyframes wave{
+  0%, 40%, 100% { 
+    transform: translate(0, 0);
+    background-color: #ffffff;    
+  }
+  10% { 
+    transform: translate(0, -15px); 
+    background-color: rgb(114, 179, 195);    
+  }  
+}
+
