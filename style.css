@@ -440,53 +440,47 @@ cursor: pointer;
 }
 
 .myturn{
-  text-align: center;
   position: absolute;
-  left: 60%;
-  bottom: 85%;
-  background-color: green;
+  left: 148vh;
+  bottom: 93.4vh;
   height:  9.7%;
   width: 10%;
-  border-radius: 5%;
-  border: solid 3px black;
-  opacity: 50%;
 }
 
 .myturn > p{
-position: relative;
-bottom: 25%;
-font-size: 28px;
+font-size: x-large;
+font-size: 26px;
 padding: 5px;
+color: green;
 }
 
 .notmyturn{
-  border: 3px solid black;
-  text-align: center;
-  position: absolute;
-  left: 60%;
-  bottom: 85%;
-  background-color: rgb(151, 158, 151);
+   position: absolute;
+  left: 148vh;
+  bottom: 93.4vh;
   height:  9.7%;
   width: 10%;
-  border-radius: 5%;
-  opacity: 50%;
 }
 
 .notmyturn p{
-  position: relative;
-  top: 6%;
+  font-size: x-large;
+font-size: 26px;
+padding: 5px;
+color: rgb(212, 17, 17);
 }
 
 .playerNamesPoints{
+  border: 2px solid rgb(0, 0, 0);
   position: absolute;
-  left: 60%;
-  bottom: 55%;
+  left: 100vh;
+  bottom: 76.5vh;
   text-align: center;
-  background-color: rgb(94, 34, 34);
+  background-color: rgb(167, 230, 255);
   width: 150px;
-  height: 150px;
+  height: 143px;
   border-radius: 10px;
-  color: white;
+  color: black;
+  opacity: 70%;
 }
 
 .playerNamesPoints > p{
@@ -506,8 +500,8 @@ padding: 5px;
 
 .score{
   position: absolute;
-  top: 18%;
-  left: 44%;
+  top: 18vh;
+  left: 80.5vh;
   border: 2px solid black;
   background-color: rgb(12, 245, 245);
   opacity: 70%;
@@ -521,8 +515,8 @@ padding: 5px;
 .playAgainButton{
   text-align: center;
   position: absolute;
-  top: 35%;
-  left: 43.9%;
+  top: 35vh;
+  left: 80.2vh;
   background-color: #5e2222;
   border-radius: 3px;
   color: white;
