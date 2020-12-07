@@ -27,6 +27,7 @@ export default class Startpage {
     this.firstRound = true;
     this.validTiles = true;
     this.zeroHolder = [];
+    this.validAmount = ['2', '3', '4'];
     this.validLetter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
       'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö'];
   }
@@ -96,60 +97,59 @@ export default class Startpage {
     <button class = "joinGameButton">Spela online</button>
 
     <div class="pagetitle">.</div> 
-    <button class="start-button"><h3>Starta Spelet</h3></button>
+    <button class="start-button"><h3 class="textInButton">Starta Spelet</h3></button>
+    <button class="connect-btn">Anslut till spel</button>
     <div class="popmessage"></div>
     <div class="rules">
     <h2 class="rules-headline"></h2>
     <p class="text-rules"></p>
     </div>
     <div class="players-menu">
-    <input type="text" class="player1" placeholder="spelare 1">
-    <input type="text" class="player2" placeholder="spelare 2">
-    <input type="text" class="player3" placeholder="spelare 3">
-    <input type="text" class="player4" placeholder="spelare 4">
+    <input type="text" class="player1" placeholder="Namn">
     </div>
     `);
 
     $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append(startTitle);
     $('body').append(startDiv);
+
     $('.start-button').click(function () {
-      for (let i = 0; i < 4; i++) {
-        if ($(`.player${i + 1}`).val() === '') {
-          $('.popmessage').append(popmess);
+      if ($('.player1').val() === '') { return; }
+      $('.connect-btn').prop('disabled', true);
+      $('.start-button').prop('disabled', true);
+      $('.players-menu').append(`<input type="text" class="ammountOfPlayers" placeholder="Antal Spelare">`);
+      $('.players-menu').append(`<button class="confirm">Bekräfta</button>`);
+      $('.confirm').click(async function () {
+        let haha = $('.ammountOfPlayers').val();
+        if (!that.validAmount.includes(haha)) {
+          return;
         } else {
-          playerNames.push($(`.player${i + 1}`).val());
-          ammountOfPlayers++;
+          that.localStore.networkKey = await Store.createNetworkKey();
+          $('.players-menu').append(`<p class="showKey">Ge följande nyckel:  <span>${that.localStore.networkKey}</span></p>`);
+          $('.confirm').prop('disabled', true);
+          $('.textInButton').text('Väntar på andra spelare...');
+          that.connectToGame(haha);
         }
-      }
-      if (ammountOfPlayers !== 0) {
-        that.start(ammountOfPlayers, playerNames);
-
-        $('.pagetitle').hide();
-        $('.startpage').hide();
-
-      }
+      });
     });
 
-    /* <span class="key">${this.localStore.networkKey || ''}</span> */
+    $('.connect-btn').click(function () {
+      if ($('.player1').val() === '') { return; }
+      $('.start-button').prop('disabled', true);
+      $('.connect-btn').prop('disabled', true);
+      $('.players-menu').append(`<input type="text" class="keyInput" placeholder="Nyckel"></input>`);
+      $('.players-menu').append(`<button class="confirmKey">Bekräfta</button>`);
+      $('.confirmKey').click(function () {
+        if ($('.keyInput').val() !== '') {
+          that.localStore.networkKey = $('.keyInput').val();
+          that.connectToGame();
+        } else {
+          $('.connect-btn').text('Fel nyckel...');
+        }
+      })
 
-
-    $('.getKeyButton').click(async () => {
-      $('body > span').empty();
-      console.log("this is a test");
-      this.localStore.networkKey = await Store.createNetworkKey();
-      $('body').append(`
-        <a class="key">${this.localStore.networkKey}</a>
-      `);
-      console.log(this.localStore.networkKey)
-      let howManyPlayers = prompt(`Hur många spelare ska spela?`)
-      this.connectToGame(howManyPlayers);
     });
 
-    $('.joinGameButton').click(() => {
-      this.localStore.networkKey = prompt(`Ange spelets kod:`);
-      this.connectToGame();
-    });
   }
 
   async connectToGame(howManyPlayers) {
@@ -188,7 +188,8 @@ export default class Startpage {
     }
 
     // EXEMPEL
-    this.name = prompt("Vad heter du?")
+    console.log($('.player1').val());
+    this.name = $('.player1').val();
     this.playerIndex = this.networkStore.players.length;
     this.networkStore.players.push({ name: this.name, points: 0 });
     this.networkStore.passCounter = 0;
