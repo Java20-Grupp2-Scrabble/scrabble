@@ -12,6 +12,7 @@ export default class Startpage {
   }
 
   constructor() {
+    this.firstEnd = true;
     this.check = true;
     this.test = true;
     this.first = 0;
@@ -165,6 +166,7 @@ export default class Startpage {
       if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
         $('.pagetitle').hide();
         $('.startpage').hide();
+        $('.key').hide();
         this.test = false;
         this.start(howManyPlayers, this.networkStore.players);
       } else {
@@ -207,6 +209,7 @@ export default class Startpage {
     }
     console.log(howManyPlayers);
     if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
+      $('.key').hide();
       $('.pagetitle').hide();
       this.test = false;
       $('.startpage').hide();
@@ -1022,8 +1025,9 @@ export default class Startpage {
   }
 
   endGame() {
-    if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
+    if (this.networkStore.passCounter >= (this.networkStore.players.length + 1) && this.firstEnd) {
 
+      this.firstEnd = false;
       $('.board').hide();
       $('.stand').hide();
       $('.players').hide();
@@ -1031,14 +1035,31 @@ export default class Startpage {
       $('.undo-btn').hide();
       $('.pass').hide();
       $('.next').hide();
+      $('.playerNamesPoints').hide();
+      $('.notmyturn').hide();
+      $('body').append('<h1 class="gameOverH1">Spelet är slut</h1>');
+      this.$winners = '';
+      let pointCounter = 0;
 
       this.networkStore.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
 
       for (let i = 0; i < this.players.length; i++) {
-        $('body').append(`
-        <div class="winner">Spelare ${this.networkStore.players[i].name} fick ${this.networkStore.players[i].points} poäng!</div>
-      `);
+        this.$winners += `<p class="winner">Spelare ${this.networkStore.players[i].name} fick ${this.networkStore.players[i].points} poäng!</p>`;
+        if (this.networkStore.players[i].points === 0) {
+          pointCounter++;
+        }
       }
+      if (pointCounter === this.networkStore.players.length) {
+        $('body').append(`<h2 class="gameOverH2">Det blev lika!</h2>`)
+      } else {
+        $('body').append(`<h2 class="gameOverH2">Vinnaren: ${this.networkStore.players[0].name}</h2>`);
+      }
+      $('body').append('<div class="score"></div>');
+      $('.score').append('<h3>Resultatet:</h3>' + this.$winners);
+      $('body').append(`<button class="playAgainButton">Nytt spel</button>`);
+      $('.playAgainButton').click(function () {
+        location.reload();
+      });
     }
   }
 }
