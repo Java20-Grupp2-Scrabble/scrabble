@@ -440,47 +440,39 @@ cursor: pointer;
 }
 
 .myturn{
-  text-align: center;
   position: absolute;
-  left: 60%;
-  bottom: 85%;
-  background-color: green;
+  left: 148vh;
+  bottom: 93.4vh;
   height:  9.7%;
   width: 10%;
-  border-radius: 5%;
-  border: solid 3px black;
-  opacity: 50%;
 }
 
 .myturn > p{
-position: relative;
-bottom: 25%;
-font-size: 28px;
+font-size: x-large;
+font-size: 26px;
 padding: 5px;
+color: green;
 }
 
 .notmyturn{
-  border: 3px solid black;
-  text-align: center;
-  position: absolute;
-  left: 60%;
-  bottom: 85%;
-  background-color: rgb(151, 158, 151);
+   position: absolute;
+  left: 148vh;
+  bottom: 93.4vh;
   height:  9.7%;
   width: 10%;
-  border-radius: 5%;
-  opacity: 50%;
 }
 
 .notmyturn p{
-  position: relative;
-  top: 6%;
+  font-size: x-large;
+font-size: 26px;
+padding: 5px;
+color: rgb(128, 0, 0);
 }
 
 .playerNamesPoints{
   position: absolute;
-  left: 60%;
-  bottom: 55%;
+  left: 51%;
+  bottom: 6.2%;
   text-align: center;
   background-color: rgb(94, 34, 34);
   width: 150px;
