@@ -541,7 +541,7 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
-      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur</p></div>`);
+      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur...</p></div>`);
 
     } else {
       $('.notmyturn').remove();

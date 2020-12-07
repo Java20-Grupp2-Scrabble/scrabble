@@ -466,19 +466,21 @@ color: green;
   font-size: x-large;
 font-size: 26px;
 padding: 5px;
-color: rgb(128, 0, 0);
+color: rgb(212, 17, 17);
 }
 
 .playerNamesPoints{
+  border: 2px solid rgb(0, 0, 0);
   position: absolute;
-  left: 51%;
-  bottom: 6.2%;
+  left: 100vh;
+  bottom: 76.5vh;
   text-align: center;
-  background-color: rgb(94, 34, 34);
+  background-color: rgb(167, 230, 255);
   width: 150px;
-  height: 150px;
+  height: 143px;
   border-radius: 10px;
-  color: white;
+  color: black;
+  opacity: 70%;
 }
 
 .playerNamesPoints > p{
