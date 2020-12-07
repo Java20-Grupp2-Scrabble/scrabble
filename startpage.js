@@ -92,42 +92,53 @@ export default class Startpage {
     let startTitle = $('<div class="pagetitle"></div>');
     let popmess = $('<div class="popmessage">[Kräver minst 1 spelare för att starta.]</div>');
 
+
     startDiv.append(`
-    <button class = "getKeyButton">Få en nyckel</button>
-    <button class = "joinGameButton">Spela online</button>
+  
 
     <div class="pagetitle">.</div> 
-    <button class="start-button"><h3 class="textInButton">Starta Spelet</h3></button>
+    <button class="start-button"><p class="textInButton">Starta spelet</p></button>
     <button class="connect-btn">Anslut till spel</button>
     <div class="popmessage"></div>
-    <div class="rules">
+    <div class="rules"> 
     <h2 class="rules-headline"></h2>
-    <p class="text-rules"></p>
-    </div>
+    <p class="text-rules">
+    <p class="nrOne">Fyll in namn:</p>
+    
+    </p>
     <div class="players-menu">
     <input type="text" class="player1" placeholder="Namn">
     </div>
+    </div>
     `);
+
+
 
     $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
     $('body').append(startTitle);
     $('body').append(startDiv);
 
     $('.start-button').click(function () {
+
       if ($('.player1').val() === '') { return; }
+      $('.nrOne').hide();
+      $('.text-rules').append('<p class="nrTwo">Fyll in 2-4 spelare:</p>');
       $('.connect-btn').prop('disabled', true);
       $('.start-button').prop('disabled', true);
       $('.players-menu').append(`<input type="text" class="ammountOfPlayers" placeholder="Antal Spelare">`);
       $('.players-menu').append(`<button class="confirm">Bekräfta</button>`);
       $('.confirm').click(async function () {
+        $('.nrTwo').hide();
         let haha = $('.ammountOfPlayers').val();
         if (!that.validAmount.includes(haha)) {
           return;
         } else {
+
           that.localStore.networkKey = await Store.createNetworkKey();
           $('.players-menu').append(`<p class="showKey">Ge följande nyckel:  <span>${that.localStore.networkKey}</span></p>`);
           $('.confirm').prop('disabled', true);
           $('.textInButton').text('Väntar på andra spelare...');
+          $('body').append('<div class="loader"></div>');
           that.connectToGame(haha);
         }
       });
@@ -135,6 +146,8 @@ export default class Startpage {
 
     $('.connect-btn').click(function () {
       if ($('.player1').val() === '') { return; }
+      $('.text-rules').append('<p class="nrThree">Fyll in nyckeln:</p>');
+      $('.nrOne').hide();
       $('.start-button').prop('disabled', true);
       $('.connect-btn').prop('disabled', true);
       $('.players-menu').append(`<input type="text" class="keyInput" placeholder="Nyckel"></input>`);
@@ -167,6 +180,7 @@ export default class Startpage {
         $('.pagetitle').hide();
         $('.startpage').hide();
         $('.key').hide();
+        $('.loader').hide();
         this.test = false;
         this.start(howManyPlayers, this.networkStore.players);
       } else {
