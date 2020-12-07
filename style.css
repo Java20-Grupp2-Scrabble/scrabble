@@ -491,17 +491,19 @@ color: rgb(212, 17, 17);
 .gameOverH1{
   display: flex;
   justify-content: center;
+  font-size: 50px;
 }
 
 .gameOverH2{
   display: flex;
   justify-content: center;
+  font-size: 50px;
 }
 
 .score{
   position: absolute;
-  top: 18vh;
-  left: 80.5vh;
+  top: 33vh;
+  left: 76vh;
   border: 2px solid black;
   background-color: rgb(12, 245, 245);
   opacity: 70%;
@@ -515,8 +517,8 @@ color: rgb(212, 17, 17);
 .playAgainButton{
   text-align: center;
   position: absolute;
-  top: 35vh;
-  left: 80.2vh;
+  top: 47vh;
+  left: 76.5vh;
   background-color: #5e2222;
   border-radius: 3px;
   color: white;
