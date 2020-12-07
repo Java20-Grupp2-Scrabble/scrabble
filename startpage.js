@@ -16,12 +16,6 @@ export default class Startpage {
     this.check = true;
     this.test = true;
     this.first = 0;
-    this.wordVert = '';
-    this.wordHoriz = '';
-    this.placedTiles = [];
-    this.indexholder = [];
-    this.wordHolder = [];
-    this.correctIndexHolder = [];
     this.valid = false;
     this.checker = true;
     this.firstRound = true;
@@ -33,6 +27,12 @@ export default class Startpage {
   }
 
   async start(ammountOfPlayers, playernames) {
+    this.correctIndexHolder = [];
+    this.placedTiles = [];
+    this.indexholder = [];
+    this.wordVert = '';
+    this.wordHoriz = '';
+    this.wordHolder = [];
     //let key = this.localStore.networkKey;
     console.log(ammountOfPlayers, playernames);
     //this.createBoard();
@@ -196,6 +196,13 @@ export default class Startpage {
     this.networkStore.currentPlayer = 0;
     this.networkStore.oldWords = [];
     this.networkStore.tiles = [];
+    this.networkStore.wordHolder = [];
+    this.networkStore.newNew = [];
+    this.networkStore.wordVert = [];
+    this.networkStore.wordHoriz = [];
+    this.networkStore.indexholder = [];
+    this.networkStore.placedTiles = [];
+    this.networkStore.correctIndexHolder = [];
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
       console.log('Could not connect!', this.networkStore.error);
@@ -220,11 +227,53 @@ export default class Startpage {
     // this.render();
     //this.createBoard();
   }
+  get correctIndexHolder() {
+    return this.networkStore.correctIndexHolder;
+  }
+  set correctIndexHolder(x) {
+    this.networkStore.correctIndexHolder = x;
+  }
+  get placedTiles() {
+    return this.networkStore.placedTiles;
+  }
+  set placedTiles(x) {
+    this.networkStore.placedTiles = x;
+  }
+  get indexholder() {
+    return this.networkStore.indexholder;
+  }
+  set indexholder(x) {
+    this.networkStore.indexholder = x;
+  }
+  get wordVert() {
+    return this.networkStore.wordVert;
+  }
+  set wordVert(x) {
+    this.networkStore.wordVert = x;
+  }
+  get wordHoriz() {
+    return this.networkStore.wordHoriz;
+  }
+  set wordHoriz(x) {
+    this.networkStore.wordHoriz = x;
+  }
   get oldWords() {
     return this.networkStore.oldWords;
   }
   set oldWords(x) {
     this.networkStore.oldWords = x;
+  }
+  get wordHolder() {
+    return this.networkStore.wordHolder;
+  }
+  set wordHolder(x) {
+    this.networkStore.wordHolder = x;
+  }
+  get newNew() {
+    return this.networkStore.newNew;
+  }
+  set newNew(x) {
+    this.networkStore.newNew = x;
   }
   get tiles() {
     return this.networkStore.tiles;
@@ -901,7 +950,7 @@ export default class Startpage {
     let points = 0;
     //Slice the original arrays. 
     let oldOld = this.oldWords.slice();
-    let newNew = this.wordHolder.slice();
+    this.newNew = this.wordHolder.slice();
     let second = [];
     console.log('oldWords', this.oldWords);
     console.log(this.wordHolder);
@@ -919,10 +968,10 @@ export default class Startpage {
     //looping through the original array, 
     //and print out the last correct word in a new array.
     while (oldOld.length) {
-      newNew.splice(newNew.indexOf(oldOld.shift()), 1);
+      this.newNew.splice(this.newNew.indexOf(oldOld.shift()), 1);
     }
-    console.log('newNew', newNew)
-    if (!newNew.length) {
+    console.log('newNew', this.newNew)
+    if (!this.newNew.length) {
       for (let i = 0; i < this.wordHolder.length; i++) {
         for (let j = 0; j < this.oldWords.length; j++) {
           if (this.wordHolder[i] === this.oldWords[i]) {
@@ -938,10 +987,10 @@ export default class Startpage {
     //newNew - the array that holds all the new words thi round.
     // Check splits the array an hold every letter. 
     let check = '';
-    if (!newNew.length) {
+    if (!this.newNew.length) {
       check = second[0].toString().split('');
     } else {
-      check = newNew.toString().split('');
+      check = this.newNew.toString().split('');
     }
 
     for (let i = 0; i < check.length; i++) {
