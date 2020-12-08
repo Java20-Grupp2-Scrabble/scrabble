@@ -11,7 +11,9 @@ export default class Startpage {
     return $('.stand').children('.tile');
   }
 
+
   constructor() {
+    //localStorage.clear()
     this.firstEnd = true;
     this.check = true;
     this.test = true;
@@ -33,7 +35,6 @@ export default class Startpage {
     this.wordVert = '';
     this.wordHoriz = '';
     this.wordHolder = [];
-    //let key = this.localStore.networkKey;
     console.log(ammountOfPlayers, playernames);
     //this.createBoard();
     await this.tilesFromFile();
@@ -85,6 +86,7 @@ export default class Startpage {
   startPage() {
     // Get the localStore (an object that survives between page loads)
     this.localStore = Store.getLocalStore();
+    console.log(this.localStore);
     let that = this;
     let ammountOfPlayers = 0;
     let playerNames = [];
@@ -214,7 +216,7 @@ export default class Startpage {
   async connectToGame(howManyPlayers) {
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
-
+    console.log(this.localStore);
     // Get the network store 
     // and setup a listener to changes from others
     // (an object shared between all clients in the network)
@@ -1195,13 +1197,22 @@ export default class Startpage {
 
       this.$winners = '';
       let pointCounter = 0;
-
+      if (!this.localStore.highScorePlayers) {
+        this.localStore.highScorePlayers = [];
+      }
       this.networkStore.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
 
       for (let i = 0; i < this.players.length; i++) {
         this.$winners += `<p class="winner">${this.networkStore.players[i].name}: ${this.networkStore.players[i].points} poäng.</p>`;
         if (this.networkStore.players[i].points === 0) {
           pointCounter++;
+        }
+      }
+      if (this.networkStore.players[0].points !== 0 && pointCounter !== this.networkStore.players.length) {
+        this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, this.networkStore.players[0].name + ': ' + this.networkStore.players[0].points];
+      } else if (pointCounter === this.networkStore.players.length && this.networkStore.players[0].points !== 0) {
+        for (let i = 0; i < this.networkStore.players.length; i++) {
+          this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, this.networkStore.players[i].name + ': ' + this.networkStore.players[i].points];
         }
       }
       if (pointCounter === this.networkStore.players.length) {
