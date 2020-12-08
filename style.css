@@ -531,8 +531,8 @@ color: rgb(212, 17, 17);
 
 .container {
   position: absolute;
-  left: 1200px;
-  top: 425px;
+  left: 80%;
+  top: 46.5%;
 }
 
 .socks {
@@ -771,15 +771,15 @@ color: rgb(212, 17, 17);
 }
 
 @keyframes move {
-  0% { transform: rotate(10deg)}
-  50%{transform: rotate(-30deg)}
-  100%{transform: rotate(10deg)}
+  0% { transform: rotate(3deg)}
+  50%{transform: rotate(-4deg)}
+  100%{transform: rotate(3deg)}
 }
 
 @keyframes deco {
-  0% { transform: rotate(5deg)}
-  50%{transform: rotate(-10deg)}
-  100%{transform: rotate(5deg)}
+  0% { transform: rotate(1deg)}
+  50%{transform: rotate(-2deg)}
+  100%{transform: rotate(1deg)}
 }
 
 .light {
