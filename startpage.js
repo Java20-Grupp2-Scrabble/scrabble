@@ -1213,6 +1213,12 @@ export default class Startpage {
           this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, this.networkStore.players[i].name + ': ' + this.networkStore.players[i].points];
         }
       }
+      let $highScorePlayers = '';
+      for (let i = 0; i < this.localStore.highScorePlayers.length; i++) {
+        $highScorePlayers += `<p>${this.localStore.highScorePlayers[i]}</p>`
+      }
+      let $highScore = `<div>${$highScorePlayers}</div>`;
+      $('body').append($highScore);
       if (pointCounter === this.networkStore.players.length) {
         $('body').append(`<h2 class="gameOverH2even">Det blev lika!</h2>`)
       } else {
