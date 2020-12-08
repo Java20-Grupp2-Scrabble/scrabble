@@ -94,7 +94,50 @@ export default class Startpage {
 
 
     startDiv.append(`
-  
+  <ul class="lightrope">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
 
     <div class="pagetitle">.</div> 
     <button class="start-button"><p class="textInButton">Starta spelet</p></button>
@@ -131,6 +174,7 @@ export default class Startpage {
         $('.nrTwo').hide();
         let haha = $('.ammountOfPlayers').val();
         if (!that.validAmount.includes(haha)) {
+          $('.text-rules').append('<p class="nrTwo">Fyll in 2-4 spelare:</p>');
           return;
         } else {
 
