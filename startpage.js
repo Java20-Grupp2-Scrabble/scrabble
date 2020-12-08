@@ -157,7 +157,7 @@ export default class Startpage {
 
 
 
-    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
+    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknikhögskola)</footer>');
     $('body').append(startTitle);
     $('body').append(startDiv);
 
@@ -212,7 +212,6 @@ export default class Startpage {
   // DIN  TUR LOADING:  $('body').append('<div><div class="loader"></div>');
 
   async connectToGame(howManyPlayers) {
-
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
 
@@ -401,6 +400,44 @@ export default class Startpage {
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
       return;
     }
+
+    $('body').append(`<div class="container"> 
+  <div class="star"></div>
+  <div class="pressie">
+    <div class="cover"></div>
+    <div class="wrap"> </div>
+    <div class="ribbon"></div>
+  </div>
+  <div class="tree">
+    <div class="base"> </div>
+    <div class="layer">
+      <div class="line"> </div>
+      <div class="bauble one"></div></div>
+    
+    <div class="layer two">
+      <div class="line two"> </div>
+      <div class="bauble two"></div>
+      <div class="socks"> 
+        <div class="top"> </div>
+        <div class="foot"></div></div>
+      </div>
+    
+    <div class="layer three">
+      <div class="line three"> </div>
+      <div class="bauble three"></div>
+      <div class="socks two"> 
+        <div class="top"> </div>
+        <div class="foot two"></div></div>
+      </div>
+       </div>
+    
+    <div class="layer four">
+      <div class="bauble four"></div>
+      <div class="star two"></div>
+      <div class="line four"> </div> 
+       </div>
+  </div>
+</div>`);
     $('.board, .players, .next, .swap, .playerNamesPoints').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
@@ -601,7 +638,7 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
-      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}'s tur...</p></div>`);
+      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur...</p></div>`);
       $('body').append('<div><div class="loader"></div>');
     } else {
       $('.notmyturn').remove();
