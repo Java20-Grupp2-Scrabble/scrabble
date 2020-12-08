@@ -174,8 +174,8 @@ export default class Startpage {
       $('.players-menu').append(`<button class="confirm">Bekräfta</button>`);
       $('.confirm').click(async function () {
         $('.nrTwo').hide();
-        let haha = $('.ammountOfPlayers').val();
-        if (!that.validAmount.includes(haha)) {
+        let playerAmmount = $('.ammountOfPlayers').val();
+        if (!that.validAmount.includes(playerAmmount)) {
           $('.text-rules').append('<p class="nrTwo">Fyll in 2-4 spelare:</p>');
           return;
         } else {
@@ -185,7 +185,7 @@ export default class Startpage {
           $('.confirm').prop('disabled', true);
           $('.textInButton').text('Väntar på andra spelare...');
           $('body').append('<div class="progress container"><span>V</span ><span>ä</span><span>n</span><span>t</span><span>a</span><span>r</span> &nbsp; <span>p</span><span>å</span> &nbsp; <span>s</span ><span>p</span><span>e</span><span>l</span><span>a</span><span>r</span><span>e</span> </div >');
-          that.connectToGame(haha);
+          that.connectToGame(playerAmmount);
         }
       });
     });
@@ -1188,6 +1188,8 @@ export default class Startpage {
       $('.next').hide();
       $('.playerNamesPoints').hide();
       $('.notmyturn').hide();
+      $('.helpBtn').hide();
+      $('.madeBy').hide();
       $('body').append('<h1 class="gameOverH1">Spelet är slut</h1>');
       // Fireworks
       $('body').append('<div class="pyro"><div class="before"></div><div class="after"></div></div>');
