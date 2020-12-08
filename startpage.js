@@ -441,7 +441,7 @@ export default class Startpage {
     $('.board, .players, .next, .swap, .playerNamesPoints').remove();
     let $board = $('<div class="board"/>').appendTo('body');
     let $players = $('<div class="players"/>').appendTo('body');
-    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknik Högskola)</footer>');
+    $('body').append('<footer class="footer"> &copy; 2020 - Made by Grupp 2 (Lunds Teknikhögskola)</footer>');
     $('body').append('<div class="invalid"></div>');
     $('body').append('<div class="playerNamesPoints"></div>')
     $board.html(this.networkStore.board.flat().map(x => `
@@ -638,8 +638,8 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
-      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur...</p></div>`);
-      $('body').append('<div><div class="loader"></div>');
+      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<div class="dotDotDot"></div></p></div>`);
+
     } else {
       $('.notmyturn').remove();
       $('.myturn').remove();
@@ -1187,7 +1187,10 @@ export default class Startpage {
       $('.playerNamesPoints').hide();
       $('.notmyturn').hide();
       $('body').append('<h1 class="gameOverH1">Spelet är slut</h1>');
+      // Fireworks
       $('body').append('<div class="pyro"><div class="before"></div><div class="after"></div></div>');
+      // Throphy icon for the winner
+
       this.$winners = '';
       let pointCounter = 0;
 
@@ -1200,9 +1203,10 @@ export default class Startpage {
         }
       }
       if (pointCounter === this.networkStore.players.length) {
-        $('body').append(`<h2 class="gameOverH2">Det blev lika!</h2>`)
+        $('body').append(`<h2 class="gameOverH2even">Det blev lika!</h2>`)
       } else {
-        $('body').append(`<h2 class="gameOverH2">Vinnaren: ${this.networkStore.players[0].name}</h2>`);
+        $('body').append('<img id="score-logo" src="https://c10.patreonusercontent.com/3/eyJ3Ijo0MDB9/patreon-media/p/reward/2700645/3a91fd01cb12426e9ce8181f9f318018/2?token-time=2145916800&amp;token-hash=aPOTRMCfdGnGe7H5FBGYDtqAHI2pZYN8K2i0med9Ia8%3D" alt="trophy gif">');
+        $('body').append(`<h2 class="gameOverH2">${this.networkStore.players[0].name}</h2>`);
       }
       $('body').append('<div class="score"></div>');
       $('.score').append('<h3>Resultatet:</h3>' + this.$winners);
