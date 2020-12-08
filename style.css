@@ -441,8 +441,8 @@ cursor: pointer;
 
 .myturn{
   position: absolute;
-  left: 148vh;
-  bottom: 93.4vh;
+  left: 81%;
+  bottom: 93.4%;
   height:  9.7%;
   width: 10%;
 }
@@ -456,8 +456,8 @@ color: green;
 
 .notmyturn{
    position: absolute;
-  left: 148vh;
-  bottom: 93.4vh;
+  left: 80%;
+  bottom: 93.4%;
   height:  9.7%;
   width: 10%;
 }
