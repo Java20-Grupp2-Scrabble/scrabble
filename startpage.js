@@ -557,12 +557,13 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
-      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur...</p></div>`);
-
+      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}'s tur...</p></div>`);
+      $('body').append('<div><div class="loader"></div>');
     } else {
       $('.notmyturn').remove();
       $('.myturn').remove();
-      $('body').append(`<div class="myturn"><p>Din tur</p></div>`)
+      $('.loader').remove();
+      $('body').append(`<div class="myturn"><p>Din tur</p></div>`);
     }
 
     let indexTile = 0;
@@ -1094,6 +1095,7 @@ export default class Startpage {
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1) && this.firstEnd) {
 
       this.firstEnd = false;
+      $('.loader').remove();
       $('.board').hide();
       $('.stand').hide();
       $('.players').hide();
