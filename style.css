@@ -406,7 +406,7 @@ cursor: pointer;
 }
 
 .invalid::after{
-  content: 'INVALID MOVE';
+  content: 'EJ GILTIGT ORD';
   margin: 0;
 }
 .footer {
