@@ -1204,6 +1204,7 @@ export default class Startpage {
       $('.notmyturn').hide();
       $('.helpBtn').hide();
       $('.madeBy').hide();
+      $('.invalid').hide();
       $('body').append('<h1 class="gameOverH1">Spelet är slut</h1>');
       // Fireworks
       $('body').append('<div class="pyro"><div class="before"></div><div class="after"></div></div>');
