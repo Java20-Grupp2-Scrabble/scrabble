@@ -22,6 +22,7 @@ export default class Startpage {
     this.checker = true;
     this.firstRound = true;
     this.validTiles = true;
+    this.join = true;
     this.zeroHolder = [];
     this.validAmount = ['2', '3', '4'];
     this.validLetter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -452,13 +453,12 @@ export default class Startpage {
     </div>
     `).join(''));
     //this.playerIndex !== this.networkStore.currentPlayer
-    for (let i = 0; i < this.players.length; i++) {
+    $('.playerNamesPoints').append('<p>Poäng tavla:</p>');
+    for (let i = 0; i < this.networkStore.players.length; i++) {
       if (i === this.playerIndex) { continue; } else {
-        $('.playerNamesPoints').append(`<p>Poäng tavla:</p><p>${this.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
+        $('.playerNamesPoints').append(`<p>${this.networkStore.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
       }
     }
-
-
     // Render the players
     let that = this;
     $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.playerIndex].points}</div>`);
@@ -640,7 +640,13 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
-      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<div class="dotDotDot"></div></p></div>`);
+      let lastChar = this.players[this.networkStore.currentPlayer].name;
+      if (lastChar.charAt(lastChar.length - 1) === 's' || lastChar.charAt(lastChar.length - 1) === 'S') {
+        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<span class="dotDotDot"></span></p></div>`);
+      }
+      else {
+        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur<span class="dotDotDot"></span></p></div>`);
+      }
 
     } else {
       $('.notmyturn').remove();
@@ -650,40 +656,41 @@ export default class Startpage {
     }
 
     let indexTile = 0;
-    $('.tileblank').click(function () {
-      $('.next').hide();
-      $('.swap').hide();
-      $('.pass').hide();
-      $('.undo-btn').hide();
-      $('.blank').empty();
-      indexTile = $(this).attr('data-tile');
-      $('body').append(
-        `
+    if (this.playerIndex === this.networkStore.currentPlayer) {
+      $('.tileblank').click(function () {
+        $('.next').hide();
+        $('.swap').hide();
+        $('.pass').hide();
+        $('.undo-btn').hide();
+        $('.blank').empty();
+        indexTile = $(this).attr('data-tile');
+        $('body').append(
+          `
         <div class ="blank">
         <input placeholder="?" type="text" class="blankinput" pattern="[A-Ö]{1}"></input>
         <button class="blankbutton">Välj</button>
         </div>
       `);
-      $('.blankbutton').click(function () {
-        let letter = $('.blankinput').val();
-        if (!that.validLetter.includes(letter.toUpperCase()) || letter.length > 1) {
-          return;
-        }
-        console.log(letter);
-        //this.playerIndex
-        that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
-        $('.players').empty();
-        $('.players').append(that.players[that.playerIndex].render());
-        that.render();
-        $('.blankbutton').hide();
-        $('.blankinput').hide();
-        $('.next').show();
-        $('.swap').show();
-        $('.pass').show();
-        $('.undo-btn').show();
-      })
-    });
-
+        $('.blankbutton').click(function () {
+          let letter = $('.blankinput').val();
+          if (!that.validLetter.includes(letter.toUpperCase()) || letter.length > 1) {
+            return;
+          }
+          console.log(letter);
+          //this.playerIndex
+          that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
+          $('.players').empty();
+          $('.players').append(that.players[that.playerIndex].render());
+          that.render();
+          $('.blankbutton').hide();
+          $('.blankinput').hide();
+          $('.next').show();
+          $('.swap').show();
+          $('.pass').show();
+          $('.undo-btn').show();
+        })
+      });
+    }
 
     let currentPlayerTiles = this.getCurrentPlayerTiles();
     //console.log(currentPlayerTiles);
