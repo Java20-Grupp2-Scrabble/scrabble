@@ -640,6 +640,7 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
+      //$('.blankbutton').prop('disabled', true);
       $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<div class="dotDotDot"></div></p></div>`);
 
     } else {
@@ -650,40 +651,41 @@ export default class Startpage {
     }
 
     let indexTile = 0;
-    $('.tileblank').click(function () {
-      $('.next').hide();
-      $('.swap').hide();
-      $('.pass').hide();
-      $('.undo-btn').hide();
-      $('.blank').empty();
-      indexTile = $(this).attr('data-tile');
-      $('body').append(
-        `
+    if (this.playerIndex === this.networkStore.currentPlayer) {
+      $('.tileblank').click(function () {
+        $('.next').hide();
+        $('.swap').hide();
+        $('.pass').hide();
+        $('.undo-btn').hide();
+        $('.blank').empty();
+        indexTile = $(this).attr('data-tile');
+        $('body').append(
+          `
         <div class ="blank">
         <input placeholder="?" type="text" class="blankinput" pattern="[A-Ö]{1}"></input>
         <button class="blankbutton">Välj</button>
         </div>
       `);
-      $('.blankbutton').click(function () {
-        let letter = $('.blankinput').val();
-        if (!that.validLetter.includes(letter.toUpperCase()) || letter.length > 1) {
-          return;
-        }
-        console.log(letter);
-        //this.playerIndex
-        that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
-        $('.players').empty();
-        $('.players').append(that.players[that.playerIndex].render());
-        that.render();
-        $('.blankbutton').hide();
-        $('.blankinput').hide();
-        $('.next').show();
-        $('.swap').show();
-        $('.pass').show();
-        $('.undo-btn').show();
-      })
-    });
-
+        $('.blankbutton').click(function () {
+          let letter = $('.blankinput').val();
+          if (!that.validLetter.includes(letter.toUpperCase()) || letter.length > 1) {
+            return;
+          }
+          console.log(letter);
+          //this.playerIndex
+          that.players[that.count].blankTile(letter.toUpperCase(), indexTile);
+          $('.players').empty();
+          $('.players').append(that.players[that.playerIndex].render());
+          that.render();
+          $('.blankbutton').hide();
+          $('.blankinput').hide();
+          $('.next').show();
+          $('.swap').show();
+          $('.pass').show();
+          $('.undo-btn').show();
+        })
+      });
+    }
 
     let currentPlayerTiles = this.getCurrentPlayerTiles();
     //console.log(currentPlayerTiles);
