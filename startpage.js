@@ -231,7 +231,7 @@ export default class Startpage {
         $('.progress').hide();
         this.test = false;
         this.start(howManyPlayers, this.networkStore.players);
-      } else {
+      } else if (this.networkStore.players.length + '' === howManyPlayers + '') {
         this.render();
       }
     });
