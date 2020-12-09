@@ -22,6 +22,7 @@ export default class Startpage {
     this.checker = true;
     this.firstRound = true;
     this.validTiles = true;
+    this.join = true;
     this.zeroHolder = [];
     this.validAmount = ['2', '3', '4'];
     this.validLetter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -452,13 +453,12 @@ export default class Startpage {
     </div>
     `).join(''));
     //this.playerIndex !== this.networkStore.currentPlayer
-    for (let i = 0; i < this.players.length; i++) {
+    $('.playerNamesPoints').append('<p>Poäng tavla:</p>');
+    for (let i = 0; i < this.networkStore.players.length; i++) {
       if (i === this.playerIndex) { continue; } else {
-        $('.playerNamesPoints').append(`<p>Poäng tavla:</p><p>${this.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
+        $('.playerNamesPoints').append(`<p>${this.networkStore.players[i].name}: ${this.networkStore.players[i].points} poäng</p>`);
       }
     }
-
-
     // Render the players
     let that = this;
     $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.playerIndex].points}</div>`);
