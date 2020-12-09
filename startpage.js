@@ -21,7 +21,6 @@ export default class Startpage {
     this.valid = false;
     this.checker = true;
     this.firstRound = true;
-    this.validTiles = true;
     this.join = true;
     this.zeroHolder = [];
     this.validAmount = ['2', '3', '4'];
@@ -30,6 +29,7 @@ export default class Startpage {
   }
 
   async start(ammountOfPlayers, playernames) {
+    this.validTiles = true;
     this.correctIndexHolder = [];
     this.placedTiles = [];
     this.indexholder = [];
@@ -264,6 +264,7 @@ export default class Startpage {
     this.networkStore.wordHoriz = [];
     this.networkStore.indexholder = [];
     this.networkStore.placedTiles = [];
+    this.networkStore.firtstR = 0;
     this.networkStore.correctIndexHolder = [];
     // Something went wrong (propably: the key was incorrect)
     if (this.networkStore.error) {
@@ -466,6 +467,8 @@ export default class Startpage {
     $players.append(this.players[this.playerIndex].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
+      $('.invalid').hide();
+      that.networkStore.firtstR++;
       that.networkStore.currentPlayer++;
       if (that.networkStore.currentPlayer === that.networkStore.players.length) {
         that.networkStore.currentPlayer = 0;
@@ -497,7 +500,7 @@ export default class Startpage {
 
     $('body').append('<button class="next">Spela</button>');
     $('.next').click(async function () {
-      if (!that.firstRound) {
+      if (that.networkStore.firtstR !== 0) {
         that.checkIfConnected();
       }
       that.checker = true;
@@ -522,6 +525,7 @@ export default class Startpage {
       }
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
         let points = that.countPoints();
+        that.networkStore.firtstR++;
         that.networkStore.players[that.playerIndex].points += points;
         that.networkStore.currentPlayer++;
         if (that.networkStore.currentPlayer === that.networkStore.players.length) {
@@ -561,6 +565,7 @@ export default class Startpage {
         if (that.networkStore.currentPlayer === that.networkStore.players.length) {
           that.networkStore.currentPlayer = 0;
         }
+        that.networkStore.firtstR++;
         that.placedTiles = [];
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.players[that.count].pushTiles(that.indexholder.length);
@@ -568,6 +573,7 @@ export default class Startpage {
         that.placedTiles = [];
         that.indexholder = [];
         that.wordHolder = [];
+        $('.invalid').hide();
         that.render();
         that.count++;
         that.networkStore.passCounter = 0;
@@ -593,6 +599,7 @@ export default class Startpage {
         that.indexholder.forEach(([a, b]) => that.board[a][b].tile = '');
         that.indexholder = [];
         that.wordHolder = [];
+        $('.invalid').hide();
         that.render();
       }
     });
