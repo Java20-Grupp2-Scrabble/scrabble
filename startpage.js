@@ -642,10 +642,10 @@ export default class Startpage {
       $('.undo-btn').hide();
       let lastChar = this.players[this.networkStore.currentPlayer].name;
       if (lastChar.charAt(lastChar.length - 1) === 's' || lastChar.charAt(lastChar.length - 1) === 'S') {
-        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<div class="dotDotDot"></div></p></div>`);
+        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<span class="dotDotDot"></span></p></div>`);
       }
       else {
-        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur<div class="dotDotDot"></div></p></div>`);
+        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur<span class="dotDotDot"></span></p></div>`);
       }
 
     } else {
