@@ -1209,15 +1209,16 @@ export default class Startpage {
         }
       }
       if (this.networkStore.players[0].points !== 0 && pointCounter !== this.networkStore.players.length) {
-        this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, this.networkStore.players[0].name + ': ' + this.networkStore.players[0].points];
+        this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, { name: this.networkStore.players[0].name, points: this.networkStore.players[0].points }];
       } else if (pointCounter === this.networkStore.players.length && this.networkStore.players[0].points !== 0) {
         for (let i = 0; i < this.networkStore.players.length; i++) {
-          this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, this.networkStore.players[i].name + ': ' + this.networkStore.players[i].points];
+          this.localStore.highScorePlayers = [...this.localStore.highScorePlayers, { name: this.networkStore.players[i].name, points: this.networkStore.players[i].points }];
         }
       }
+      this.localStore.highScorePlayers.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
       let $highScorePlayers = '';
       for (let i = 0; i < this.localStore.highScorePlayers.length; i++) {
-        $highScorePlayers += `<p>${this.localStore.highScorePlayers[i]}</p>`
+        $highScorePlayers += `<p>${this.localStore.highScorePlayers[i].name + ': ' + this.localStore.highScorePlayers[i].points}</p>`
       }
       let $highScore = `<div>${$highScorePlayers}</div>`;
       $('body').append($highScore);
