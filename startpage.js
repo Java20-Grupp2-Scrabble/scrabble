@@ -640,8 +640,13 @@ export default class Startpage {
       $('.swap').hide();
       $('.pass').hide();
       $('.undo-btn').hide();
-      //$('.blankbutton').prop('disabled', true);
-      $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<div class="dotDotDot"></div></p></div>`);
+      let lastChar = this.players[this.networkStore.currentPlayer].name;
+      if (lastChar.charAt(lastChar.length - 1) === 's' || lastChar.charAt(lastChar.length - 1) === 'S') {
+        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name} tur<div class="dotDotDot"></div></p></div>`);
+      }
+      else {
+        $('body').append(`<div class="notmyturn"><p>${this.players[this.networkStore.currentPlayer].name}s tur<div class="dotDotDot"></div></p></div>`);
+      }
 
     } else {
       $('.notmyturn').remove();
