@@ -1148,7 +1148,9 @@ export default class Startpage {
 
     for (let i = 0; i < this.indexholder.length; i++) {
       if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
-
+        let add = this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 2;
+        points += add;
+        points -= this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
       }
       if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
         doubleWord = true;
