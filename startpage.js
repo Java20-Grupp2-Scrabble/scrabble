@@ -1236,7 +1236,7 @@ export default class Startpage {
       for (let i = 0; i < this.localStore.highScorePlayers.length; i++) {
         $highScorePlayers += `<p class="hcName">${this.localStore.highScorePlayers[i].name + ': &nbsp; &nbsp; ' + this.localStore.highScorePlayers[i].points} poäng</p>`
       }
-      let $highScore = `<div class="highscoreFrame" style="overflow:scroll; height:400px;"><p class="hcTitles"> &#11088; HighScores &#11088; <div class="highscorePlayers">${$highScorePlayers}</div></p></div>`;
+      let $highScore = `<div class="highscoreFrame" style="overflow:scroll; height:400px;"><p class="hcTitles"> &#11088; Rekord Tavla &#11088; <div class="highscorePlayers">${$highScorePlayers}</div></p></div>`;
       $('body').append($highScore);
       if (pointCounter === this.networkStore.players.length) {
         $('body').append(`<h2 class="gameOverH2even">Det blev lika!</h2>`)
