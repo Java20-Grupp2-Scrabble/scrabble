@@ -1225,13 +1225,12 @@ export default class Startpage {
       for (let i = 0; i < this.localStore.highScorePlayers.length; i++) {
         $highScorePlayers += `<p class="hcName">${this.localStore.highScorePlayers[i].name + ': &nbsp; &nbsp; ' + this.localStore.highScorePlayers[i].points} poäng</p>`
       }
-      let $highScore = `<div class="highscoreFrame" style="overflow:scroll; height:400px;"><p class="hcTitles"> &nbsp; HighScores <div class="highscorePlayers">${$highScorePlayers}</div></p></div>`;
+      let $highScore = `<div class="highscoreFrame" style="overflow:scroll; height:400px;"><p class="hcTitles"> &#11088; Rekord Tavla &#11088; <div class="highscorePlayers">${$highScorePlayers}</div></p></div>`;
       $('body').append($highScore);
       if (pointCounter === this.networkStore.players.length) {
         $('body').append(`<h2 class="gameOverH2even">Det blev lika!</h2>`)
       } else {
         $('body').append(`<img id="score-logo" src="https://c10.patreonusercontent.com/3/eyJ3Ijo0MDB9/patreon-media/p/reward/2700645/3a91fd01cb12426e9ce8181f9f318018/2?token-time=2145916800&amp;token-hash=aPOTRMCfdGnGe7H5FBGYDtqAHI2pZYN8K2i0med9Ia8%3D" alt="trophy gif"><h2 class="gameOverH2">${this.networkStore.players[0].name}</h2>`);
-        // $('body').append(`< h2 class= "gameOverH2" > ${ this.networkStore.players[0].name }</h2 > `);
       }
       $('body').append('<div class="score"></div>');
       $('.score').append('<h3>Resultatet:</h3>' + this.$winners);
