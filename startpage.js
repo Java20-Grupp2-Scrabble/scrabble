@@ -36,7 +36,6 @@ export default class Startpage {
     this.wordVert = '';
     this.wordHoriz = '';
     this.wordHolder = [];
-    console.log(ammountOfPlayers, playernames);
     //this.createBoard();
     await this.tilesFromFile();
 
@@ -44,7 +43,6 @@ export default class Startpage {
     for (let i = 1; i <= +ammountOfPlayers; i++) {
       this.players.push(new Player(this, `${playernames[i - 1].name}`));
     }
-    console.log(this.players)
     //this.networkStore.players = this.players;
 
     let helpBtn = $('<button class="helpBtn">?</button>');
@@ -87,7 +85,6 @@ export default class Startpage {
   startPage() {
     // Get the localStore (an object that survives between page loads)
     this.localStore = Store.getLocalStore();
-    console.log(this.localStore);
     let that = this;
     let ammountOfPlayers = 0;
     let playerNames = [];
@@ -217,13 +214,11 @@ export default class Startpage {
   async connectToGame(howManyPlayers) {
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
-    console.log(this.localStore);
     // Get the network store 
     // and setup a listener to changes from others
     // (an object shared between all clients in the network)
     this.networkStore = await Store.getNetworkStore(key, () => {
       // listener on changes from others in the network
-      console.log('tiles?', this.networkStore.tiles.length);
       if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
         $('.pagetitle').hide();
         $('.startpage').hide();
@@ -250,7 +245,6 @@ export default class Startpage {
     }
 
     // EXEMPEL
-    console.log($('.player1').val());
     this.name = $('.player1').val();
     this.playerIndex = this.networkStore.players.length;
     this.networkStore.players.push({ name: this.name, points: 0 });
@@ -278,7 +272,6 @@ export default class Startpage {
       // add it a let the value be an empty array
       this.networkStore.messages = this.networkStore.messages || [];
     }
-    console.log(howManyPlayers);
     if (this.networkStore.players.length + '' === howManyPlayers + '' && this.test) {
       $('.key').hide();
       $('.pagetitle').hide();
@@ -463,7 +456,6 @@ export default class Startpage {
     // Render the players
     let that = this;
     $('.players').append(`<div class="players-point"> ★ poäng: ${this.players[this.playerIndex].points}</div>`);
-    console.log(this.playerIndex);
     $players.append(this.players[this.playerIndex].render());
     $('body').append('<button class="pass">Passa</button>');
     $('.pass').click(function () {
@@ -562,8 +554,10 @@ export default class Startpage {
     $('.swap').click(function () {
       if (that.placedTiles.length !== 0) {
         that.networkStore.currentPlayer++;
+        $('.invalid').hide();
         if (that.networkStore.currentPlayer === that.networkStore.players.length) {
           that.networkStore.currentPlayer = 0;
+          $('.invalid').hide();
         }
         that.networkStore.firtstR++;
         that.placedTiles = [];
@@ -1066,8 +1060,6 @@ export default class Startpage {
     let oldOld = this.oldWords.slice();
     this.newNew = this.wordHolder.slice();
     let second = [];
-    console.log('oldWords', this.oldWords);
-    console.log(this.wordHolder);
 
 
     //Arrays for different points, depending on the letters. 
@@ -1084,7 +1076,6 @@ export default class Startpage {
     while (oldOld.length) {
       this.newNew.splice(this.newNew.indexOf(oldOld.shift()), 1);
     }
-    console.log('newNew', this.newNew)
     if (!this.newNew.length) {
       for (let i = 0; i < this.wordHolder.length; i++) {
         for (let j = 0; j < this.oldWords.length; j++) {
@@ -1125,7 +1116,6 @@ export default class Startpage {
     }
 
 
-    console.log('check', check);
 
 
     for (let i = 0; i < check.length; i++) {
@@ -1158,7 +1148,9 @@ export default class Startpage {
 
     for (let i = 0; i < this.indexholder.length; i++) {
       if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
-
+        let add = this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 2;
+        points += add;
+        points -= this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
       }
       if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
         doubleWord = true;
@@ -1184,7 +1176,6 @@ export default class Startpage {
     if (tripleWord) {
       points *= 3;
     }
-    console.log(points);
     return points;
   }
 
