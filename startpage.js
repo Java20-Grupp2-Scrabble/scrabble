@@ -518,6 +518,7 @@ export default class Startpage {
       if (that.board[7][7].tile !== undefined && that.check === true && that.checker && that.checkIfOnlyOneWord() && that.validTiles) {
         let points = that.countPoints();
         that.networkStore.firtstR++;
+        if (that.placedTiles.length === 7) { that.networkStore.players[that.playerIndex].points += 50; }
         that.networkStore.players[that.playerIndex].points += points;
         that.networkStore.currentPlayer++;
         if (that.networkStore.currentPlayer === that.networkStore.players.length) {
