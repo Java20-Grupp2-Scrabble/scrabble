@@ -935,9 +935,14 @@ position: absolute;
   background: #05555581;
   box-sizing: border-box;
   border: solid black 2px;
-  margin-left: 5px;
-  margin-right: 5px;
   padding: 5px;
- 
+  margin-right: 2.4%;
+  margin-top: 2.5%;
 }
+.hcPoints {
+  display: inline-table;
+  float: right;
+}
+
+
     
