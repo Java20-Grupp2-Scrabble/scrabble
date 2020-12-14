@@ -258,6 +258,8 @@ export default class Startpage {
     this.networkStore.wordHoriz = [];
     this.networkStore.indexholder = [];
     this.networkStore.placedTiles = [];
+    this.networkStore.winners = '';
+    this.networkStore.printResult = 0;
     this.networkStore.firtstR = 0;
     this.networkStore.correctIndexHolder = [];
     // Something went wrong (propably: the key was incorrect)
@@ -390,6 +392,15 @@ export default class Startpage {
   getTiles(howMany = 7) {
     // Return a number of tiles (and remove from this.tiles)
     return this.tiles.splice(0, howMany);
+  }
+
+  printMeOut(player) {
+    for (let i = 0; i < 7; i++) {
+      player.points -= this.players[this.playerIndex].tiles[i].points;
+    }
+    console.log(this.networkStore.winners);
+    console.log(player.name + ': ' + player.points);
+    this.networkStore.printResult++;
   }
 
   render() {
@@ -1149,9 +1160,7 @@ export default class Startpage {
 
     for (let i = 0; i < this.indexholder.length; i++) {
       if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'middle') {
-        let add = this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points * 2;
-        points += add;
-        points -= this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].tile.points;
+        doubleWord = true;
       }
       if (this.networkStore.board[this.indexholder[i][0]][this.indexholder[i][1]].special === 'orange') {
         doubleWord = true;
@@ -1180,9 +1189,11 @@ export default class Startpage {
     return points;
   }
 
-  endGame() {
+
+  async endGame() {
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1) && this.firstEnd) {
 
+      this.printMeOut(this.players[this.playerIndex]);
       this.firstEnd = false;
       $('.loader').remove();
       $('.board').hide();
@@ -1202,7 +1213,6 @@ export default class Startpage {
       $('body').append('<div class="pyro"><div class="before"></div><div class="after"></div></div>');
       // Throphy icon for the winner
 
-      this.$winners = '';
       let pointCounter = 0;
       if (!this.localStore.highScorePlayers) {
         this.localStore.highScorePlayers = [];
@@ -1210,7 +1220,7 @@ export default class Startpage {
       this.networkStore.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
 
       for (let i = 0; i < this.players.length; i++) {
-        this.$winners += `<p class="winner">${this.networkStore.players[i].name}: ${this.networkStore.players[i].points} poäng.</p>`;
+
         if (this.networkStore.players[i].points === 0) {
           pointCounter++;
         }
@@ -1236,11 +1246,13 @@ export default class Startpage {
         $('body').append(`<img id="score-logo" src="https://c10.patreonusercontent.com/3/eyJ3Ijo0MDB9/patreon-media/p/reward/2700645/3a91fd01cb12426e9ce8181f9f318018/2?token-time=2145916800&amp;token-hash=aPOTRMCfdGnGe7H5FBGYDtqAHI2pZYN8K2i0med9Ia8%3D" alt="trophy gif"><h2 class="gameOverH2">${this.networkStore.players[0].name}</h2>`);
       }
       $('body').append('<div class="score"></div>');
-      $('.score').append('<h3>Resultatet:</h3>' + this.$winners);
+      $('.score').append('<h3>Resultatet:</h3>' + this.networkStore.winners);
       $('body').append(`<button class= "playAgainButton" > Nytt spel</button>`);
       $('.playAgainButton').click(function () {
         location.reload();
       });
+
+
     }
   }
 }
