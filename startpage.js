@@ -43,6 +43,10 @@ export default class Startpage {
     for (let i = 1; i <= +ammountOfPlayers; i++) {
       this.players.push(new Player(this, `${playernames[i - 1].name}`));
     }
+
+    let tilePoints = 0, t = this.players[this.playerIndex].getCurrentTiles();
+    t.forEach(x => tilePoints += x.points);
+    this.networkStore.players[this.playerIndex].tilePoints = tilePoints;
     //this.networkStore.players = this.players;
 
     let helpBtn = $('<button class="helpBtn">?</button>');
@@ -394,15 +398,6 @@ export default class Startpage {
     return this.tiles.splice(0, howMany);
   }
 
-  printMeOut(player) {
-    for (let i = 0; i < 7; i++) {
-      player.points -= this.players[this.playerIndex].tiles[i].points;
-    }
-    console.log(this.networkStore.winners);
-    console.log(player.name + ': ' + player.points);
-    this.networkStore.printResult++;
-  }
-
   render() {
     this.endGame();
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
@@ -541,6 +536,11 @@ export default class Startpage {
         that.checker = true;
         that.players[that.count].points += points;
         that.players[that.count].pushTiles(that.placedTiles.length);
+
+        let tilePoints = 0, t = that.players[that.playerIndex].getCurrentTiles();
+        t.forEach(x => tilePoints += x.points);
+        that.networkStore.players[that.playerIndex].tilePoints = tilePoints;
+
         $('.players').empty();
         that.oldWords = that.wordHolder.slice();
         that.placedTiles = [];
@@ -1193,7 +1193,6 @@ export default class Startpage {
   async endGame() {
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1) && this.firstEnd) {
 
-      this.printMeOut(this.players[this.playerIndex]);
       this.firstEnd = false;
       $('.loader').remove();
       $('.board').hide();
@@ -1212,12 +1211,34 @@ export default class Startpage {
       // Fireworks
       $('body').append('<div class="pyro"><div class="before"></div><div class="after"></div></div>');
       // Throphy icon for the winner
+      this.$winners = '';
 
       let pointCounter = 0;
       if (!this.localStore.highScorePlayers) {
         this.localStore.highScorePlayers = [];
       }
+
+      let s = this.networkStore;
+      if (!s.tileCountDone) {
+        let totalTilePoints = 0;
+        for (let player of s.players) {
+          player.points -= player.tilePoints;
+          totalTilePoints += player.tilePoints;
+        }
+        for (let player of s.players.filter(x => x.tilePoints === 0)) {
+          player.points += totalTilePoints;
+        }
+        s.tileCountDone = true;
+      }
+
       this.networkStore.players.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
+
+      for (let i = 0; i < this.players.length; i++) {
+        this.$winners += `<p class="winner">${this.networkStore.players[i].name}: ${this.networkStore.players[i].points} poäng.</p>`;
+        if (this.networkStore.players[i].points === 0) {
+          pointCounter++;
+        }
+      }
 
       for (let i = 0; i < this.players.length; i++) {
 
@@ -1246,7 +1267,7 @@ export default class Startpage {
         $('body').append(`<img id="score-logo" src="https://c10.patreonusercontent.com/3/eyJ3Ijo0MDB9/patreon-media/p/reward/2700645/3a91fd01cb12426e9ce8181f9f318018/2?token-time=2145916800&amp;token-hash=aPOTRMCfdGnGe7H5FBGYDtqAHI2pZYN8K2i0med9Ia8%3D" alt="trophy gif"><h2 class="gameOverH2">${this.networkStore.players[0].name}</h2>`);
       }
       $('body').append('<div class="score"></div>');
-      $('.score').append('<h3>Resultatet:</h3>' + this.networkStore.winners);
+      $('.score').append('<h3>Resultatet:</h3>' + this.$winners);
       $('body').append(`<button class= "playAgainButton" > Nytt spel</button>`);
       $('.playAgainButton').click(function () {
         location.reload();
