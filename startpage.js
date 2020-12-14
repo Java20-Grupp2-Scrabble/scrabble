@@ -13,7 +13,8 @@ export default class Startpage {
 
 
   constructor() {
-    //localStorage.clear()
+    // Clear the HighScore by just removing the comment and save.
+    //localStorage.clear() 
     this.firstEnd = true;
     this.check = true;
     this.test = true;
@@ -43,7 +44,6 @@ export default class Startpage {
     for (let i = 1; i <= +ammountOfPlayers; i++) {
       this.players.push(new Player(this, `${playernames[i - 1].name}`));
     }
-    //this.networkStore.players = this.players;
 
     let helpBtn = $('<button class="helpBtn">?</button>');
     $('body').append(helpBtn);
@@ -75,9 +75,7 @@ export default class Startpage {
     $('.madeBy').on('click', function () {
       $('.madeBy-popup').toggle();
     });
-
     //------------------
-
 
     this.render();
   }
@@ -92,7 +90,7 @@ export default class Startpage {
     let startTitle = $('<div class="pagetitle"></div>');
     let popmess = $('<div class="popmessage">[Kräver minst 1 spelare för att starta.]</div>');
 
-
+    // All the html for the startpage 
     startDiv.append(`
   <ul class="lightrope">
   <li></li>
@@ -209,8 +207,7 @@ export default class Startpage {
 
   }
 
-  // DIN  TUR LOADING:  $('body').append('<div><div class="loader"></div>');
-
+  // Connecting the players to the Game
   async connectToGame(howManyPlayers) {
     // The network key we have in our localStore
     let key = this.localStore.networkKey;
@@ -244,7 +241,7 @@ export default class Startpage {
       this.networkStore.players = [];
     }
 
-    // EXEMPEL
+    // Adding everything needed to the networkStore
     this.name = $('.player1').val();
     this.playerIndex = this.networkStore.players.length;
     this.networkStore.players.push({ name: this.name, points: 0 });
@@ -394,6 +391,7 @@ export default class Startpage {
     return this.tiles.splice(0, howMany);
   }
 
+<<<<<<< HEAD
   printMeOut(player) {
     for (let i = 0; i < 7; i++) {
       player.points -= this.players[this.playerIndex].tiles[i].points;
@@ -403,6 +401,9 @@ export default class Startpage {
     this.networkStore.printResult++;
   }
 
+=======
+  // Renders the whole game with buttons, board, info, points and more
+>>>>>>> 8da7a386357ee66cfaccc0bb50d4130daedc2bf4
   render() {
     this.endGame();
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1)) {
@@ -593,9 +594,6 @@ export default class Startpage {
 
     });
 
-    /* let currentPlayerTiles = $('.stand').children('.tile').text();
-    console.log(currentPlayerTiles); */
-
     $('body').append('<button class="undo-btn">Ångra</div>');
 
     $('.undo-btn').click(function () {
@@ -669,6 +667,7 @@ export default class Startpage {
     }
 
     let indexTile = 0;
+    // If it's not your turn to play hide buttons and dont let he/she able to drag the tiles
     if (this.playerIndex === this.networkStore.currentPlayer) {
       $('.tileblank').click(function () {
         $('.next').hide();
@@ -706,11 +705,7 @@ export default class Startpage {
     }
 
     let currentPlayerTiles = this.getCurrentPlayerTiles();
-    //console.log(currentPlayerTiles);
-    /* let currentPlayerTiles = $('.stand').children('.tile');
-    console.log(this.players[this.count].name + currentPlayerTiles); */
     let that = this;
-    // Set a css-class hover on the square the mouse is above
     // if we are dragging and there is no tile in the square
 
     $('.board > div').mouseenter(e => {
@@ -888,7 +883,6 @@ export default class Startpage {
   }
 
   makeCollectedWordsToArray(x, y) {
-
 
     if (x.length !== 0) {
       let a = x.split(',');
@@ -1128,8 +1122,6 @@ export default class Startpage {
     }
 
 
-
-
     for (let i = 0; i < check.length; i++) {
       if (onePoints.includes(check[i])) {
         points++;
@@ -1153,7 +1145,6 @@ export default class Startpage {
         points += 10;
       }
     }
-
 
     let doubleWord = false;
     let tripleWord = false;
@@ -1191,6 +1182,7 @@ export default class Startpage {
 
 
   async endGame() {
+    // When players passes enough of times they will get into the endgame 
     if (this.networkStore.passCounter >= (this.networkStore.players.length + 1) && this.firstEnd) {
 
       this.printMeOut(this.players[this.playerIndex]);
